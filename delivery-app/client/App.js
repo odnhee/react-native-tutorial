@@ -5,6 +5,7 @@ import HomeScreen from "./screens/HomeScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
 // import { Provider } from "react-redux";
 // import { store } from "./store";
+// https://www.youtube.com/watch?v=AkEnidfZnCU
 
 const Stack = createNativeStackNavigator();
 
