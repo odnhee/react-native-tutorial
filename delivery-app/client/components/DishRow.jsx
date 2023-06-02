@@ -24,14 +24,14 @@ const DishRow = ({ id, title, shortDescription, price, imgUrl }) => {
             </Text>
           </View>
 
-          <View>
+          <View className="w-20">
             <Image
               style={{
                 borderWidth: 1,
                 borderColor: "#F3F3F4",
               }}
               source={{ uri: urlFor(imgUrl).url() }}
-              className="w-20 h-20 bg-fray-300 p-4"
+              className="h-20 p-4 object-cover"
             />
           </View>
         </View>
