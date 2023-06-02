@@ -9,6 +9,7 @@ import RestaurantScreen from "./screens/RestaurantScreen";
 // https://heroicons.com/
 // https://redux-toolkit.js.org/tutorials/quick-start
 // https://www.siksinhot.com/search?keywords=%EB%82%B4%20%EC%A3%BC%EB%B3%80
+// test
 
 const Stack = createNativeStackNavigator();
 
