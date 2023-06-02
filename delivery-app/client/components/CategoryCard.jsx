@@ -3,12 +3,12 @@ import React from "react";
 
 const CategoryCard = ({ imgUrl, title }) => {
   return (
-    <TouchableOpacity className="relative mr-3">
+    <TouchableOpacity className="relative mr-3 w-20">
       <Image
         source={{
           uri: imgUrl,
         }}
-        className="h-20 w-20 rounded"
+        className="h-20 rounded object-cover"
       />
 
       <Text className="absolute bottom-1 left-1 text-white font-bold">

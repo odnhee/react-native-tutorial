@@ -5,5 +5,9 @@ export const globalStyles = StyleSheet.create({
   safeArea: {
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 20,
+    height: "100%",
+  },
+  container: {
+    paddingHorizontal: 20,
   },
 });
