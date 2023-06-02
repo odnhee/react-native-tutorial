@@ -24,7 +24,7 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <View style={globalStyles.safeArea} className="bg-white pt-5">
+    <View style={globalStyles.safeArea} className="pt-5">
       {/* Header */}
       <View>
         <View className="flex-row pb-3 items-center space-x-2">
@@ -63,6 +63,7 @@ const HomeScreen = () => {
 
         {/* Body */}
         <ScrollView
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             paddingBottom: 100,
           }}
