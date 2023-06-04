@@ -1,9 +1,11 @@
-import { View, Text } from "react-native";
-import React, { useEffect, useMemo, useState } from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
+import React, { useMemo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
 import { selectBasketItems } from "../features/basketSlice";
+import { globalStyles } from "../config/globalStyles";
+import { XCircleIcon } from "react-native-heroicons/solid";
 
 const BasketScreen = () => {
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState([]);
@@ -21,11 +23,40 @@ const BasketScreen = () => {
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
 
-  console.log(groupedItemsInBasket);
-
   return (
-    <View>
-      <Text>BasketScreen</Text>
+    <View style={globalStyles.safeArea} className="flex-1 bg-white">
+      <View className="flex-1 bg-gray-100">
+        <View className="p-5 border-b border-[#00CCBB] bg-white shadow-sm">
+          <View>
+            <Text className="text-2xl font-bold text-center">Basket</Text>
+            <Text className="text-center text-gray-400 text-lg">
+              {restaurant.title}
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={navigation.goBack}
+            className="rounded-full bg-gray-100 absolute top-5 right-3"
+          >
+            <XCircleIcon color="#00CCBB" height={50} width={50} />
+          </TouchableOpacity>
+        </View>
+
+        <View>
+          <Image
+            className="h-7 w-7 bg-gray-300 p-4 rounded-full"
+            source={{
+              uri: "https://links.papareact.com/wru",
+            }}
+          />
+
+          <Text className="flex-1">Deliver in 50 - 75 minutes</Text>
+
+          <TouchableOpacity>
+            <Text className="text=[#00CCBB]">Change</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
