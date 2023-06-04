@@ -1,5 +1,8 @@
-import { cconfigureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import basketReducer from "./features/basketSlice";
 
-export const store = cconfigureStore({
-  reducer: {},
+export const store = configureStore({
+  reducer: {
+    basket: basketReducer,
+  },
 });
