@@ -24,9 +24,9 @@ const BasketScreen = () => {
   }, [items]);
 
   return (
-    <View style={globalStyles.safeArea} className="flex-1 bg-white">
+    <View style={globalStyles.onlySafeArea} className="flex-1 bg-white">
       <View className="flex-1 bg-gray-100">
-        <View className="p-5 border-b border-[#00CCBB] bg-white shadow-sm">
+        <View className="p-5 border-b border-[#00CCBB] bg-white shadow-xs">
           <View>
             <Text className="text-2xl font-bold text-center">Basket</Text>
             <Text className="text-center text-gray-400 text-lg">
@@ -42,7 +42,7 @@ const BasketScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View>
+        <View className="flex-row items-center space-x-4 px-3 py-3 bg-white my-5">
           <Image
             className="h-7 w-7 bg-gray-300 p-4 rounded-full"
             source={{
@@ -53,7 +53,7 @@ const BasketScreen = () => {
           <Text className="flex-1">Deliver in 50 - 75 minutes</Text>
 
           <TouchableOpacity>
-            <Text className="text=[#00CCBB]">Change</Text>
+            <Text className="text-[#00CCBB]">Change</Text>
           </TouchableOpacity>
         </View>
       </View>
