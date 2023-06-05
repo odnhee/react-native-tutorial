@@ -62,7 +62,7 @@ const BasketScreen = () => {
             }}
           />
 
-          <Text className="flex-1">Deliver in 50 - 75 minutes</Text>
+          <Text className="flex-1">Deliver in 50 - 75 Minutes</Text>
 
           <TouchableOpacity>
             <Text className="text-[#00CCBB]">Change</Text>

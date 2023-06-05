@@ -17,7 +17,7 @@ const PreparingOrderScreen = () => {
 
   return (
     <View
-      style={globalStyles.onlySafeArea}
+      style={globalStyles.safeArea}
       className="bg-[#00CCBB] flex-1 justify-center items-center"
     >
       <Animatable.Image
