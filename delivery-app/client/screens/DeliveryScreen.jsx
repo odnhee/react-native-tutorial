@@ -20,14 +20,14 @@ const DeliveryScreen = () => {
   const navigation = useNavigation();
   const restaurant = useSelector(selectRestaurant);
 
-  // const handleCall = () => {
-  //   if (Platform.OS === "android") {
-  //     Linking.openURL("tel://010-2067-4413");
-  //   } else if (Platform.OS === "ios") {
-  //     Linking.openURL("tel://010-2067-4413");
-  //     // ios는 실제 핸드폰으로 테스트 하지 않는 이상 전화 불가능
-  //   }
-  // };
+  const handleCall = () => {
+    if (Platform.OS === "android") {
+      Linking.openURL("tel://010-2067-4413");
+    } else if (Platform.OS === "ios") {
+      Linking.openURL("tel://010-2067-4413");
+      // ios는 실제 핸드폰으로 테스트 하지 않는 이상 전화 불가능
+    }
+  };
 
   return (
     <View style={globalStyles.onlySafeArea} className="bg-[#00CCBB] flex-1">
@@ -99,8 +99,7 @@ const DeliveryScreen = () => {
           <Text className="text-gray-400">배차 완료</Text>
         </View>
 
-        {/* <TouchableOpacity className="mr-5" onPress={handleCall}> */}
-        <TouchableOpacity className="mr-5">
+        <TouchableOpacity className="mr-5" onPress={handleCall}>
           <PhoneIcon size={30} color="#00CCBB" />
         </TouchableOpacity>
       </SafeAreaView>
