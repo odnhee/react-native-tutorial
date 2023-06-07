@@ -59,12 +59,12 @@ const DeliveryScreen = () => {
           에서 주문받은 음식을 준비 중입니다!
         </Text>
 
-        <Text className="mt-3 text-gray-500">
+        {/* <Text className="mt-3 text-gray-500">
           현재 지도는 테스트용 이미지입니다.
-        </Text>
+        </Text> */}
       </View>
 
-      {/* <MapView
+      <MapView
         initialRegion={{
           latitude: restaurant.lat,
           longitude: restaurant.long,
@@ -85,12 +85,12 @@ const DeliveryScreen = () => {
           identifier="origin"
           pinColor="#00CCBB"
         />
-      </MapView> */}
+      </MapView>
 
-      <Image
+      {/* <Image
         source={require("../assets/mapExample.png")}
         className="flex-1 -mt-10 z-0 w-[100%] h-[100%]"
-      />
+      /> */}
 
       <SafeAreaView className="bg-white flex-row items-center space-x-5 h-28">
         <Image
