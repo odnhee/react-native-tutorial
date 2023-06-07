@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { selectRestaurant } from "../features/restaurantSlice";
 import { PhoneIcon, XMarkIcon } from "react-native-heroicons/solid";
 import * as Progress from "react-native-progress";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 const DeliveryScreen = () => {
   const navigation = useNavigation();
@@ -70,6 +70,7 @@ const DeliveryScreen = () => {
         }}
         mapType="mutedStandard"
         className="flex-1 -mt-10 z-0 w-[100%] h-[100%]"
+        provider={PROVIDER_GOOGLE}
       >
         <Marker
           coordinate={{
