@@ -11,7 +11,7 @@ const PreparingOrderScreen = () => {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate("Delivery");
-      // Alert.alert("주문 알림", "주문이 접수되었습니다!", [{ text: "확인" }]);
+      Alert.alert("주문 알림", "주문이 접수되었습니다!", [{ text: "확인" }]);
     }, 4000);
   }, []);
 
