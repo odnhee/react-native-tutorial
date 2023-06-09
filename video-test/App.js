@@ -1,5 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import videoTest from "./assets/test.mp4";
 import * as React from "react";
@@ -10,10 +17,12 @@ import * as ScreenOrientation from "expo-screen-orientation";
 
 export default function App() {
   const [videoStatus, setVideoStatus] = React.useState({});
-  const [orientationIsLandscape, setOrientation] = React.useState(true);
+  const [orientationIsLandscape, setOrientation] = React.useState(false);
+
   const videoF = React.useRef(null);
   const videoS = React.useRef(null);
-
+  const w = Dimensions.get("window").height;
+  const [hehe, setHehe] = React.useState(w);
   let captureTime = new Date();
 
   let year = captureTime.getFullYear(); // 년도
@@ -48,55 +57,41 @@ export default function App() {
     }
   };
 
-  // console.log(videoS);
+  console.log(orientationIsLandscape);
 
-  async function sero() {
-    if (orientationIsLandscape == true) {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-    } else if (orientationIsLandscape == false) {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-    }
+  if (orientationIsLandscape == true) {
+    ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+    );
+    videoF.current.presentFullscreenPlayer();
+  } else if (orientationIsLandscape == false) {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
-  const toggleOrientation = () => {
-    setOrientation(!orientationIsLandscape);
-    sero();
-  };
 
-  const handleFullScreen = async () => {
-    await videoF.current.presentFullscreenPlayer();
-  };
+  console.log("hehe, w", hehe, w);
+
   return (
-    <View style={styles.container}>
-      <Video
-        source={{
-          uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-        }}
-        // source={{ uri: "rtsp://172.30.1.17/11 }}
-        // source={{ uri: "http://221.156.189.42:8080" }}
-        // source={videoTest}
-        shouldPlay
-        ref={videoF}
-        style={{ width: "100%", height: 300, marginTop: 20 }}
-        useNativeControls
-        resizeMode={ResizeMode.COVER}
-        isLooping
-        onPlaybackStatusUpdate={(status) => setVideoStatus(() => status)}
-        onFullscreenUpdate={function changeScreenOrientation() {
-          if (orientationIsLandscape == true) {
-            ScreenOrientation.lockAsync(
-              ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-            );
-          } else if (orientationIsLandscape == false) {
-            ScreenOrientation.lockAsync(
-              ScreenOrientation.OrientationLock.PORTRAIT
-            );
-          }
-        }}
-      />
+    <>
+      <View style={styles.container}>
+        <Video
+          source={{
+            uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+          }}
+          // source={{ uri: "rtsp://172.30.1.17/11 }}
+          // source={{ uri: "http://221.156.189.42:8080" }}
+          // source={videoTest}
+          shouldPlay
+          ref={videoF}
+          style={{ width: "100%", height: 300, marginTop: 20 }}
+          // useNativeControls
+          resizeMode={ResizeMode.COVER}
+          isLooping
+          // onPlaybackStatusUpdate={(status) => setVideoStatus(() => status)}
+        />
 
-      {/* <Button title="test" onPress={handleFullScreen} /> */}
-      {/* <Button title="Screen Shot" onPress={onSaveImageAsync} /> */}
-      {/* <Video
+        {/* <Button title="test" onPress={handleFullScreen} /> */}
+        {/* <Button title="Screen Shot" onPress={onSaveImageAsync} /> */}
+        {/* <Video
         ref={videoS}
         style={{ width: "100%", height: 300 }}
         source={videoTest}
@@ -106,7 +101,7 @@ export default function App() {
         isLooping
         onPlaybackStatusUpdate={(status) => setVideoStatus(() => status)}
       /> */}
-      {/* <View style={styles.buttons}>
+        {/* <View style={styles.buttons}>
         <Button
           title={videoStatus.isPlaying ? "Pause" : "Play"}
           onPress={() =>
@@ -116,15 +111,15 @@ export default function App() {
           }
         />
       </View> */}
-      <Button
-        title="test"
-        onPress={async () => {
-          // await toggleOrientation();
-          await handleFullScreen();
-        }}
-      />
-      <Button title="again" onPress={toggleOrientation} />
-    </View>
+      </View>
+      <View style={styles.button}>
+        <Button
+          title="test"
+          onPress={() => setOrientation(!orientationIsLandscape)}
+          style={{ width: 100, height: 100 }}
+        />
+      </View>
+    </>
   );
 }
 
@@ -132,6 +127,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+    gap: 30,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  button: {
+    flex: 1,
+    flexDirection: "row",
     gap: 30,
     backgroundColor: "#fff",
     alignItems: "center",
