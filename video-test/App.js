@@ -1,28 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, View, Button, Alert } from "react-native";
 import { Video, ResizeMode } from "expo-av";
-import videoTest from "./assets/test.mp4";
-import * as React from "react";
 import * as MediaLibrary from "expo-media-library";
 import { captureRef } from "react-native-view-shot";
-import { captureScreen } from "react-native-view-shot";
 import * as ScreenOrientation from "expo-screen-orientation";
+import { useRef } from "react";
+import { ScrollView } from "react-native";
+import { data } from "./data";
 
 export default function App() {
-  const [videoStatus, setVideoStatus] = React.useState({});
-  const [orientationIsLandscape, setOrientation] = React.useState(false);
+  const videoRefs = useRef([]);
+  const [status, requestPermission] = MediaLibrary.usePermissions();
 
-  const videoF = React.useRef(null);
-  const videoS = React.useRef(null);
-  const w = Dimensions.get("window").height;
-  const [hehe, setHehe] = React.useState(w);
   let captureTime = new Date();
 
   let year = captureTime.getFullYear(); // 년도
@@ -33,111 +22,79 @@ export default function App() {
   var minutes = ("0" + captureTime.getMinutes()).slice(-2);
   var seconds = ("0" + captureTime.getSeconds()).slice(-2);
 
-  const [status, requestPermission] = MediaLibrary.usePermissions();
-  // ...rest of the code remains same
-
   if (status === null) {
     requestPermission();
   }
 
-  const onSaveImageAsync = async () => {
+  const onSaveImageAsync = async (idx, title) => {
     try {
-      const localUri = await captureRef(videoF, {
-        fileName: `video-${year}-${month}-${date}-${hours}${minutes}${seconds}-`,
+      const localUri = await captureRef(videoRefs.current[idx], {
+        fileName: `${title}-${year}-${month}-${date}-${hours}${minutes}${seconds}-`,
         height: 440,
         quality: 1,
       });
 
       await MediaLibrary.saveToLibraryAsync(localUri);
+
       if (localUri) {
-        alert("Saved!");
+        Alert.alert("영상을 캡쳐했습니다.", `${title}가 갤러리에 저장됩니다.`);
       }
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(orientationIsLandscape);
-
-  if (orientationIsLandscape == true) {
-    ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-    );
-    videoF.current.presentFullscreenPlayer();
-  } else if (orientationIsLandscape == false) {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-  }
-
-  console.log("hehe, w", hehe, w);
+  const landscapeLeftFunc = (screenState) => {
+    if (screenState.fullscreenUpdate === 1) {
+      ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+      );
+    } else if (screenState.fullscreenUpdate === 3) {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    }
+  };
 
   return (
-    <>
-      <View style={styles.container}>
-        <Video
-          source={{
-            uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
-          }}
-          // source={{ uri: "rtsp://172.30.1.17/11 }}
-          // source={{ uri: "http://221.156.189.42:8080" }}
-          // source={videoTest}
-          shouldPlay
-          ref={videoF}
-          style={{ width: "100%", height: 300, marginTop: 20 }}
-          // useNativeControls
-          resizeMode={ResizeMode.COVER}
-          isLooping
-          // onPlaybackStatusUpdate={(status) => setVideoStatus(() => status)}
-        />
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <StatusBar style="auto" />
 
-        {/* <Button title="test" onPress={handleFullScreen} /> */}
-        {/* <Button title="Screen Shot" onPress={onSaveImageAsync} /> */}
-        {/* <Video
-        ref={videoS}
-        style={{ width: "100%", height: 300 }}
-        source={videoTest}
-        useNativeControls
-        resizeMode={ResizeMode.COVER}
-        shouldPlay
-        isLooping
-        onPlaybackStatusUpdate={(status) => setVideoStatus(() => status)}
-      /> */}
-        {/* <View style={styles.buttons}>
-        <Button
-          title={videoStatus.isPlaying ? "Pause" : "Play"}
-          onPress={() =>
-            videoStatus.isPlaying
-              ? video.current.pauseAsync()
-              : video.current.playAsync()
-          }
-        />
-      </View> */}
-      </View>
-      <View style={styles.button}>
-        <Button
-          title="test"
-          onPress={() => setOrientation(!orientationIsLandscape)}
-          style={{ width: 100, height: 100 }}
-        />
-      </View>
-    </>
+      {data.map((res) => (
+        <View collapsable={false} key={res.id}>
+          <Video
+            source={res.source}
+            shouldPlay
+            ref={(el) => (videoRefs.current[res.id] = el)}
+            style={{ width: "100%", height: 300, marginTop: 30 }}
+            useNativeControls
+            resizeMode={ResizeMode.COVER}
+            isLooping
+            onFullscreenUpdate={(screenState) => landscapeLeftFunc(screenState)}
+          />
+
+          <View style={styles.button}>
+            <Button
+              title={`${res.title} Screen Shot`}
+              onPress={() => {
+                const idx = res.id;
+                const title = res.title;
+                onSaveImageAsync(idx, title);
+              }}
+            />
+          </View>
+        </View>
+      ))}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column",
-    gap: 30,
+    marginTop: 30,
+    marginBottom: 30,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
   button: {
-    flex: 1,
-    flexDirection: "row",
-    gap: 30,
-    backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    marginTop: 10,
   },
 });
