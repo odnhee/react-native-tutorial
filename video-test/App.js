@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View, Button, Alert } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import videoTest from "./assets/test.mp4";
 import * as MediaLibrary from "expo-media-library";
@@ -12,23 +12,48 @@ const data = [
   {
     id: 0,
     source: { uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4" },
+    title: "Bunny Video",
   },
   {
     id: 1,
     source: videoTest,
+    title: "Drone Test Video",
+  },
+  {
+    id: 2,
+    source: {
+      uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    },
+    title: "Elephants Dream Video",
+  },
+  {
+    id: 3,
+    source: {
+      uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    },
+    title: "For Bigger Blazes Video",
+  },
+  {
+    id: 4,
+    source: {
+      uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    },
+    title: "For Bigger Escapes Video",
   },
   // {
-  //   id: 2,
+  //   id: 5,
   //   source: { uri: "rtsp://172.30.1.17/11" },
+  //   title: "Cam_1",
   // },
   // {
-  //   id: 3,
+  //   id: number,
   //   source: { uri: "http://221.156.189.42:8080" },
   // },
 ];
 
 export default function App() {
   const videoRefs = useRef([]);
+  const [status, requestPermission] = MediaLibrary.usePermissions();
 
   let captureTime = new Date();
 
@@ -40,16 +65,14 @@ export default function App() {
   var minutes = ("0" + captureTime.getMinutes()).slice(-2);
   var seconds = ("0" + captureTime.getSeconds()).slice(-2);
 
-  const [status, requestPermission] = MediaLibrary.usePermissions();
-
   if (status === null) {
     requestPermission();
   }
 
-  const onSaveImageAsync = async (idx) => {
+  const onSaveImageAsync = async (idx, title) => {
     try {
       const localUri = await captureRef(videoRefs.current[idx], {
-        fileName: `video-${year}-${month}-${date}-${hours}${minutes}${seconds}-`,
+        fileName: `${title}-${year}-${month}-${date}-${hours}${minutes}${seconds}-`,
         height: 440,
         quality: 1,
       });
@@ -57,7 +80,7 @@ export default function App() {
       await MediaLibrary.saveToLibraryAsync(localUri);
 
       if (localUri) {
-        alert("Saved!");
+        Alert.alert("영상을 캡쳐했습니다.", `${title}가 갤러리에 저장됩니다.`);
       }
     } catch (e) {
       console.log(e);
@@ -75,7 +98,7 @@ export default function App() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <StatusBar style="auto" />
 
       {data.map((res) => (
@@ -90,13 +113,17 @@ export default function App() {
             isLooping
             onFullscreenUpdate={(screenState) => landscapeLeftFunc(screenState)}
           />
-          <Button
-            title="Screen Shot"
-            onPress={() => {
-              const idx = res.id;
-              onSaveImageAsync(idx);
-            }}
-          />
+
+          <View style={styles.button}>
+            <Button
+              title={`${res.title} Screen Shot`}
+              onPress={() => {
+                const idx = res.id;
+                const title = res.title;
+                onSaveImageAsync(idx, title);
+              }}
+            />
+          </View>
         </View>
       ))}
     </ScrollView>
@@ -106,6 +133,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     marginTop: 30,
+    marginBottom: 30,
     backgroundColor: "#fff",
+  },
+  button: {
+    alignItems: "center",
+    marginTop: 10,
   },
 });
