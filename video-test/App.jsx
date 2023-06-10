@@ -47,7 +47,7 @@ export default function App() {
   const landscapeLeftFunc = (screenState) => {
     if (screenState.fullscreenUpdate === 1) {
       ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
       );
     } else if (screenState.fullscreenUpdate === 3) {
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
