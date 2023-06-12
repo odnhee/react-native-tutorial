@@ -7,7 +7,6 @@
 
 import React, {useEffect} from 'react';
 import {VLCPlayer, VlCPlayerView} from 'react-native-vlc-media-player';
-import Orientation from 'react-native-orientation-locker';
 import {
   Button,
   SafeAreaView,
@@ -34,22 +33,22 @@ function App() {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  useEffect(() => {
-    function _onOrientationDidChange(orientation) {
-      if (orientation == 'PORTRAIT') {
-        Orientation.lockToLandscapeLeft();
-      }
-      console.log(orientation);
-    }
-    Orientation.lockToLandscapeLeft();
-    Orientation.addOrientationListener(_onOrientationDidChange);
+  // useEffect(() => {
+  //   function _onOrientationDidChange(orientation) {
+  //     if (orientation == 'PORTRAIT') {
+  //       Orientation.lockToLandscapeLeft();
+  //     }
+  //     console.log(orientation);
+  //   }
+  //   Orientation.lockToLandscapeLeft();
+  //   Orientation.addOrientationListener(_onOrientationDidChange);
 
-    //cleanup optional code
-    return () => {
-      Orientation.unlockAllOrientations();
-      Orientation.removeOrientationListener(_onOrientationDidChange);
-    };
-  });
+  //   //cleanup optional code
+  //   return () => {
+  //     Orientation.unlockAllOrientations();
+  //     Orientation.removeOrientationListener(_onOrientationDidChange);
+  //   };
+  // });
 
   return (
     <>
