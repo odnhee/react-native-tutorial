@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import {
   StyleSheet,
@@ -8,6 +8,8 @@ import {
   ScrollView,
   Dimensions,
   Platform,
+  TouchableOpacity,
+  Text,
 } from "react-native";
 import { captureRef } from "react-native-view-shot";
 
@@ -21,6 +23,8 @@ import { data } from "./data";
 
 export default function App() {
   const videoRefs = useRef([]);
+  const [rotate, setRotate] = useState(false);
+
   const [status, requestPermission] = MediaLibrary.usePermissions();
 
   const videoWidth = Dimensions.get("window").width;
@@ -65,54 +69,105 @@ export default function App() {
     }
   };
 
-  const landscapeLeftFunc = async (screenState) => {
-    if (screenState.fullscreenUpdate === 1) {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-      );
-    } else if (screenState.fullscreenUpdate === 3) {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.PORTRAIT
-      );
-    }
-  };
+  if (rotate === true) {
+    ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+    );
+  } else if (rotate === false) {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+  }
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <StatusBar style="auto" />
+    <ScrollView
+      style={[
+        styles.container,
+        { backgroundColor: rotate === false ? "#fff" : "black" },
+      ]}
+      showsVerticalScrollIndicator={false}
+    >
+      <StatusBar style={rotate ? "light" : "auto"} />
 
       {data.map((res) => (
         <View key={res.id}>
-          <Video
-            source={res.source}
-            shouldPlay
-            ref={(el) => (videoRefs.current[res.id] = el)}
-            style={{ width: videoWidth, paddingTop: videoHeight }}
-            useNativeControls
-            resizeMode={ResizeMode.CONTAIN}
-            isLooping
-            onFullscreenUpdate={(screenState) => landscapeLeftFunc(screenState)}
-          />
+          {rotate === false ? (
+            <View>
+              <Video
+                source={res.source}
+                shouldPlay
+                ref={(el) => (videoRefs.current[res.id] = el)}
+                style={{
+                  width: "100%",
+                  paddingTop: "56.25%",
+                }}
+                // useNativeControls
+                resizeMode={ResizeMode.CONTAIN}
+                isLooping
+                // onFullscreenUpdate={(screenState) => landscapeLeftFunc(screenState)}
+              />
 
-          <View style={styles.button}>
-            <Button
-              title={`${res.title} Screen Shot`}
-              onPress={() => {
-                const idx = res.id;
-                const title = res.title;
+              <View style={styles.button}>
+                <Button
+                  title={`${res.title} Screen Shot`}
+                  onPress={() => {
+                    const idx = res.id;
+                    const title = res.title;
+                    onSaveImageAsync(idx, title);
+                  }}
+                />
+              </View>
+              <View style={styles.button}>
+                <Button
+                  title={`setFullScreen`}
+                  onPress={() => setRotate(!rotate)}
+                />
+              </View>
+            </View>
+          ) : (
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                flex: 2,
+                width: "100%",
+              }}
+            >
+              <View
+                style={{
+                  width: "85%",
+                  // backgroundColor: "red",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Video
+                  source={res.source}
+                  shouldPlay
+                  ref={(el) => (videoRefs.current[res.id] = el)}
+                  style={{
+                    width: "85%",
+                    paddingTop: "47.8125%",
+                  }}
+                  // useNativeControls
+                  resizeMode={ResizeMode.CONTAIN}
+                  isLooping
+                  // onFullscreenUpdate={(screenState) => landscapeLeftFunc(screenState)}
+                />
+              </View>
 
-                onSaveImageAsync(idx, title);
-              }}
-            />
-          </View>
-          <View style={styles.button}>
-            <Button
-              title={`setFullScreen`}
-              onPress={() => {
-                videoRefs.current[res.id].presentFullscreenPlayer();
-              }}
-            />
-          </View>
+              <View style={styles.rotateButton}>
+                <TouchableOpacity
+                  onPress={() => {
+                    const idx = res.id;
+                    const title = res.title;
+                    onSaveImageAsync(idx, title);
+                  }}
+                >
+                  <Text style={{ color: "white", fontSize: 20 }}>HI</Text>
+                </TouchableOpacity>
+                <Button title={`SF`} onPress={() => setRotate(!rotate)} />
+              </View>
+            </View>
+          )}
         </View>
       ))}
     </ScrollView>
@@ -121,12 +176,19 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
-    backgroundColor: "#fff",
+    paddingTop: Constants.statusBarHeight,
   },
   button: {
     alignItems: "center",
     marginTop: 10,
     marginBottom: 30,
+  },
+  rotateButton: {
+    display: "flex",
+    flexDirection: "column",
+    // backgroundColor: "blue",
+    width: "15%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
