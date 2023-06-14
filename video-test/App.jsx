@@ -1,6 +1,14 @@
 import { useRef } from "react";
 
-import { StyleSheet, View, Button, Alert, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Button,
+  Alert,
+  ScrollView,
+  Dimensions,
+  Platform,
+} from "react-native";
 import { captureRef } from "react-native-view-shot";
 
 import { StatusBar } from "expo-status-bar";
@@ -14,6 +22,15 @@ import { data } from "./data";
 export default function App() {
   const videoRefs = useRef([]);
   const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  const videoWidth = Dimensions.get("window").width;
+  const videoHeight = (parseInt(videoWidth) / 16) * 9;
+
+  console.log(
+    `${Platform.OS} w -> ${videoWidth}`,
+    "/",
+    `${Platform.OS} h -> ${videoHeight}`
+  );
 
   let captureTime = new Date();
 
@@ -33,7 +50,8 @@ export default function App() {
     try {
       const localUri = await captureRef(videoRefs.current[idx], {
         fileName: `${title}-${year}-${month}-${date}-${hours}${minutes}${seconds}-`,
-        height: 440,
+        width: videoWidth,
+        height: videoHeight,
         quality: 1,
       });
 
@@ -69,7 +87,7 @@ export default function App() {
             source={res.source}
             shouldPlay
             ref={(el) => (videoRefs.current[res.id] = el)}
-            style={{ width: "100%", paddingTop: "56.25%" }}
+            style={{ width: videoWidth, paddingTop: videoHeight }}
             useNativeControls
             resizeMode={ResizeMode.CONTAIN}
             isLooping
@@ -82,6 +100,7 @@ export default function App() {
               onPress={() => {
                 const idx = res.id;
                 const title = res.title;
+
                 onSaveImageAsync(idx, title);
               }}
             />
