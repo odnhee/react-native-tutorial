@@ -83,6 +83,14 @@ export default function App() {
               }}
             />
           </View>
+          <View style={styles.button}>
+            <Button
+              title={`setFullScreen`}
+              onPress={() => {
+                videoRefs.current[res.id].presentFullscreenPlayer();
+              }}
+            />
+          </View>
         </View>
       ))}
     </ScrollView>
