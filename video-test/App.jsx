@@ -44,13 +44,15 @@ export default function App() {
     }
   };
 
-  const landscapeLeftFunc = (screenState) => {
+  const landscapeLeftFunc = async (screenState) => {
     if (screenState.fullscreenUpdate === 1) {
-      ScreenOrientation.lockAsync(
+      await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
       );
     } else if (screenState.fullscreenUpdate === 3) {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT
+      );
     }
   };
 
@@ -59,14 +61,14 @@ export default function App() {
       <StatusBar style="auto" />
 
       {data.map((res) => (
-        <View collapsable={false} key={res.id}>
+        <View key={res.id}>
           <Video
             source={res.source}
             shouldPlay
             ref={(el) => (videoRefs.current[res.id] = el)}
-            style={{ width: "100%", height: 300, marginTop: 30 }}
+            style={{ width: "100%", paddingTop: "56.25%", marginTop: 30 }}
             useNativeControls
-            resizeMode={ResizeMode.COVER}
+            resizeMode={ResizeMode.CONTAIN}
             isLooping
             onFullscreenUpdate={(screenState) => landscapeLeftFunc(screenState)}
           />
