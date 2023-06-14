@@ -1,11 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Button, Alert } from "react-native";
-import { Video, ResizeMode } from "expo-av";
-import * as MediaLibrary from "expo-media-library";
-import { captureRef } from "react-native-view-shot";
-import * as ScreenOrientation from "expo-screen-orientation";
 import { useRef } from "react";
-import { ScrollView } from "react-native";
+
+import { StyleSheet, View, Button, Alert, ScrollView } from "react-native";
+import { captureRef } from "react-native-view-shot";
+
+import { StatusBar } from "expo-status-bar";
+import { Video, ResizeMode } from "expo-av";
+import Constants from "expo-constants";
+import * as MediaLibrary from "expo-media-library";
+import * as ScreenOrientation from "expo-screen-orientation";
+
 import { data } from "./data";
 
 export default function App() {
@@ -66,7 +69,7 @@ export default function App() {
             source={res.source}
             shouldPlay
             ref={(el) => (videoRefs.current[res.id] = el)}
-            style={{ width: "100%", paddingTop: "56.25%", marginTop: 30 }}
+            style={{ width: "100%", paddingTop: "56.25%" }}
             useNativeControls
             resizeMode={ResizeMode.CONTAIN}
             isLooping
@@ -91,12 +94,12 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    marginBottom: 30,
+    marginTop: Constants.statusBarHeight,
     backgroundColor: "#fff",
   },
   button: {
     alignItems: "center",
     marginTop: 10,
+    marginBottom: 30,
   },
 });
