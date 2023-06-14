@@ -4,11 +4,11 @@
 
 - [apk 빌드 완료](https://www.notion.so/hyungjinhan/Expo-Window-IOS-c9a32d8282b84d36909cf9ff98f3a763?pvs=4#41014ccbaefb483cb2db7104981ee2fd)
 
-## 📂 test
+## ~~📂 test~~
 
-### RTSP 영상 스트리밍 테스트
+### ~~RTSP 영상 스트리밍 테스트~~
 
-- [`react-native-vlc-media-player`](https://github.com/razorRun/react-native-vlc-media-player)
+- ~~[`react-native-vlc-media-player`](https://github.com/razorRun/react-native-vlc-media-player)~~
 
 ## 📂 video-test
 
@@ -17,6 +17,8 @@
 - [`expo-av`](https://docs.expo.dev/versions/latest/sdk/av/)
 
   - [`Video` Document](https://docs.expo.dev/versions/latest/sdk/video/#video)
+  - [`m3u8` 확장자 활용](https://gist.github.com/lucky-c/91d96977f913d54f723b64c34ce03fac)
+    - ios 환경에서는 재생 불가 ([`react-native-livestream` 활용](https://docs.api.video/docs/react-native-livestream-component))
 
 - [`react-native-view-shot`](https://github.com/gre/react-native-view-shot)
 
@@ -31,4 +33,4 @@
 - [테스트용 비디오 모음 링크](https://gist.github.com/jsturgis/3b19447b304616f18657)
 
 - Expo 환경에서 RTSP 영상 스트리밍은 불가
-  - `eject`를 진행한 후, rewact native 환경에서 가능
+  - `eject`를 진행한 후, react native 환경에서 가능
