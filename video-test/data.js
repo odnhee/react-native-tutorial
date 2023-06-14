@@ -33,11 +33,13 @@ export const data = [
     },
     title: "For Bigger Escapes Video",
   },
-  // {
-  //   id: 5,
-  //   source: { uri: "rtsp://172.30.1.17/11" },
-  //   title: "Cam_1",
-  // },
+  {
+    id: 5,
+    source: {
+      uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
+    },
+    title: "Cam_1",
+  },
   // {
   //   id: number,
   //   source: { uri: "http://221.156.189.42:8080" },
