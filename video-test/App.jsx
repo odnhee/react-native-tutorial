@@ -4,7 +4,6 @@ import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
-
 import { data } from "./data";
 import {
   DATE,
