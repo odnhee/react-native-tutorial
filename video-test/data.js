@@ -9,32 +9,32 @@ export const data = [
     },
     title: "m3u8 source",
   },
-  {
-    id: 1,
-    source: videoTest,
-    title: "Drone Test Video",
-  },
-  {
-    id: 2,
-    source: {
-      uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-    },
-    title: "Elephants Dream Video",
-  },
-  {
-    id: 3,
-    source: {
-      uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    },
-    title: "For Bigger Blazes Video",
-  },
-  {
-    id: 4,
-    source: {
-      uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-    },
-    title: "For Bigger Escapes Video",
-  },
+  // {
+  //   id: 1,
+  //   source: videoTest,
+  //   title: "Drone Test Video",
+  // },
+  // {
+  //   id: 2,
+  //   source: {
+  //     uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+  //   },
+  //   title: "Elephants Dream Video",
+  // },
+  // {
+  //   id: 3,
+  //   source: {
+  //     uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+  //   },
+  //   title: "For Bigger Blazes Video",
+  // },
+  // {
+  //   id: 4,
+  //   source: {
+  //     uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+  //   },
+  //   title: "For Bigger Escapes Video",
+  // },
   // {
   //   id: 5,
   //   source: {
