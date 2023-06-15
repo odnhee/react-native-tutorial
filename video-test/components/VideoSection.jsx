@@ -62,8 +62,8 @@ const VideoSection = ({
             <TouchableOpacity
               onPress={() => {
                 const idx = res.id;
-                // onVideoControl(idx);
-                onVideoControlNoLive(idx);
+                onVideoControl(idx);
+                // onVideoControlNoLive(idx);
               }}
             >
               <Text style={{ fontSize: 30 }}>
@@ -81,8 +81,8 @@ const VideoSection = ({
           <TouchableOpacity
             onPress={() => {
               const idx = res.id;
-              // onVideoControl(idx);
-              onVideoControlNoLive(idx);
+              onVideoControl(idx);
+              // onVideoControlNoLive(idx);
             }}
           >
             <Text style={{ fontSize: 50 }}>

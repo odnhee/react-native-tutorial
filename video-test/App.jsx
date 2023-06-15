@@ -45,7 +45,12 @@ export default function App() {
     }
   };
 
-  /** 라이브 스트리밍 Pause / Play 함수 (실시간 싱크 맞춰 재생) */
+  /**
+   * 라이브 스트리밍 Pause / Play 함수 (실시간 싱크 맞춰 재생)
+   *
+   * 해당 함수가 실행되기 전, data의 id 값을 별도로 받아온 후 사용
+   * @param {number} idx - `number`
+   */
   const onVideoControl = (idx) => {
     if (playStatus.isPlaying === true) {
       videoRefs.current[idx].pauseAsync();
@@ -61,7 +66,12 @@ export default function App() {
     }
   };
 
-  /** 저장된 영상 Pause / Play (이어서 재생) */
+  /**
+   * 저장된 영상 Pause / Play (이어서 재생)
+   *
+   * 해당 함수가 실행되기 전, data의 id 값을 별도로 받아온 후 사용
+   * @param {number} idx - `number`
+   */
   const onVideoControlNoLive = (idx) => {
     if (playStatus.isPlaying === true) {
       videoRefs.current[idx].pauseAsync();
