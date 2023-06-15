@@ -34,4 +34,7 @@ export const styles = StyleSheet.create({
     width: "10%",
     fontSize: 30,
   },
+  buttonText: {
+    fontSize: 40,
+  },
 });

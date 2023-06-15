@@ -1,4 +1,4 @@
-import { Button, View, TouchableOpacity, Text } from "react-native";
+import { Button, View, TouchableOpacity, Text, Linking } from "react-native";
 import React from "react";
 import { Video, ResizeMode } from "expo-av";
 import {
@@ -66,7 +66,7 @@ const VideoSection = ({
                 // onVideoControlNoLive(idx);
               }}
             >
-              <Text style={{ fontSize: 30 }}>
+              <Text style={styles.buttonText}>
                 {playStatus.isPlaying ? "⏸️" : "▶️"}
               </Text>
             </TouchableOpacity>
@@ -75,9 +75,8 @@ const VideoSection = ({
       ) : (
         <View style={styles.rotateButton}>
           <TouchableOpacity onPress={() => setRotate(!rotate)}>
-            <Text style={{ fontSize: 50 }}>↩️</Text>
+            <Text style={styles.buttonText}>↩️</Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => {
               const idx = res.id;
@@ -85,7 +84,7 @@ const VideoSection = ({
               // onVideoControlNoLive(idx);
             }}
           >
-            <Text style={{ fontSize: 50 }}>
+            <Text style={styles.buttonText}>
               {playStatus.isPlaying ? "⏸️" : "▶️"}
             </Text>
           </TouchableOpacity>
@@ -97,7 +96,15 @@ const VideoSection = ({
               onSaveImageAsync(idx, title);
             }}
           >
-            <Text style={{ fontSize: 50 }}>📷</Text>
+            <Text style={styles.buttonText}>📷</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL("tel://122");
+            }}
+          >
+            <Text style={styles.buttonText}>🚨</Text>
           </TouchableOpacity>
         </View>
       )}
