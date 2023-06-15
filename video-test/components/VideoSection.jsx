@@ -8,6 +8,7 @@ import {
   VIDEOWIDTH_PORTRAIT,
 } from "../config/videoSize";
 import { styles } from "../config/globalStyles";
+import Skeleton from "./Skeleton";
 
 const VideoSection = ({
   playStatus,
@@ -18,10 +19,13 @@ const VideoSection = ({
   onVideoControl,
   res,
   videoRefs,
+  isLoading,
+  setIsLoading,
 }) => {
   return (
     <View style={!rotate ? "" : styles.rotateView}>
       <View style={!rotate ? "" : styles.rotateVideoWrapper}>
+        {!isLoading && <Skeleton width="100%" paddingTop="56.25%" />}
         <Video
           source={res.source}
           shouldPlay
@@ -34,10 +38,12 @@ const VideoSection = ({
               !rotate ? VIDEOHEIGHT_PORTRAIT : VIDEOHEIGHT_LANDSCAPE
             }%`,
             justifyContent: "center",
+            display: isLoading ? "flex" : "none",
           }}
           onPlaybackStatusUpdate={(playStatus) =>
             setPlayStatus(() => playStatus)
           }
+          onLoad={() => setIsLoading(true)}
         />
       </View>
 

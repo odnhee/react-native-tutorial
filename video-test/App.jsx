@@ -1,26 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Button,
-  Alert,
-  ScrollView,
-  Dimensions,
-  Platform,
-} from "react-native";
+import { View, Alert, Button } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
-import {
-  Placeholder,
-  PlaceholderMedia,
-  PlaceholderLine,
-  Fade,
-  ShineOverlay,
-  Shine,
-  Loader,
-} from "rn-placeholder";
 import { data } from "./data";
 import {
   DATE,
@@ -32,6 +15,7 @@ import {
 } from "./config/captureTime";
 import { styles } from "./config/globalStyles";
 import VideoSection from "./components/VideoSection";
+import Skeleton from "./components/Skeleton";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -75,7 +59,9 @@ export default function App() {
   } else if (rotate === false) {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
-
+  useEffect(() => {
+    console.log("isLoading", isLoading);
+  }, [isLoading]);
   return (
     <View
       style={[
@@ -101,6 +87,8 @@ export default function App() {
             onSaveImageAsync={onSaveImageAsync}
             onVideoControl={onVideoControl}
             res={res}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
           />
         </View>
       ))}
