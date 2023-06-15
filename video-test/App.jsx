@@ -45,10 +45,13 @@ export default function App() {
     }
   };
 
-  const onVideoControl = (idx) =>
-    playStatus.isPlaying
-      ? videoRefs.current[idx].pauseAsync()
-      : videoRefs.current[idx].playAsync();
+  const onVideoControl = (idx) => {
+    if (playStatus.isPlaying === true) {
+      videoRefs.current[idx].pauseAsync();
+    } else {
+      videoRefs.current[idx].playFromPositionAsync(playStatus.durationMillis);
+    }
+  };
 
   if (rotate === true) {
     ScreenOrientation.lockAsync(

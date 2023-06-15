@@ -25,8 +25,8 @@ const VideoSection = ({
         <Video
           source={res.source}
           shouldPlay
+          useNativeControls
           resizeMode={ResizeMode.CONTAIN}
-          isLooping
           ref={(el) => (videoRefs.current[res.id] = el)}
           style={{
             width: `${!rotate ? VIDEOWIDTH_PORTRAIT : VIDEOWIDTH_LANDSCAPE}%`,
@@ -35,9 +35,9 @@ const VideoSection = ({
             }%`,
             justifyContent: "center",
           }}
-          onPlaybackStatusUpdate={(playStatus) =>
-            setPlayStatus(() => playStatus)
-          }
+          onPlaybackStatusUpdate={(playStatus) => {
+            setPlayStatus(() => playStatus);
+          }}
         />
       </View>
 
