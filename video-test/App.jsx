@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   StyleSheet,
@@ -17,9 +17,20 @@ import Constants from "expo-constants";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
 
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+  ShineOverlay,
+  Shine,
+  Loader,
+} from "rn-placeholder";
+
 import { data } from "./data";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const videoRefs = useRef([]);
   const [status, requestPermission] = MediaLibrary.usePermissions();
 
@@ -76,22 +87,36 @@ export default function App() {
       );
     }
   };
-
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <StatusBar style="auto" />
-
+      {!isLoading && (
+        <Placeholder
+          Animation={ShineOverlay}
+          Left={(props) => (
+            <PlaceholderMedia
+              style={{ width: videoWidth, paddingTop: videoHeight }}
+            />
+          )}
+          Right={PlaceholderMedia}
+        />
+      )}
       {data.map((res) => (
         <View key={res.id}>
           <Video
             source={res.source}
             shouldPlay
             ref={(el) => (videoRefs.current[res.id] = el)}
-            style={{ width: videoWidth, paddingTop: videoHeight }}
+            style={{
+              width: videoWidth,
+              paddingTop: videoHeight,
+              display: isLoading ? "flex" : "none",
+            }}
             useNativeControls
             resizeMode={ResizeMode.CONTAIN}
             isLooping
             onFullscreenUpdate={(screenState) => landscapeLeftFunc(screenState)}
+            onLoad={() => setIsLoading(true)}
           />
 
           <View style={styles.button}>
