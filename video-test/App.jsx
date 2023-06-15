@@ -48,8 +48,11 @@ export default function App() {
   const onVideoControl = (idx) => {
     if (playStatus.isPlaying === true) {
       videoRefs.current[idx].pauseAsync();
+      console.log(playStatus.positionMillis);
     } else {
-      videoRefs.current[idx].playFromPositionAsync(playStatus.durationMillis);
+      videoRefs.current[idx].playFromPositionAsync(
+        playStatus.durationMillis - playStatus.positionMillis
+      );
     }
   };
 
