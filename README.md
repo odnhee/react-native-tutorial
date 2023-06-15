@@ -34,16 +34,30 @@
 
 ## 💡 기타 참고 사항
 
-- [테스트용 비디오 모음 링크](https://gist.github.com/jsturgis/3b19447b304616f18657)
+### [테스트용 비디오 모음 링크](https://gist.github.com/jsturgis/3b19447b304616f18657)
 
-- Expo 환경에서 RTSP 영상 스트리밍은 불가
+### Expo 환경에서 RTSP 영상 스트리밍은 불가
 
-  - `eject`를 진행한 후, react native 환경에서 가능
+- `eject`를 진행한 후, react native 환경에서 가능
 
-- Expo eject 후, 안드로이드 가상 디바이스 실행 에러 발생
+### Expo eject 후, 안드로이드 가상 디바이스 실행 에러 발생
 
-  - 원인, 설정법 찾아야 함
+- 원인, 설정법 찾아야 함
+
+### `Toast` (`Alert` 대체제)
 
 - [`react-native-toast-message` (Toast 알림)](https://github.com/calintamas/react-native-toast-message)
+
   - 느낌이 어떤지 테스트 할 예정
+
   - Alert은 가능, Confirm이 가능한지는 확인해봐야 함
+
+- [`react-native-easy-toast` (다른 Toast 알림)](https://github.com/crazycodeboy/react-native-easy-toast)
+
+  - Toast 커스텀이 비교적 쉬운 편 (ref를 이용)
+
+  - 마찬가지로 Confirm이 가능한지는 확인해야 함
+
+### [`expo-notifications` (알림 기능)](https://velog.io/@pluviabc1/Expo-%EC%95%8C%EB%A6%BC-%EC%88%98%EC%8B%A0-%EC%95%8C%EB%A6%BC)
+
+- 특정 트리거 발동 시, 알림이 오는지와 앱이 꺼져도 알림이 오는지에 대한 테스트 예정
