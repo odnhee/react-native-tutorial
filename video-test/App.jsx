@@ -45,6 +45,7 @@ export default function App() {
     }
   };
 
+  /** 라이브 스트리밍 Pause / Play 함수 (실시간 싱크 맞춰 재생) */
   const onVideoControl = (idx) => {
     if (playStatus.isPlaying === true) {
       videoRefs.current[idx].pauseAsync();
@@ -57,6 +58,15 @@ export default function App() {
       if (playStatus.positionMillis <= 1000) {
         videoRefs.current[idx].playFromPositionAsync(1000);
       }
+    }
+  };
+
+  /** 저장된 영상 Pause / Play (이어서 재생) */
+  const onVideoControlNoLive = (idx) => {
+    if (playStatus.isPlaying === true) {
+      videoRefs.current[idx].pauseAsync();
+    } else {
+      videoRefs.current[idx].playAsync();
     }
   };
 
@@ -92,6 +102,7 @@ export default function App() {
             setRotate={setRotate}
             onSaveImageAsync={onSaveImageAsync}
             onVideoControl={onVideoControl}
+            onVideoControlNoLive={onVideoControlNoLive}
             res={res}
           />
         </View>

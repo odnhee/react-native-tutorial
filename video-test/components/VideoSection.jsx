@@ -16,6 +16,7 @@ const VideoSection = ({
   setRotate,
   onSaveImageAsync,
   onVideoControl,
+  onVideoControlNoLive,
   res,
   videoRefs,
 }) => {
@@ -25,7 +26,6 @@ const VideoSection = ({
         <Video
           source={res.source}
           shouldPlay
-          useNativeControls
           resizeMode={ResizeMode.CONTAIN}
           ref={(el) => (videoRefs.current[res.id] = el)}
           style={{
@@ -62,7 +62,8 @@ const VideoSection = ({
             <TouchableOpacity
               onPress={() => {
                 const idx = res.id;
-                onVideoControl(idx);
+                // onVideoControl(idx);
+                onVideoControlNoLive(idx);
               }}
             >
               <Text style={{ fontSize: 30 }}>
@@ -80,7 +81,8 @@ const VideoSection = ({
           <TouchableOpacity
             onPress={() => {
               const idx = res.id;
-              onVideoControl(idx);
+              // onVideoControl(idx);
+              onVideoControlNoLive(idx);
             }}
           >
             <Text style={{ fontSize: 50 }}>
