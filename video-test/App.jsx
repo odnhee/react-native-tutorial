@@ -1,9 +1,37 @@
+<<<<<<< HEAD
 import { useRef, useState } from "react";
 import { View, Alert, Button } from "react-native";
+=======
+import { useEffect, useRef, useState } from "react";
+
+import {
+  StyleSheet,
+  View,
+  Button,
+  Alert,
+  ScrollView,
+  Dimensions,
+  Platform,
+} from "react-native";
+>>>>>>> test/skeleton
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
+<<<<<<< HEAD
+=======
+
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+  ShineOverlay,
+  Shine,
+  Loader,
+} from "rn-placeholder";
+
+>>>>>>> test/skeleton
 import { data } from "./data";
 import {
   DATE,
@@ -17,6 +45,7 @@ import { styles } from "./config/globalStyles";
 import VideoSection from "./components/VideoSection";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const videoRefs = useRef([]);
   const [rotate, setRotate] = useState(false);
   const [playStatus, setPlayStatus] = useState({});
