@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, Alert, Button } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
@@ -15,8 +15,10 @@ import {
 } from "./config/captureTime";
 import { styles } from "./config/globalStyles";
 import VideoSection from "./components/VideoSection";
+import Skeleton from "./components/Skeleton";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const videoRefs = useRef([]);
   const [rotate, setRotate] = useState(false);
   const [playStatus, setPlayStatus] = useState({});
@@ -87,7 +89,9 @@ export default function App() {
   } else if (rotate === false) {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
-
+  useEffect(() => {
+    console.log("isLoading", isLoading);
+  }, [isLoading]);
   return (
     <View
       style={[
@@ -114,6 +118,8 @@ export default function App() {
             onVideoControl={onVideoControl}
             onVideoControlNoLive={onVideoControlNoLive}
             res={res}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
           />
         </View>
       ))}
