@@ -53,6 +53,10 @@ export default function App() {
       videoRefs.current[idx].playFromPositionAsync(
         playStatus.durationMillis - playStatus.positionMillis
       );
+
+      if (playStatus.positionMillis <= 1000) {
+        videoRefs.current[idx].playFromPositionAsync(1000);
+      }
     }
   };
 
