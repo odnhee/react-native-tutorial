@@ -45,5 +45,13 @@
   - 원인, 설정법 찾아야 함
 
 - [`react-native-toast-message` (Toast 알림)](https://github.com/calintamas/react-native-toast-message)
+
   - 느낌이 어떤지 테스트 할 예정
+
   - Alert은 가능, Confirm이 가능한지는 확인해봐야 함
+
+- [`react-native-easy-toast` (다른 Toast 알림)](https://github.com/crazycodeboy/react-native-easy-toast)
+
+- Toast 커스텀이 비교적 쉬운 편 (ref를 이용)
+
+- 마찬가지로 Confirm이 가능한지는 확인해야 함
