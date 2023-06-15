@@ -1,4 +1,4 @@
-import { Button, View, TouchableOpacity, Text } from "react-native";
+import { Button, View, TouchableOpacity, Text, Linking } from "react-native";
 import React from "react";
 import { Video, ResizeMode } from "expo-av";
 import {
@@ -17,6 +17,7 @@ const VideoSection = ({
   setRotate,
   onSaveImageAsync,
   onVideoControl,
+  onVideoControlNoLive,
   res,
   videoRefs,
   isLoading,
@@ -30,7 +31,6 @@ const VideoSection = ({
           source={res.source}
           shouldPlay
           resizeMode={ResizeMode.CONTAIN}
-          isLooping
           ref={(el) => (videoRefs.current[res.id] = el)}
           style={{
             width: `${!rotate ? VIDEOWIDTH_PORTRAIT : VIDEOWIDTH_LANDSCAPE}%`,
@@ -69,9 +69,10 @@ const VideoSection = ({
               onPress={() => {
                 const idx = res.id;
                 onVideoControl(idx);
+                // onVideoControlNoLive(idx);
               }}
             >
-              <Text style={{ fontSize: 30 }}>
+              <Text style={styles.buttonText}>
                 {playStatus.isPlaying ? "⏸️" : "▶️"}
               </Text>
             </TouchableOpacity>
@@ -80,16 +81,16 @@ const VideoSection = ({
       ) : (
         <View style={styles.rotateButton}>
           <TouchableOpacity onPress={() => setRotate(!rotate)}>
-            <Text style={{ fontSize: 50 }}>↩️</Text>
+            <Text style={styles.buttonText}>↩️</Text>
           </TouchableOpacity>
-
           <TouchableOpacity
             onPress={() => {
               const idx = res.id;
               onVideoControl(idx);
+              // onVideoControlNoLive(idx);
             }}
           >
-            <Text style={{ fontSize: 50 }}>
+            <Text style={styles.buttonText}>
               {playStatus.isPlaying ? "⏸️" : "▶️"}
             </Text>
           </TouchableOpacity>
@@ -101,7 +102,15 @@ const VideoSection = ({
               onSaveImageAsync(idx, title);
             }}
           >
-            <Text style={{ fontSize: 50 }}>📷</Text>
+            <Text style={styles.buttonText}>📷</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL("tel://122");
+            }}
+          >
+            <Text style={styles.buttonText}>🚨</Text>
           </TouchableOpacity>
         </View>
       )}

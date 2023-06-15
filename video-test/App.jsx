@@ -47,10 +47,40 @@ export default function App() {
     }
   };
 
-  const onVideoControl = (idx) =>
-    playStatus.isPlaying
-      ? videoRefs.current[idx].pauseAsync()
-      : videoRefs.current[idx].playAsync();
+  /**
+   * 라이브 스트리밍 Pause / Play 함수 (실시간 싱크 맞춰 재생)
+   *
+   * 해당 함수가 실행되기 전, data의 id 값을 별도로 받아온 후 사용
+   * @param {number} idx - `number`
+   */
+  const onVideoControl = (idx) => {
+    if (playStatus.isPlaying === true) {
+      videoRefs.current[idx].pauseAsync();
+      console.log(playStatus.positionMillis);
+    } else {
+      videoRefs.current[idx].playFromPositionAsync(
+        playStatus.durationMillis - playStatus.positionMillis
+      );
+
+      if (playStatus.positionMillis <= 1000) {
+        videoRefs.current[idx].playFromPositionAsync(1000);
+      }
+    }
+  };
+
+  /**
+   * 저장된 영상 Pause / Play (이어서 재생)
+   *
+   * 해당 함수가 실행되기 전, data의 id 값을 별도로 받아온 후 사용
+   * @param {number} idx - `number`
+   */
+  const onVideoControlNoLive = (idx) => {
+    if (playStatus.isPlaying === true) {
+      videoRefs.current[idx].pauseAsync();
+    } else {
+      videoRefs.current[idx].playAsync();
+    }
+  };
 
   if (rotate === true) {
     ScreenOrientation.lockAsync(
@@ -86,6 +116,7 @@ export default function App() {
             setRotate={setRotate}
             onSaveImageAsync={onSaveImageAsync}
             onVideoControl={onVideoControl}
+            onVideoControlNoLive={onVideoControlNoLive}
             res={res}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
