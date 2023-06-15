@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     width: "15%",
     justifyContent: "center",
     alignItems: "center",
+    gap: 20,
   },
   rotateView: {
     width: "100%",
@@ -28,5 +29,9 @@ export const styles = StyleSheet.create({
     backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
+  },
+  playButton: {
+    width: "10%",
+    fontSize: 30,
   },
 });
