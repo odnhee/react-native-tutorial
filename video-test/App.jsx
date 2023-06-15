@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import { useRef, useState } from "react";
-import { View, Alert, Button } from "react-native";
-=======
 import { useEffect, useRef, useState } from "react";
-
 import {
   StyleSheet,
   View,
@@ -13,14 +8,10 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
->>>>>>> test/skeleton
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
-<<<<<<< HEAD
-=======
-
 import {
   Placeholder,
   PlaceholderMedia,
@@ -30,8 +21,6 @@ import {
   Shine,
   Loader,
 } from "rn-placeholder";
-
->>>>>>> test/skeleton
 import { data } from "./data";
 import {
   DATE,
