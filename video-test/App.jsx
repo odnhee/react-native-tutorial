@@ -39,7 +39,7 @@ export default function App() {
   const [rotate, setRotate] = useState(false);
   const [playStatus, setPlayStatus] = useState({});
   const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState(false);
+  const [notification, setNotification] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
@@ -62,7 +62,7 @@ export default function App() {
     };
   }, []);
 
-  useEffect(() => {}, [isLoading]);
+  useEffect(() => {}, [isLoading, notification]);
 
   if (status === null) {
     requestPermission();
