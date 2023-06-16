@@ -1,4 +1,4 @@
-import { Button, View, TouchableOpacity, Text, Linking } from "react-native";
+import { View, TouchableOpacity, Text, Linking } from "react-native";
 import React from "react";
 import { Video, ResizeMode } from "expo-av";
 import {
@@ -22,7 +22,51 @@ const VideoSection = ({
   videoRefs,
   isLoading,
   setIsLoading,
+  onSendPush,
+  onSoundControl,
 }) => {
+  const buttonContents = [
+    {
+      onPress: () => setRotate(!rotate),
+      text: "🔄",
+    },
+    {
+      onPress: () => {
+        const idx = res.id;
+        onVideoControl(idx);
+        // onVideoControlNoLive(idx);
+      },
+      text: `${playStatus.isPlaying ? "⏸️" : "▶️"}`,
+    },
+    {
+      onPress: () => {
+        const idx = res.id;
+        onSoundControl(idx);
+      },
+      text: `${!playStatus.isMuted ? "🔇" : "🔊"}`,
+    },
+    {
+      onPress: () => {
+        const idx = res.id;
+        const title = res.title;
+        onSaveImageAsync(idx, title);
+      },
+      text: "📷",
+    },
+    {
+      onPress: () => {
+        Linking.openURL("tel://122");
+      },
+      text: "🚨",
+    },
+    {
+      onPress: async () => {
+        await onSendPush();
+      },
+      text: "🔔",
+    },
+  ];
+
   return (
     <View style={!rotate ? "" : styles.rotateView}>
       <View style={!rotate ? "" : styles.rotateVideoWrapper}>
@@ -48,73 +92,13 @@ const VideoSection = ({
         />
       </View>
 
-      {!rotate ? (
-        <>
-          <View style={styles.button}>
-            <Button
-              title={`${res.title} Screen Shot`}
-              onPress={() => {
-                const idx = res.id;
-                const title = res.title;
-                onSaveImageAsync(idx, title);
-              }}
-            />
-          </View>
-
-          <View style={styles.button}>
-            <Button title={`Full Screen`} onPress={() => setRotate(!rotate)} />
-          </View>
-
-          <View style={styles.button}>
-            <TouchableOpacity
-              onPress={() => {
-                const idx = res.id;
-                onVideoControl(idx);
-                // onVideoControlNoLive(idx);
-              }}
-            >
-              <Text style={styles.buttonText}>
-                {playStatus.isPlaying ? "⏸️" : "▶️"}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </>
-      ) : (
-        <View style={styles.rotateButton}>
-          <TouchableOpacity onPress={() => setRotate(!rotate)}>
-            <Text style={styles.buttonText}>↩️</Text>
+      <View style={!rotate ? styles.defaultButton : styles.rotateButton}>
+        {buttonContents.map((content) => (
+          <TouchableOpacity onPress={content.onPress} key={content.text}>
+            <Text style={styles.buttonText}>{content.text}</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              const idx = res.id;
-              onVideoControl(idx);
-              // onVideoControlNoLive(idx);
-            }}
-          >
-            <Text style={styles.buttonText}>
-              {playStatus.isPlaying ? "⏸️" : "▶️"}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              const idx = res.id;
-              const title = res.title;
-              onSaveImageAsync(idx, title);
-            }}
-          >
-            <Text style={styles.buttonText}>📷</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL("tel://122");
-            }}
-          >
-            <Text style={styles.buttonText}>🚨</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+        ))}
+      </View>
     </View>
   );
 };

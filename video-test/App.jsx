@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert, Button } from "react-native";
+import { View, Alert } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
+
 import { data } from "./data";
 import {
   DATE,
@@ -15,19 +18,70 @@ import {
 } from "./config/captureTime";
 import { styles } from "./config/globalStyles";
 import VideoSection from "./components/VideoSection";
+import {
+  registerForPushNotificationsAsync,
+  sendPushNotification,
+} from "./config/useNotification";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
   const videoRefs = useRef([]);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
   const [rotate, setRotate] = useState(false);
   const [playStatus, setPlayStatus] = useState({});
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const [notification, setNotification] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
+
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
+  useEffect(() => {}, [isLoading]);
 
   if (status === null) {
     requestPermission();
   }
 
+  if (rotate === true) {
+    ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
+    );
+  } else if (rotate === false) {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+  }
+
+  /**
+   * 스크린샷 함수
+   *
+   * @param {number} idx - `number`
+   * @param {string} title - `string`
+   */
   const onSaveImageAsync = async (idx, title) => {
     try {
       const localUri = await captureRef(videoRefs.current[idx], {
@@ -53,7 +107,7 @@ export default function App() {
    * @param {number} idx - `number`
    */
   const onVideoControl = (idx) => {
-    if (playStatus.isPlaying === true) {
+    if (playStatus.isPlaying) {
       videoRefs.current[idx].pauseAsync();
       console.log(playStatus.positionMillis);
     } else {
@@ -74,24 +128,48 @@ export default function App() {
    * @param {number} idx - `number`
    */
   const onVideoControlNoLive = (idx) => {
-    if (playStatus.isPlaying === true) {
+    if (playStatus.isPlaying) {
       videoRefs.current[idx].pauseAsync();
     } else {
       videoRefs.current[idx].playAsync();
     }
   };
 
-  if (rotate === true) {
-    ScreenOrientation.lockAsync(
-      ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT
-    );
-  } else if (rotate === false) {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-  }
+  const onSoundControl = (idx) => {
+    if (!playStatus.isMuted) {
+      videoRefs.current[idx].setIsMutedAsync(true);
+    } else {
+      videoRefs.current[idx].setIsMutedAsync(false);
+    }
+  };
 
-  useEffect(() => {
-    console.log("Loading Status ->", isLoading);
-  }, [isLoading]);
+  /**
+   * 푸쉬 알람 함수
+   */
+  const onSendPush = async () => {
+    const title = "Push Test";
+    const body = "This is Push test";
+
+    await sendPushNotification(expoPushToken, title, body);
+
+    if (Device.isDevice) {
+      console.log(
+        `
+--- Expo Push ---
+
+Your expo push token: ${expoPushToken}
+
+Title: ${notification && notification.request.content.title}
+
+Body: ${notification && notification.request.content.body}
+
+Data: ${notification && JSON.stringify(notification.request.content.data)}
+      `
+      );
+    } else {
+      console.log("Must use physical device for Push Notifications");
+    }
+  };
 
   return (
     <View
@@ -121,6 +199,8 @@ export default function App() {
             res={res}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
+            onSendPush={onSendPush}
+            onSoundControl={onSoundControl}
           />
         </View>
       ))}
