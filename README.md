@@ -4,11 +4,15 @@
 
 - [apk 빌드 완료](https://www.notion.so/hyungjinhan/Expo-Window-IOS-c9a32d8282b84d36909cf9ff98f3a763?pvs=4#41014ccbaefb483cb2db7104981ee2fd)
 
+<br/>
+
 ## ~~📂 test~~
 
 ### ~~RTSP 영상 스트리밍 테스트~~
 
 - ~~[`react-native-vlc-media-player`](https://github.com/razorRun/react-native-vlc-media-player)~~
+
+<br/>
 
 ## 📂 video-test
 
@@ -47,6 +51,8 @@
   - 실제 빌드된 환경에서는 구글의 `FCM` 설정이 필요한 것으로 보임
 
   - [알림 아이콘 변경은 빌드를 통해 테스트가 가능할 것으로 보임](https://velog.io/@hhhminme/%EC%95%84%EC%A7%81%EB%8F%84-Push-Notification-%EC%9C%BC%EB%A1%9C-%EA%B3%A0%EC%83%9D%ED%95%98%EC%84%B8%EC%9A%94-Expo-Notification)
+
+<br/>
 
 ## 💡 기타 참고 사항
 
