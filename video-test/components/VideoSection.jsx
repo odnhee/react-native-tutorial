@@ -25,6 +25,48 @@ const VideoSection = ({
   onSendPush,
   onSoundControl,
 }) => {
+  const buttonContents = [
+    {
+      onPress: () => setRotate(!rotate),
+      text: "🔄",
+    },
+    {
+      onPress: () => {
+        const idx = res.id;
+        onVideoControl(idx);
+        // onVideoControlNoLive(idx);
+      },
+      text: `${playStatus.isPlaying ? "⏸️" : "▶️"}`,
+    },
+    {
+      onPress: () => {
+        const idx = res.id;
+        onSoundControl(idx);
+      },
+      text: `${!playStatus.isMuted ? "🔇" : "🔊"}`,
+    },
+    {
+      onPress: () => {
+        const idx = res.id;
+        const title = res.title;
+        onSaveImageAsync(idx, title);
+      },
+      text: "📷",
+    },
+    {
+      onPress: () => {
+        Linking.openURL("tel://122");
+      },
+      text: "🚨",
+    },
+    {
+      onPress: async () => {
+        await onSendPush();
+      },
+      text: "🔔",
+    },
+  ];
+
   return (
     <View style={!rotate ? "" : styles.rotateView}>
       <View style={!rotate ? "" : styles.rotateVideoWrapper}>
@@ -51,58 +93,11 @@ const VideoSection = ({
       </View>
 
       <View style={!rotate ? styles.defaultButton : styles.rotateButton}>
-        <TouchableOpacity onPress={() => setRotate(!rotate)}>
-          <Text style={styles.buttonText}>🔄</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            const idx = res.id;
-            onVideoControl(idx);
-            // onVideoControlNoLive(idx);
-          }}
-        >
-          <Text style={styles.buttonText}>
-            {playStatus.isPlaying ? "⏸️" : "▶️"}
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            const idx = res.id;
-            onSoundControl(idx);
-          }}
-        >
-          <Text style={styles.buttonText}>
-            {!playStatus.isMuted ? "🔇" : "🔊"}
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            const idx = res.id;
-            const title = res.title;
-            onSaveImageAsync(idx, title);
-          }}
-        >
-          <Text style={styles.buttonText}>📷</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            Linking.openURL("tel://122");
-          }}
-        >
-          <Text style={styles.buttonText}>🚨</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={async () => {
-            await onSendPush();
-          }}
-        >
-          <Text style={styles.buttonText}>🔔</Text>
-        </TouchableOpacity>
+        {buttonContents.map((content) => (
+          <TouchableOpacity onPress={content.onPress} key={content.text}>
+            <Text style={styles.buttonText}>{content.text}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
     </View>
   );
