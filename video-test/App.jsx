@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert, Button } from "react-native";
+import { View, Alert } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
+import * as Notifications from "expo-notifications";
+
 import { data } from "./data";
 import {
   DATE,
@@ -15,14 +17,54 @@ import {
 } from "./config/captureTime";
 import { styles } from "./config/globalStyles";
 import VideoSection from "./components/VideoSection";
+import {
+  registerForPushNotificationsAsync,
+  sendPushNotification,
+} from "./config/useNotification";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
   const videoRefs = useRef([]);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
   const [rotate, setRotate] = useState(false);
   const [playStatus, setPlayStatus] = useState({});
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const [notification, setNotification] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
+
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
+
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   if (status === null) {
     requestPermission();
@@ -121,6 +163,9 @@ export default function App() {
             res={res}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
+            sendPushNotification={sendPushNotification}
+            expoPushToken={expoPushToken}
+            notification={notification}
           />
         </View>
       ))}

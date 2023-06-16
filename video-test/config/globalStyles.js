@@ -5,10 +5,13 @@ export const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
   },
-  button: {
+  defaultButton: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
-    marginBottom: 30,
+    gap: 20,
+    marginTop: 20,
   },
   rotateButton: {
     display: "flex",
