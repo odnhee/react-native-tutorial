@@ -142,9 +142,6 @@ export default function App() {
       videoRefs.current[idx].setIsMutedAsync(false);
     }
   };
-
-<<<<<<< HEAD
-=======
   /**
    * 푸쉬 알람 함수
    */
@@ -173,7 +170,6 @@ Data: ${notification && JSON.stringify(notification.request.content.data)}
     }
   };
 
->>>>>>> origin
   return (
     <View
       style={[
