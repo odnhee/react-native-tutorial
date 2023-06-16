@@ -15,7 +15,6 @@ import {
 } from "./config/captureTime";
 import { styles } from "./config/globalStyles";
 import VideoSection from "./components/VideoSection";
-import Skeleton from "./components/Skeleton";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -89,9 +88,11 @@ export default function App() {
   } else if (rotate === false) {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
+
   useEffect(() => {
-    console.log("isLoading", isLoading);
+    console.log("Loading Status ->", isLoading);
   }, [isLoading]);
+
   return (
     <View
       style={[
