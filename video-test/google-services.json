@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "398381435860",
+    "project_id": "push-test-ba91d",
+    "storage_bucket": "push-test-ba91d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398381435860:android:788cb09905fb0de6a8a441",
+        "android_client_info": {
+          "package_name": "com.odndevel.videotest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398381435860-vi221k36o0s6v153gje3epv6dnet5ol5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA91bruV110GvnrGPGYw_EkDOejEGAK0A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398381435860-vi221k36o0s6v153gje3epv6dnet5ol5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
