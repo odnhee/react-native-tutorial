@@ -142,6 +142,7 @@ export default function App() {
       videoRefs.current[idx].setIsMutedAsync(false);
     }
   };
+
   /**
    * 푸쉬 알람 함수
    */
