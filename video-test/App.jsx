@@ -89,10 +89,6 @@ export default function App() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
 
-  useEffect(() => {
-    console.log("Loading Status ->", isLoading);
-  }, [isLoading]);
-
   return (
     <View
       style={[
@@ -106,7 +102,6 @@ export default function App() {
       showsVerticalScrollIndicator={false}
     >
       <StatusBar style={rotate ? "light" : "auto"} />
-
       {data.map((res) => (
         <View key={res.id}>
           <VideoSection
