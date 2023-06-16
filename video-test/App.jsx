@@ -143,6 +143,8 @@ export default function App() {
     }
   };
 
+<<<<<<< HEAD
+=======
   /**
    * 푸쉬 알람 함수
    */
@@ -171,6 +173,7 @@ Data: ${notification && JSON.stringify(notification.request.content.data)}
     }
   };
 
+>>>>>>> origin
   return (
     <View
       style={[
@@ -184,7 +187,6 @@ Data: ${notification && JSON.stringify(notification.request.content.data)}
       showsVerticalScrollIndicator={false}
     >
       <StatusBar style={rotate ? "light" : "auto"} />
-
       {data.map((res) => (
         <View key={res.id}>
           <VideoSection
