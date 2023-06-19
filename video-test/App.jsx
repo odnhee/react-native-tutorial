@@ -18,7 +18,10 @@ import {
 } from "./config/captureTime";
 import { styles } from "./config/globalStyles";
 import VideoSection from "./components/VideoSection";
-import { registerForPushNotificationsAsync } from "./config/useNotification";
+import {
+  registerForPushNotificationsAsync,
+  schedulePushNotification,
+} from "./config/useNotification";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -65,6 +68,7 @@ export default function App() {
       Device.isDevice
     ) {
       onSaveImageAsync(0, "Warning");
+      console.log(expoPushToken);
     } else {
       console.log("Must use physical device for Push Notifications");
     }
@@ -164,17 +168,10 @@ export default function App() {
    * @param {string} type - `string`
    */
   const onSendPush = async (type) => {
-    const title = "Warning";
-    const body = "Detect Test";
+    const title = type.toUpperCase();
+    const body = "위험이 감지되어 화면을 촬영했습니다.";
 
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: title,
-        body: body,
-        data: { type: type },
-      },
-      trigger: null,
-    });
+    schedulePushNotification(title, body, type);
   };
 
   return (

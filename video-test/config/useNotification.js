@@ -1,6 +1,17 @@
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
+export async function schedulePushNotification(title, body, type) {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: title,
+      body: body,
+      data: { type: type },
+    },
+    trigger: null,
+  });
+}
+
 export async function registerForPushNotificationsAsync() {
   let token;
 
