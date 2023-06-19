@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, Button } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
@@ -18,10 +18,7 @@ import {
 } from "./config/captureTime";
 import { styles } from "./config/globalStyles";
 import VideoSection from "./components/VideoSection";
-import {
-  registerForPushNotificationsAsync,
-  sendPushNotification,
-} from "./config/useNotification";
+import { registerForPushNotificationsAsync } from "./config/useNotification";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -62,7 +59,15 @@ export default function App() {
     };
   }, []);
 
-  useEffect(() => {}, [isLoading, notification]);
+  useEffect(() => {
+    if (
+      (notification && notification.request.content.data.type) === "warning"
+    ) {
+      onSaveImageAsync(0, "Warning");
+    }
+  }, [notification]);
+
+  useEffect(() => {}, [isLoading]);
 
   if (status === null) {
     requestPermission();
@@ -151,12 +156,22 @@ export default function App() {
 
   /**
    * 푸쉬 알람 함수
+   *
+   * type에 따라 이벤트 값 변동 (ex: warning -> 스크린샷)
+   * @param {string} type - `string`
    */
-  const onSendPush = async () => {
-    const title = "Push Test";
-    const body = "This is Push test";
+  const onSendPush = async (type) => {
+    const title = "Warning";
+    const body = "Detect Test";
 
-    await sendPushNotification(expoPushToken, title, body);
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: title,
+        body: body,
+        data: { type: type },
+      },
+      trigger: null,
+    });
 
     if (Device.isDevice) {
       console.log(

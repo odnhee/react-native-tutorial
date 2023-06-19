@@ -1,38 +1,9 @@
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 
-export async function sendPushNotification(expoPushToken, title, body) {
-  // const message = {
-  //   to: expoPushToken,
-  //   sound: "default",
-  //   title: title,
-  //   body: body,
-  //   data: { someData: "goes here" },
-  // };
-
-  // await fetch("https://exp.host/--/api/v2/push/send", {
-  //   method: "POST",
-  //   headers: {
-  //     Accept: "application/json",
-  //     "Accept-encoding": "gzip, deflate",
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(message),
-  // });
-
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      to: expoPushToken,
-      title: title,
-      body: body,
-      data: { data: "goes here" },
-    },
-    trigger: null, // { seconds: 20 }
-  });
-}
-
 export async function registerForPushNotificationsAsync() {
   let token;
+
   if (Device.isDevice) {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();

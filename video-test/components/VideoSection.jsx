@@ -61,7 +61,8 @@ const VideoSection = ({
     },
     {
       onPress: async () => {
-        await onSendPush();
+        const type = "warning";
+        await onSendPush(type);
       },
       text: "🔔",
     },
@@ -74,6 +75,7 @@ const VideoSection = ({
         <Video
           source={res.source}
           shouldPlay
+          isMuted
           resizeMode={ResizeMode.CONTAIN}
           ref={(el) => (videoRefs.current[res.id] = el)}
           style={{
