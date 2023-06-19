@@ -72,7 +72,7 @@
 
 6.  앱을 실행하여 설치 확인은 이 단계 건너뛰기로 넘어가기
 
-7.  Firebase 프로젝트의 설정에서 클라우드 메시징탭을 통해 `Cloud Messaging API` 서버 키 활용
+7.  Firebase 프로젝트의 설정에서 클라우드 메시징 탭을 통해 `Cloud Messaging API` 서버 키 활용
 
     <img src='./video-test/assets/projectSetting.png' width='50%'>
 
@@ -93,7 +93,7 @@
 
 10. Expo 대쉬보드로 이동 후 `Credentials` 탭으로 이동하여 확인 가능
 
-        <img src='./video-test/assets/expoCredentials.png' width='50%'>
+      <img src='./video-test/assets/expoCredentials.png' width='50%'>
 
 </details>
 
