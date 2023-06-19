@@ -61,9 +61,12 @@ export default function App() {
 
   useEffect(() => {
     if (
-      (notification && notification.request.content.data.type) === "warning"
+      (notification && notification.request.content.data.type) === "warning" &&
+      Device.isDevice
     ) {
       onSaveImageAsync(0, "Warning");
+    } else {
+      console.log("Must use physical device for Push Notifications");
     }
   }, [notification]);
 
@@ -172,24 +175,6 @@ export default function App() {
       },
       trigger: null,
     });
-
-    if (Device.isDevice) {
-      console.log(
-        `
---- Expo Push ---
-
-Your expo push token: ${expoPushToken}
-
-Title: ${notification && notification.request.content.title}
-
-Body: ${notification && notification.request.content.body}
-
-Data: ${notification && JSON.stringify(notification.request.content.data)}
-      `
-      );
-    } else {
-      console.log("Must use physical device for Push Notifications");
-    }
   };
 
   return (
