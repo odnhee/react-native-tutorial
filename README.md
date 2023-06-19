@@ -49,7 +49,10 @@
     - 물리적인 디바이스 환경에서만 알림을 위한 토큰이 생성되므로 에뮬레이터 환경에서는 테스트 불가
 
   - ~~[알림 아이콘 변경은 빌드를 통해 테스트가 가능할 것으로 보임](https://velog.io/@hhhminme/%EC%95%84%EC%A7%81%EB%8F%84-Push-Notification-%EC%9C%BC%EB%A1%9C-%EA%B3%A0%EC%83%9D%ED%95%98%EC%84%B8%EC%9A%94-Expo-Notification)~~
+
     - 테스트 결과, `app.json` 설정 후 빌드를 통해 아이콘 변경됨이 확인
+
+  - [`expo-notifications` 알림 테스트 사이트](https://expo.dev/notifications)
 
 <details>
   <summary>FCM 설정</summary>
