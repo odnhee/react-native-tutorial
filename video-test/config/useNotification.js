@@ -27,7 +27,7 @@ export async function sendPushNotification(expoPushToken, title, body) {
       body: body,
       data: { data: "goes here" },
     },
-    trigger: null,
+    trigger: null, // { seconds: 20 }
   });
 }
 

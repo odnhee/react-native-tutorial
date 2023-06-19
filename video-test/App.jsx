@@ -135,6 +135,12 @@ export default function App() {
     }
   };
 
+  /**
+   * 음소거 함수
+   *
+   * 해당 함수가 실행되기 전, data의 id 값을 별도로 받아온 후 사용
+   * @param {number} idx - `number`
+   */
   const onSoundControl = (idx) => {
     if (!playStatus.isMuted) {
       videoRefs.current[idx].setIsMutedAsync(true);

@@ -48,9 +48,54 @@
 
     - 물리적인 디바이스 환경에서만 알림을 위한 토큰이 생성되므로 에뮬레이터 환경에서는 테스트 불가
 
-  - 실제 빌드된 환경에서는 구글의 `FCM` 설정이 필요한 것으로 보임
+  - ~~[알림 아이콘 변경은 빌드를 통해 테스트가 가능할 것으로 보임](https://velog.io/@hhhminme/%EC%95%84%EC%A7%81%EB%8F%84-Push-Notification-%EC%9C%BC%EB%A1%9C-%EA%B3%A0%EC%83%9D%ED%95%98%EC%84%B8%EC%9A%94-Expo-Notification)~~
+    - 테스트 결과, `app.json` 설정 후 빌드를 통해 아이콘 변경됨이 확인
 
-  - [알림 아이콘 변경은 빌드를 통해 테스트가 가능할 것으로 보임](https://velog.io/@hhhminme/%EC%95%84%EC%A7%81%EB%8F%84-Push-Notification-%EC%9C%BC%EB%A1%9C-%EA%B3%A0%EC%83%9D%ED%95%98%EC%84%B8%EC%9A%94-Expo-Notification)
+<details>
+  <summary>FCM 설정</summary>
+
+1.  Firebase 프로젝트 생성
+
+2.  프로젝트에 안드로이드 앱 추가
+
+    <img src='./video-test/assets/firebase.png' width='50%'>
+
+3.  해당 프로젝트의 안드로이드 패키지 이름과 동일하게 입력 및 앱 등록
+
+    <img src='./video-test/assets/androidAdd.png' width='50%'>
+
+4.  해당 `google-services.json` 파일을 다운로드 후, 안내에 따라 설정
+
+    <img src='./video-test/assets/googleService.png' width='50%'>
+
+5.  Firebase SDK 추가는 다음으로 넘어가기
+
+6.  앱을 실행하여 설치 확인은 이 단계 건너뛰기로 넘어가기
+
+7.  Firebase 프로젝트의 설정에서 클라우드 메시징탭을 통해 `Cloud Messaging API` 서버 키 활용
+
+    <img src='./video-test/assets/projectSetting.png' width='50%'>
+
+    - 서버 키가 없다면 Google Cloud Service를 통해 `Cloud Messaging API` 사용 설정을 별도로 진행
+
+8.  해당 프로젝트의 `app.json`에서 `google-services.json` 파일과 연동
+
+    ```json
+    "expo": {
+      "android": {
+        "package": "com.odndevel.videotest",
+        "googleServicesFile": "./google-services.json",
+      },
+    }
+    ```
+
+9.  `expo push:android:upload --api-key <Cloud-Messaging-API-서버-키>` 터미널에 입력으로 FCM 토큰 값 입력
+
+10. Expo 대쉬보드로 이동 후 `Credentials` 탭으로 이동하여 확인 가능
+
+        <img src='./video-test/assets/expoCredentials.png' width='50%'>
+
+</details>
 
 <br/>
 
