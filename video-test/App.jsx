@@ -198,11 +198,9 @@ export default function App() {
 
   const loginWithKakao = async () => {
     const token = await KakaoLogins.login();
-    //로그인하기
+    // 로그인하기
     const profile = await KakaoLogins.getProfile();
-    //프로필 가져오기
-
-    console.log(token, profile);
+    // 프로필 가져오기
   };
 
   return (
@@ -245,9 +243,15 @@ export default function App() {
           display: rotate ? "none" : "flex",
         }}
       >
-        <Pressable onPress={loginWithKakao}>
-          <Text style={{ fontSize: 15 }}>Kakao Login</Text>
-        </Pressable>
+        {KakaoLogins.getProfile.accessToken === undefined ? (
+          <Pressable onPress={async () => await KakaoLogins.login()}>
+            <Text style={{ fontSize: 15 }}>Kakao Login</Text>
+          </Pressable>
+        ) : (
+          <Pressable onPress={async () => await KakaoLogins.logout()}>
+            <Text style={{ fontSize: 15 }}>Kakao Logout</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );
