@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert, Button } from "react-native";
+import { View, Alert, Text, Pressable } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import * as KakaoLogins from "@react-native-seoul/kakao-login";
 
 import { data } from "./data";
 import {
@@ -174,6 +175,15 @@ export default function App() {
     schedulePushNotification(title, body, type);
   };
 
+  const loginWithKakao = async () => {
+    const token = await KakaoLogins.login();
+    //로그인하기
+    const profile = await KakaoLogins.getProfile();
+    //프로필 가져오기
+
+    console.log(token, profile);
+  };
+
   return (
     <View
       style={[
@@ -206,6 +216,12 @@ export default function App() {
           />
         </View>
       ))}
+
+      <View style={{ alignItems: "center", marginTop: 30 }}>
+        <Pressable onPress={loginWithKakao}>
+          <Text style={{ fontSize: 15 }}>Kakao Login</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

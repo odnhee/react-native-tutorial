@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-seoul/kakao-login": "^5.2.6",
     "expo": "~48.0.18",
     "expo-av": "~13.2.1",
     "expo-constants": "^14.2.1",

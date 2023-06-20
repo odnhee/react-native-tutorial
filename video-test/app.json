@@ -43,6 +43,13 @@
           "icon": "./assets/alarm.png",
           "color": "#ffffff"
         }
+      ],
+      [
+        "@react-native-seoul/kakao-login",
+        {
+          "kakaoAppKey": "a4ea280fed387f36908abe9ef7297276",
+          "kotlinVersion": "1.5.20"
+        }
       ]
     ],
     "extra": {

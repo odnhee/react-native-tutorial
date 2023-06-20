@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Text, Linking } from "react-native";
+import { View, Text, Linking, Pressable } from "react-native";
 import React from "react";
 import { Video, ResizeMode } from "expo-av";
 import {
@@ -95,9 +95,9 @@ const VideoSection = ({
 
       <View style={!rotate ? styles.defaultButton : styles.rotateButton}>
         {buttonContents.map((content) => (
-          <TouchableOpacity onPress={content.onPress} key={content.text}>
+          <Pressable onPress={content.onPress} key={content.text}>
             <Text style={styles.buttonText}>{content.text}</Text>
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </View>
     </View>

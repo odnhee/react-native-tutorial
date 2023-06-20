@@ -110,6 +110,14 @@
 
   - `app.json` 파일을 수정하여 구현하는 방식인 만큼, EAS를 통한 빌드 후 작동 테스트 예정
 
+  - 테스트 결과, `kotlinVersion` 오류로 인해 빌드 실패
+
+    ```bash
+    [stderr] The Android Gradle plugin supports only Kotlin Gradle plugin version 1.5.20 and higher.
+    [stderr] The following dependencies do not satisfy the required version:
+    [stderr] root project 'video-test' -> org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10
+    ```
+
 <br/>
 
 ## 💡 기타 참고 사항
