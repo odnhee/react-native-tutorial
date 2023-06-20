@@ -238,7 +238,13 @@ export default function App() {
         </View>
       ))}
 
-      <View style={{ alignItems: "center", marginTop: 30 }}>
+      <View
+        style={{
+          alignItems: "center",
+          marginTop: 30,
+          display: rotate ? "none" : "flex",
+        }}
+      >
         <Pressable onPress={loginWithKakao}>
           <Text style={{ fontSize: 15 }}>Kakao Login</Text>
         </Pressable>
