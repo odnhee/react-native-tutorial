@@ -75,9 +75,12 @@ export default function App() {
     }
   }, [notification]);
 
+  /**
+   * 앱 완전 종료 이벤트
+   */
   useEffect(() => {
     const backAction = () => {
-      Alert.alert("Exit App", "앱을 종료하시겠습니까?", [
+      Alert.alert("", "앱을 종료하시겠습니까?", [
         { text: "취소", onPress: () => null },
         { text: "확인", onPress: () => BackHandler.exitApp() },
       ]);
