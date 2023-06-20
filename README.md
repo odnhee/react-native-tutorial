@@ -110,13 +110,28 @@
 
   - `app.json` 파일을 수정하여 구현하는 방식인 만큼, EAS를 통한 빌드 후 작동 테스트 예정
 
-  - 테스트 결과, `kotlinVersion` 오류로 인해 빌드 실패
+  - ~~테스트 결과, `kotlinVersion` 오류로 인해 빌드 실패~~
 
     ```bash
     [stderr] The Android Gradle plugin supports only Kotlin Gradle plugin version 1.5.20 and higher.
     [stderr] The following dependencies do not satisfy the required version:
     [stderr] root project 'video-test' -> org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10
     ```
+
+    - `app.json` 수정을 통해 구현 성공
+
+      ```json
+      "plugins": [
+        [
+          "@react-native-seoul/kakao-login",
+          {
+            "kakaoAppKey": "KAKAO_네이티브_앱_키",
+            "kotlinVersion": "1.5.20" // -> 버전 수정
+             // 라이브러리에서 자체적으로 적용한 버전은 1.5.10
+          }
+        ]
+      ],
+      ```
 
 <br/>
 

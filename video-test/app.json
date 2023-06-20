@@ -14,7 +14,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -25,7 +27,9 @@
       },
       "package": "com.odndevel.videotest",
       "googleServicesFile": "./google-services.json",
-      "permissions": ["RECEIVE_BOOT_COMPLETED"]
+      "permissions": [
+        "RECEIVE_BOOT_COMPLETED"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -56,6 +60,12 @@
       "eas": {
         "projectId": "5194adf8-7c91-4ca2-815e-1405ebe8e31a"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/5194adf8-7c91-4ca2-815e-1405ebe8e31a"
     }
   }
 }
