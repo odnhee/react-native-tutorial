@@ -236,7 +236,7 @@ export default function App() {
           display: rotate ? "none" : "flex",
         }}
       >
-        {KakaoLogins.getProfile.accessToken === undefined ? (
+        {KakaoLogins.getProfile.id === undefined || "" ? (
           <Pressable onPress={async () => await KakaoLogins.login()}>
             <Text style={{ fontSize: 15 }}>Kakao Login</Text>
           </Pressable>
