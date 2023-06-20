@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert, Text, Pressable } from "react-native";
+import { View, Alert, Text, Pressable, BackHandler } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
@@ -74,6 +74,24 @@ export default function App() {
       console.log("Must use physical device for Push Notifications");
     }
   }, [notification]);
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Exit App", "앱을 종료하시겠습니까?", [
+        { text: "취소", onPress: () => null },
+        { text: "확인", onPress: () => BackHandler.exitApp() },
+      ]);
+
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {}, [isLoading]);
 
