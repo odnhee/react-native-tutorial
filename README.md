@@ -102,6 +102,16 @@
 
 <br/>
 
+### 카카오 로그인 구현
+
+- [`@react-native-seoul/kakao-login` GitHub](https://github.com/crossplatformkorea/react-native-kakao-login)
+
+  - [`config-plugin`을 설정하여 사용할 수 있는 방법이 존재하는 듯](https://velog.io/@uffetkk/expo%EC%97%90%EC%84%9C-%EC%9B%B9%EB%B7%B0%EC%97%86%EC%9D%B4-%EC%86%8C%EC%85%9C%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%95%98%EA%B8%B0)
+
+  - `app.json` 파일을 수정하여 구현하는 방식인 만큼, EAS를 통한 빌드 후 작동 테스트 예정
+
+<br/>
+
 ## 💡 기타 참고 사항
 
 ### [테스트용 비디오 모음 링크](https://gist.github.com/jsturgis/3b19447b304616f18657)
