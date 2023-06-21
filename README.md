@@ -141,6 +141,16 @@
 
     - 이 후의 진행 사항은 빌드를 통해서만 확인이 가능함
 
+### 휴대폰 인증
+
+- [아임포트 결제 및 휴대폰 인증](https://github.com/iamport/iamport-react-native)
+
+  - [Expo와 아임포트 연동](https://github.com/iamport/iamport-react-native/blob/main/manuals/EXPO.md)
+
+- [나이스 본인인증 PASS 사용](https://velog.io/@soonmuu/React-Native-%EB%82%98%EC%9D%B4%EC%8A%A4-%EB%B3%B8%EC%9D%B8%EC%9D%B8%EC%A6%9D-pass-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
+
+  - Expo 환경에서는 `eject` 후 사용 가능
+
 <br/>
 
 ## 💡 기타 참고 사항

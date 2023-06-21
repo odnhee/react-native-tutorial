@@ -71,7 +71,14 @@ const VideoSection = ({
   return (
     <View style={!rotate ? "" : styles.rotateView}>
       <View style={!rotate ? "" : styles.rotateVideoWrapper}>
-        {!isLoading && <Skeleton width="100%" paddingTop="56.25%" />}
+        {!isLoading && (
+          <Skeleton
+            width={`${!rotate ? VIDEOWIDTH_PORTRAIT : VIDEOWIDTH_LANDSCAPE}%`}
+            paddingTop={`${
+              !rotate ? VIDEOHEIGHT_PORTRAIT : VIDEOHEIGHT_LANDSCAPE
+            }%`}
+          />
+        )}
         <Video
           source={res.source}
           shouldPlay
