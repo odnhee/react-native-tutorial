@@ -6,7 +6,8 @@ export const data = [
     id: 0,
     source: {
       // uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
-      uri: "https://1tv.gscdn.kbs.co.kr/1tv_3.m3u8?Expires=1686976219&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xdHYuZ3NjZG4ua2JzLmNvLmtyLzF0dl8zLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODY5NzYyMTl9fX1dfQ__&Signature=kbeLnQZKm8FqAvmwi71yrSO7q6ThTkpXLjz8k7ZLiiWyzH4rYy~ZQzbaPoly-ZzRlxLqR4hLnSfhnRtduHOUtKinanoQkl13MiQLaCEz-rYcW41O7woJ04iDriJPKFHmDstWa~k99PAtVHpkxzZ6HgXee6D~ZAiFVz1OXlGpvf~phQR7Y-QxMSHq5WUtp-SwRZ1t3Zc6s-3eRw4dlh~0a4SyTjjJyScNzunRpU-~x3i0jajbPss1VXQcYvzdW8~xR0rpxqSgRJ2OFYMF15eR80sXYrHpGEnpfg6whSmEF0vtOlx4cMtkfYSdKO4GrZaN6SKObbn7XmfJKEnvgSU2kQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA",
+      // uri: "https://1tv.gscdn.kbs.co.kr/1tv_3.m3u8?Expires=1686976219&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xdHYuZ3NjZG4ua2JzLmNvLmtyLzF0dl8zLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODY5NzYyMTl9fX1dfQ__&Signature=kbeLnQZKm8FqAvmwi71yrSO7q6ThTkpXLjz8k7ZLiiWyzH4rYy~ZQzbaPoly-ZzRlxLqR4hLnSfhnRtduHOUtKinanoQkl13MiQLaCEz-rYcW41O7woJ04iDriJPKFHmDstWa~k99PAtVHpkxzZ6HgXee6D~ZAiFVz1OXlGpvf~phQR7Y-QxMSHq5WUtp-SwRZ1t3Zc6s-3eRw4dlh~0a4SyTjjJyScNzunRpU-~x3i0jajbPss1VXQcYvzdW8~xR0rpxqSgRJ2OFYMF15eR80sXYrHpGEnpfg6whSmEF0vtOlx4cMtkfYSdKO4GrZaN6SKObbn7XmfJKEnvgSU2kQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA",
+      uri: "https://testvidoebucket.s3.ap-northeast-2.amazonaws.com/stream.m3u8",
     },
     title: "m3u8 source",
   },
