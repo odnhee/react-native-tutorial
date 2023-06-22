@@ -236,7 +236,7 @@ export default function App() {
           display: rotate ? "none" : "flex",
         }}
       >
-        {KakaoLogins.getProfile.id === undefined || "" ? (
+        {/* {KakaoLogins.getProfile.id === undefined || "" ? (
           <Pressable onPress={async () => await KakaoLogins.login()}>
             <Text style={{ fontSize: 15 }}>Kakao Login</Text>
           </Pressable>
@@ -244,7 +244,10 @@ export default function App() {
           <Pressable onPress={async () => await KakaoLogins.logout()}>
             <Text style={{ fontSize: 15 }}>Kakao Logout</Text>
           </Pressable>
-        )}
+        )} */}
+        <Pressable onPress={async () => await KakaoLogins.login()}>
+          <Text style={{ fontSize: 15 }}>Kakao Login</Text>
+        </Pressable>
       </View>
     </View>
   );

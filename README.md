@@ -153,6 +153,18 @@
 
 <br/>
 
+## 📂 video-test-copy
+
+### `expo eject`
+
+- ~~`expo eject`은 삽질~~ -> `npx expo prebuild`를 통해서 최신 SDK를 eject 가능
+
+  - 안드로이드 스튜디오에서 📂 android를 프로젝트로 열어서 jdk 버전(`jdk17`)을 맞춰야 할 수 있음
+
+    <img src='./video-test-copy/assets/androidStudioSetting.png' width='80%'>
+
+<br/>
+
 ## 💡 기타 참고 사항
 
 ### [테스트용 비디오 모음 링크](https://gist.github.com/jsturgis/3b19447b304616f18657)
