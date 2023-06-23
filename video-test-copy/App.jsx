@@ -19,9 +19,7 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Main} />
       </Stack.Navigator>
-      {/* <Main /> */}
     </NavigationContainer>
-    // <Main />
   );
 }
 

@@ -159,9 +159,34 @@
 
 - ~~`expo eject`은 삽질~~ -> `npx expo prebuild`를 통해서 최신 SDK를 eject 가능
 
-  - 안드로이드 스튜디오에서 📂 android를 프로젝트로 열어서 jdk 버전(`jdk17`)을 맞춰야 할 수 있음
+  - 안드로이드 스튜디오에서 📂 android를 프로젝트로 열어서 jdk 버전(`17.0.6`)을 맞춰야 할 수 있음
 
     <img src='./video-test-copy/assets/androidStudioSetting.png' width='80%'>
+
+### `React Navigation`
+
+- Expo 환경에서는 문제없이 돌아가지만, `prebuild` 후에 문제가 됨
+
+  - `RNSScreenStackHeaderConfig` 에러 메세지
+
+- 해결 방법
+
+  - 해당 프로젝트를 안드로이드 스튜디오로 실행 (버전 자동 동기화를 위함)
+
+    - 안드로이드 스튜디오 > 해당 프로젝트 > 📂 android
+
+  - ⚙️ Project Structure > Project
+
+    | Name                          | Version |
+    | ----------------------------- | ------- |
+    | Android Gradle Plugin Version | 7.4.1   |
+    | Gradle Version                | 7.5.1   |
+
+  - 🔧 Preferences > Build, Execution, Deployment > Build Tools > Gradle
+
+    | Name       | Version                 |
+    | ---------- | ----------------------- |
+    | Gradle JDK | 17.0.6 (jbr-17, etc...) |
 
 <br/>
 
