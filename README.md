@@ -215,3 +215,11 @@
   - Toast 커스텀이 비교적 쉬운 편 (ref를 이용)
 
   - 마찬가지로 Confirm이 가능한지는 확인 필요
+
+### Expo Splash
+
+- [`expo-splash-screen`](https://docs.expo.dev/versions/latest/sdk/splash-screen/)
+
+  - 기본적으로 Expo를 세팅하면 자동으로 라이브러리 설치됨
+
+- [도움되는 블로그](https://bskyvision.com/entry/react-native%EB%A1%9C-%EC%9B%B9%EB%B7%B0%EC%95%B1-%EB%A7%8C%EB%93%A4%EA%B8%B0)
