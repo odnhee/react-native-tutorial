@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert, Text, Pressable, BackHandler } from "react-native";
+import { View, Alert, Text, Pressable } from "react-native";
 import { captureRef } from "react-native-view-shot";
-import { StatusBar } from "expo-status-bar";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
@@ -23,6 +22,7 @@ import {
   registerForPushNotificationsAsync,
   schedulePushNotification,
 } from "../config/useNotification";
+import { useNavigation } from "@react-navigation/native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -42,7 +42,8 @@ export default function Main() {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
+
+  const navigation = useNavigation();
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
 
@@ -75,27 +76,6 @@ export default function Main() {
       console.log("Must use physical device for Push Notifications");
     }
   }, [notification]);
-
-  /**
-   * 앱 완전 종료 이벤트
-   */
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert("", "앱을 종료하시겠습니까?", [
-        { text: "취소", onPress: () => null },
-        { text: "확인", onPress: () => BackHandler.exitApp() },
-      ]);
-
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove();
-  }, []);
 
   useEffect(() => {}, [isLoading]);
 
@@ -197,21 +177,6 @@ export default function Main() {
     schedulePushNotification(title, body, type);
   };
 
-  const login = () => {
-    KakaoLogins.login()
-      .then((result) => {
-        getProfile();
-        // console.log(`Login Finished:${JSON.stringify(result)}`);
-      })
-      .catch((err) => {
-        if (err.code === "E_CANCELLED_OPERATION") {
-          console.log(`Login Cancelled:${err.message}`);
-        } else {
-          console.log(`Login Failed:${err.code} ${err.message}`);
-        }
-      });
-  };
-
   const getInfo = () => {
     KakaoLogins.getProfile()
       .then((result) => {
@@ -228,8 +193,9 @@ nickname: ${result.nickname}
   };
 
   const logout = () => {
-    KakaoLogins.logout();
-    setUserEmail("");
+    KakaoLogins.logout().then(() => {
+      navigation.navigate("Login");
+    });
   };
 
   return (
@@ -244,7 +210,6 @@ nickname: ${result.nickname}
       ]}
       showsVerticalScrollIndicator={false}
     >
-      <StatusBar style={rotate ? "light" : "auto"} />
       {data.map((res) => (
         <View key={res.id}>
           <VideoSection
@@ -272,25 +237,12 @@ nickname: ${result.nickname}
           display: rotate ? "none" : "flex",
         }}
       >
-        {userEmail !== "" ? (
-          <>
-            <Text
-              style={{ fontSize: 15, paddingBottom: 10, fontWeight: "bold" }}
-            >
-              Welcome {userEmail}
-            </Text>
-            <Pressable onPress={logout}>
-              <Text style={{ fontSize: 15 }}>Kakao Logout</Text>
-            </Pressable>
-          </>
-        ) : (
-          <Pressable onPress={login}>
-            <Text style={{ fontSize: 15 }}>Kakao Login</Text>
-          </Pressable>
-        )}
-
         <Pressable onPress={getInfo}>
           <Text style={{ fontSize: 15 }}>Kakao Profile</Text>
+        </Pressable>
+
+        <Pressable onPress={logout}>
+          <Text style={{ fontSize: 15 }}>Kakao Logout</Text>
         </Pressable>
       </View>
     </View>

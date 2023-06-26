@@ -6,7 +6,7 @@ export const data = [
     id: 0,
     source: {
       // uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
-      uri: "https://1tv.gscdn.kbs.co.kr/1tv_3.m3u8?Expires=1687652155&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xdHYuZ3NjZG4ua2JzLmNvLmtyLzF0dl8zLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODc2NTIxNTV9fX1dfQ__&Signature=aIyM8uk34hvmi4A3Y9ols7Qw-7z8nfpmv-pX7zt7RViX9VSxCIYfbFFIXLKoQcMngoiNyjd7iqzhHw69vDBV9PcLpABJmnQ-pCcLEgzAg5XZDw3KqaQh5rHxpTpZKluWVwB3w848PjiTlSHkXKN1vPsrmD5Zhi-4z0h4idvho-hFUCJ~MWerRDTlVwhuIBKVGsLem6QW-23aHxaW34tEflnNGp6X31wPnWhwHWcABgSnso5O0pKAQ5~-m-h3G~~dA1L0iE1bOyaGe1W9XHj-ngyIwbw47EwikZwrbWzs4eNOu9AlKhkomEW7lTADrZXYxX-EBpPBOmpIKXA6nf3yFA__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA",
+      uri: "https://1tv.gscdn.kbs.co.kr/1tv_3.m3u8?Expires=1687910791&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xdHYuZ3NjZG4ua2JzLmNvLmtyLzF0dl8zLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODc5MTA3OTF9fX1dfQ__&Signature=Bsc8ilTQLA66jrf3hP6UCV8ONU2Ng3dJQzQ7LDLpspbiPHkXpAFPxfgOb-ubyzlRk2dLsHBORBfq18-pX3AD-Bqqj3kg3F~OD~TYP0g4V7HiixCfMOYTE8frKyZQ0~kF7sUlQcatQ~4PnXd0zWgWIA0d8n5t5vXLoE1PTgjXoV2B~CNOHvRhjH59Qi3PpUZdHr2MEu8vuH9iWw0X1hUEWn~gQBX7iF5JRrrmZ4pHv1KfGTGOBaZdazY~iAVYtRf1IHZfujmKcTIwvPXRvbQEFihyPmPgBX7R5vAUfDXBFE0xjy2oO~6E9z9zQ4Ny4MED2hZE1qxng4hrynAzkDox5A__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA",
     }, // -> KBS Live
     title: "m3u8 source",
   },
