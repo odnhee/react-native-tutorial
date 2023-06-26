@@ -214,7 +214,7 @@ Email : ${res.data.kakao_account.email}
     const accessToken = await AsyncStorage.getItem("userAccessToken");
 
     axios({
-      method: "get",
+      method: "post",
       url: "https://kapi.kakao.com/v1/user/logout",
       headers: {
         Authorization: `Bearer ${accessToken}`,

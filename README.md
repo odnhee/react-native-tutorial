@@ -100,9 +100,101 @@
 
 </details>
 
-<br/>
+### 카카오 로그인 (REST API + WebView 사용)
 
-### 카카오 로그인 구현
+- Expo 환경에서 테스트 가능
+
+- [유용한 블로그 링크](https://angelpsyche.tistory.com/62)
+
+- 개발 환경에서의 WebView에 보여줄 uri ex) http://172.30.1.48:19000/KakaoLogin
+
+  - http://172.30.1.48:19000 -> Expo 기본 URL (exp://172.30.1.48:19000)
+
+  - Kakao developers의 카카오 로그인에 Redirect URI를 등록해야 함
+
+- 웹뷰를 통해 카카오 로그인 창이 뜨며, 로그인을 위한 동의 항목 체크 페이지로 Redirect됨
+
+- [인가 코드 받기](./video-test/screens/KakaoLogin.jsx)
+
+  ```JavaScript
+    uri: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`
+  ```
+
+- 액세스 토큰 발행
+
+  ```JavaScript
+    import AsyncStorage from "@react-native-async-storage/async-storage";
+    import axios from "axios";
+
+    // 발급받은 액세스 토큰을 react native의 async-storage에 저장하여 다른 페이지에서도 활용 가능
+    const storeToken = async (accessToken) => {
+      try {
+        await AsyncStorage.setItem("userAccessToken", accessToken);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    axios({
+      method: "post",
+      url: "https://kauth.kakao.com/oauth/token",
+      params: {
+        grant_type: "authorization_code",
+        client_id: REST_API_KEY,
+        redirect_uri: REDIRECT_URI,
+        code: `${위에서 받은 인가코드}`,
+      },
+    })
+      .then((res) => {
+        accessToken = res.data.access_token;
+        storeToken(accessToken);
+      })
+      .catch((error) => {
+        console.log(`Error : ${error}`);
+      });
+  ```
+
+- 발급받은 액세스 토큰을 통한 유저 정보 가져오기
+
+  ```JavaScript
+  import AsyncStorage from "@react-native-async-storage/async-storage";
+  import axios from "axios";
+
+  const getInfo = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem("userAccessToken");
+      // 저장된 액세스 토큰에 접근
+
+      if (accessToken !== null) {
+        axios({
+          method: "get",
+          url: "https://kapi.kakao.com/v2/user/me",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+          .then((res) => {
+            console.log(
+              `
+              userAccessToken : ${accessToken}
+              Nickname : ${res.data.kakao_account.profile.nickname}
+              Email : ${res.data.kakao_account.email}
+              `
+            );
+          })
+          .catch((err) => {
+            console.log(`Error : ${err}`);
+          });
+        }
+      } catch (err) {
+        console.log("error", accessToken);
+      }
+    };
+  ```
+
+### 카카오 로그인 구현 (SDK 사용)
+
+- `EAS build` or `prebuild`를 통해서만 테스트 가능
 
 - [`@react-native-seoul/kakao-login` GitHub](https://github.com/crossplatformkorea/react-native-kakao-login)
 

@@ -1,6 +1,4 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { styles } from "../config/globalStyles";
 import WebView from "react-native-webview";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
