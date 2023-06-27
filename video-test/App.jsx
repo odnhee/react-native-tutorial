@@ -21,10 +21,7 @@ function App() {
         // { text: "확인", onPress: () => RNExitApp.exitApp() },
         {
           text: "확인",
-          onPress: () => {
-            BackHandler.exitApp();
-            return false;
-          },
+          onPress: () => BackHandler.exitApp(),
         },
       ]);
 
