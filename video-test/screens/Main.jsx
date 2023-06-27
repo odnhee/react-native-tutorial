@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert, Text, Pressable } from "react-native";
+import { View, Alert, Text, Pressable, Modal } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
@@ -23,6 +23,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { Picker } from "@react-native-picker/picker";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -34,13 +35,16 @@ Notifications.setNotificationHandler({
 
 export default function Main() {
   const videoRefs = useRef([]);
-  const notificationListener = useRef();
+  const notificationListener = useRef("");
 
   const [rotate, setRotate] = useState(false);
   const [playStatus, setPlayStatus] = useState({});
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [testValue, setTestValue] = useState();
+  const [userProfile, setUserProfile] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
 
@@ -189,14 +193,12 @@ export default function Main() {
             Authorization: `Bearer ${accessToken}`,
           },
         })
-          .then((res) => {
-            console.log(
-              `
-userAccessToken : ${accessToken}
-Nickname : ${res.data.kakao_account.profile.nickname}
-Email : ${res.data.kakao_account.email}
-              `
-            );
+          .then(async (res) => {
+            setUserProfile({
+              userAccessToken: accessToken,
+              Nickname: res.data.kakao_account.profile.nickname,
+              Email: res.data.kakao_account.email,
+            });
           })
           .catch((err) => {
             console.log(`Error : ${err}`);
@@ -205,6 +207,7 @@ Email : ${res.data.kakao_account.email}
     } catch (err) {
       console.log("error", accessToken);
     }
+    console.log(userProfile);
   };
 
   /**
@@ -261,7 +264,6 @@ Email : ${res.data.kakao_account.email}
           justifyContent: "center",
         },
       ]}
-      showsVerticalScrollIndicator={false}
     >
       {data.map((res) => (
         <View key={res.id}>
@@ -290,7 +292,13 @@ Email : ${res.data.kakao_account.email}
           display: rotate ? "none" : "flex",
         }}
       >
-        <Pressable onPress={getInfo} style={{ paddingBottom: 10 }}>
+        <Pressable
+          onPress={() => {
+            getInfo();
+            setModalVisible(true);
+          }}
+          style={{ paddingBottom: 10 }}
+        >
           <Text style={{ fontSize: 20 }}>Kakao Profile</Text>
         </Pressable>
 
@@ -301,6 +309,57 @@ Email : ${res.data.kakao_account.email}
         <Pressable onPress={unlink} style={{ paddingBottom: 10 }}>
           <Text style={{ fontSize: 20 }}>Kakao Unlink</Text>
         </Pressable>
+      </View>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
+        <View
+          style={{
+            marginVertical: 30,
+            marginHorizontal: 90,
+            backgroundColor: "white",
+            borderRadius: 20,
+            padding: 35,
+            alignItems: "center",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 4,
+            elevation: 5,
+          }}
+        >
+          <Text style={{ paddingBottom: 10 }}>{userProfile?.Nickname}</Text>
+          <Text>{userProfile?.Email}</Text>
+
+          <Pressable
+            style={{ position: "absolute", right: 20, top: 10 }}
+            onPress={() => setModalVisible(!modalVisible)}
+          >
+            <Text style={styles.textStyle}>✕</Text>
+          </Pressable>
+        </View>
+      </Modal>
+
+      <View style={{ alignItems: "center" }}>
+        <Picker
+          style={{
+            color: "white",
+            backgroundColor: "gray",
+            width: 300,
+          }}
+          selectedValue={testValue}
+          onValueChange={(itemValue) => setTestValue(itemValue)}
+        >
+          <Picker.Item label="Test1" value="Test1" />
+          <Picker.Item label="Test2" value="Test2" />
+        </Picker>
       </View>
     </View>
   );
