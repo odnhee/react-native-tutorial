@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert, Text, Pressable, Modal } from "react-native";
+import { View, Alert } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { data } from "../data";
 import {
   DATE,
@@ -20,10 +23,10 @@ import {
   registerForPushNotificationsAsync,
   schedulePushNotification,
 } from "../config/useNotification";
-import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { Picker } from "@react-native-picker/picker";
+import KakaoSection from "../components/KakaoSection";
+import ModalSection from "../components/ModalSection";
+import PickerSection from "../components/PickerSection";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -285,82 +288,21 @@ export default function Main() {
         </View>
       ))}
 
-      <View
-        style={{
-          alignItems: "center",
-          marginTop: 30,
-          display: rotate ? "none" : "flex",
-        }}
-      >
-        <Pressable
-          onPress={() => {
-            getInfo();
-            setModalVisible(true);
-          }}
-          style={{ paddingBottom: 10 }}
-        >
-          <Text style={{ fontSize: 20 }}>Kakao Profile</Text>
-        </Pressable>
+      <KakaoSection
+        getInfo={getInfo}
+        logout={logout}
+        unlink={unlink}
+        setModalVisible={setModalVisible}
+        rotate={rotate}
+      />
 
-        <Pressable onPress={logout} style={{ paddingBottom: 10 }}>
-          <Text style={{ fontSize: 20 }}>Kakao Logout</Text>
-        </Pressable>
+      <ModalSection
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        userProfile={userProfile}
+      />
 
-        <Pressable onPress={unlink} style={{ paddingBottom: 10 }}>
-          <Text style={{ fontSize: 20 }}>Kakao Unlink</Text>
-        </Pressable>
-      </View>
-
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
-        <View
-          style={{
-            marginVertical: 30,
-            marginHorizontal: 90,
-            backgroundColor: "white",
-            borderRadius: 20,
-            padding: 35,
-            alignItems: "center",
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 4,
-            elevation: 5,
-          }}
-        >
-          <Text style={{ paddingBottom: 10 }}>{userProfile?.Nickname}</Text>
-          <Text>{userProfile?.Email}</Text>
-
-          <Pressable
-            style={{ position: "absolute", right: 20, top: 10 }}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <Text style={styles.textStyle}>✕</Text>
-          </Pressable>
-        </View>
-      </Modal>
-
-      <View style={{ alignItems: "center" }}>
-        <Picker
-          style={{
-            color: "white",
-            backgroundColor: "gray",
-            width: 300,
-          }}
-          selectedValue={testValue}
-          onValueChange={(itemValue) => setTestValue(itemValue)}
-        >
-          <Picker.Item label="Test1" value="Test1" />
-          <Picker.Item label="Test2" value="Test2" />
-        </Picker>
-      </View>
+      <PickerSection testValue={testValue} setTestValue={setTestValue} />
     </View>
   );
 }
