@@ -5,6 +5,10 @@ export const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
   },
+  buoyContainer: {
+    paddingTop: Constants.statusBarHeight + 20,
+    marginHorizontal: 20,
+  },
   defaultButton: {
     display: "flex",
     flexDirection: "row",

@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, BackHandler, Pressable, Text } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
-import { useNavigation } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { data } from "../data";
@@ -301,6 +301,17 @@ export default function Main() {
         setModalVisible={setModalVisible}
         userProfile={userProfile}
       />
+
+      <Pressable
+        onPress={() => navigation.navigate("Buoy")}
+        style={{
+          paddingBottom: 10,
+          alignItems: "center",
+          display: rotate ? "none" : "flex",
+        }}
+      >
+        <Text style={{ fontSize: 20 }}>Buoy Info</Text>
+      </Pressable>
 
       <PickerSection testValue={testValue} setTestValue={setTestValue} />
     </View>
