@@ -6,7 +6,6 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import * as KakaoLogins from "@react-native-seoul/kakao-login";
-
 import { data } from "../data";
 import {
   DATE,
@@ -42,7 +41,7 @@ export default function Main() {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [storeData, setStoreData] = useState([]);
   const navigation = useNavigation();
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
@@ -91,6 +90,34 @@ export default function Main() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
 
+  /** 선택한 사진 저장하기 */
+  const onSave = () => {
+    storeData.map(async (data) => {
+      await MediaLibrary.saveToLibraryAsync(data.uri);
+    });
+  };
+  /** 사진 선택
+   *  selectStorage에 저장
+   *
+   */
+  const selectToSave = (uri) => {
+    const date = new Date();
+    const _data = {
+      date: date.toLocaleDateString(),
+      time: date.toTimeString().split(" ", 1)[0],
+      uri: uri,
+    };
+    if (storeData.length === 0) {
+      setStoreData([_data]);
+    } else {
+      // const dummy = [...storeData, _data];
+      // console.log("storeData", storeData);
+      // console.log("_data", _data);
+      // console.log("dummy", dummy);
+      setStoreData([...storeData, _data]);
+    }
+  };
+
   /**
    * 스크린샷 함수
    *
@@ -105,8 +132,9 @@ export default function Main() {
         format: "png",
       });
 
-      await MediaLibrary.saveToLibraryAsync(localUri);
-
+      // await MediaLibrary.saveToLibraryAsync(localUri);
+      console.log("save");
+      selectToSave(localUri);
       if (localUri) {
         Alert.alert("영상을 캡쳐했습니다.", `${title}가 갤러리에 저장됩니다.`);
       }
@@ -243,6 +271,9 @@ nickname: ${result.nickname}
 
         <Pressable onPress={logout}>
           <Text style={{ fontSize: 15 }}>Kakao Logout</Text>
+        </Pressable>
+        <Pressable onPress={onSave}>
+          <Text style={{ fontSize: 15 }}>onSave</Text>
         </Pressable>
       </View>
     </View>
