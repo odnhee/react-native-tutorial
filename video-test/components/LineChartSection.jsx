@@ -30,8 +30,10 @@ const LineChartSection = ({ id }) => {
     isFetching: phIsFetching,
   } = useBuoyPh(id);
 
+  // data?.map((res) => console.log(new Date(res?.measured_time).toUTCString()));
+
   const temperatureData = {
-    // labels: data?.map((res) => [res?.measured_time]),
+    // labels: data?.map((res) => [new Date(res?.measured_time).toUTCString()]),
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [
       {
@@ -44,7 +46,7 @@ const LineChartSection = ({ id }) => {
   };
 
   const mplData = {
-    // labels: data?.map((res) => [res?.measured_time]),
+    // labels: data?.map((res) => [new Date(res?.measured_time).toUTCString()]),
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [
       {
@@ -57,7 +59,7 @@ const LineChartSection = ({ id }) => {
   };
 
   const phData = {
-    // labels: data?.map((res) => [res?.measured_time]),
+    // labels: phsData?.map((res) => [new Date(res?.measured_time).toUTCString()]),
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [
       {
@@ -107,7 +109,11 @@ const LineChartSection = ({ id }) => {
 
   return (
     <>
-      <FlashMessage duration={2000} position="bottom" />
+      <FlashMessage
+        duration={2000}
+        position="bottom"
+        style={{ borderRadius: 15, marginVertical: 15, marginHorizontal: 20 }}
+      />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {data[0] === undefined || data.length < 10 ? (
