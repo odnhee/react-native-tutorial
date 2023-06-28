@@ -1,6 +1,5 @@
 import React from "react";
 import WebView from "react-native-webview";
-import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -8,9 +7,7 @@ const REST_API_KEY = "19b015d6cac7c6e203b0942fd639fc6b";
 const REDIRECT_URI = "http://172.30.1.48:19000/KakaoLogin";
 const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
 
-const KakaoLogin = () => {
-  const navigation = useNavigation();
-
+const KakaoLogin = ({ navigation }) => {
   function KakaoLoginWebView(data) {
     const exp = "code=";
     const error_description = "error_description=";

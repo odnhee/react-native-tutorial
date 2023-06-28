@@ -1,11 +1,10 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Dimensions } from "react-native";
 import React from "react";
-import { useRoute } from "@react-navigation/native";
 import { useBuoyDetail } from "../hooks/useBuoyDetail";
 import { styles } from "../config/globalStyles";
+import LineChartSection from "../components/LineChartSection";
 
-const BuoyDetail = () => {
-  const route = useRoute();
+const BuoyDetail = ({ route }) => {
   const { id } = route.params;
 
   const { status, data, error, isFetching } = useBuoyDetail(id);
@@ -29,32 +28,34 @@ const BuoyDetail = () => {
   }
 
   return (
-    <View style={styles.buoyContainer}>
-      <View style={{ paddingVertical: 10, flexDirection: "column", gap: 10 }}>
-        <Text>
-          {data?.serial_number}
-          {data?.device_id}
-        </Text>
-        <Text>Device Type : {data?.device_type}</Text>
+    <>
+      <View style={styles.buoyContainer}>
+        <View style={{ paddingVertical: 10, flexDirection: "column", gap: 10 }}>
+          <Text>
+            {data?.serial_number}
+            {data?.device_id}
+          </Text>
+          <Text>Device Type : {data?.device_type}</Text>
 
-        <Text>Battery : {data?.battery}%</Text>
+          <Text>Battery : {data?.battery}%</Text>
 
-        <Text>Owner : {data?.owner}</Text>
+          <Text>Owner : {data?.owner}</Text>
 
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text>Operating State </Text>
-          <View
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: 10 / 2,
-              backgroundColor: data?.operating_state === true ? "green" : "red",
-              marginLeft: 5,
-            }}
-          />
-        </View>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text>Operating State </Text>
+            <View
+              style={{
+                width: 10,
+                height: 10,
+                borderRadius: 10 / 2,
+                backgroundColor:
+                  data?.operating_state === true ? "green" : "red",
+                marginLeft: 5,
+              }}
+            />
+          </View>
 
-        <Pressable style={{ flexDirection: "row", alignItems: "center" }}>
+          {/* <Pressable style={{ flexDirection: "row", alignItems: "center" }}>
           <Text>
             {data?.serial_number}
             {data?.device_id} Oxygen Data (Pagenation)
@@ -66,9 +67,12 @@ const BuoyDetail = () => {
             {data?.serial_number}
             {data?.device_id} Oxygen Data (Infinite)
           </Text>
-        </Pressable>
+        </Pressable> */}
+        </View>
       </View>
-    </View>
+
+      <LineChartSection id={id} />
+    </>
   );
 };
 

@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Alert, BackHandler, Pressable, Text } from "react-native";
+import { View, Alert, Pressable, Text } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
-import { Link, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { data } from "../data";
@@ -36,7 +35,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function Main() {
+export default function Main({ navigation, route }) {
   const videoRefs = useRef([]);
   const notificationListener = useRef("");
 
@@ -48,8 +47,6 @@ export default function Main() {
   const [testValue, setTestValue] = useState();
   const [userProfile, setUserProfile] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
-
-  const navigation = useNavigation();
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
 

@@ -1,11 +1,8 @@
 import { View, Text, Pressable, Image } from "react-native";
-import React, { useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import { styles } from "../config/globalStyles";
 
-const Login = () => {
-  const navigation = useNavigation();
-
+const Login = ({ navigation }) => {
   return (
     <View
       style={[

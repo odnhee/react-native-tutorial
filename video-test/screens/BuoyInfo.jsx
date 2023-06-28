@@ -1,14 +1,10 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
 import { styles } from "../config/globalStyles";
-import { Link, useNavigation, useRoute } from "@react-navigation/native";
 import { useBuoy } from "../hooks/useBuoy";
 
-const BuoyInfo = () => {
+const BuoyInfo = ({ route, navigation }) => {
   const { status, data, error, isFetching } = useBuoy();
-
-  const route = useRoute();
-  const navigation = useNavigation();
 
   if (isFetching) {
     return (

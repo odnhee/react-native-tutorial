@@ -18,22 +18,24 @@ function App() {
   //  * 앱 완전 종료 이벤트
   //  */
   // useEffect(() => {
-  //   const backAction = () => {
-  //     Alert.alert("", "앱을 종료하시겠습니까?", [
-  //       { text: "취소", onPress: () => null },
-  //       // { text: "확인", onPress: () => RNExitApp.exitApp() },
-  //       { text: "확인", onPress: () => BackHandler.exitApp() },
-  //     ]);
+  //   if (url === "Home") {
+  //     const backAction = () => {
+  //       Alert.alert("", "앱을 종료하시겠습니까?", [
+  //         { text: "취소", onPress: () => null },
+  //         // { text: "확인", onPress: () => RNExitApp.exitApp() },
+  //         { text: "확인", onPress: () => BackHandler.exitApp() },
+  //       ]);
 
-  //     return true;
-  //   };
+  //       return true;
+  //     };
 
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
+  //     const backHandler = BackHandler.addEventListener(
+  //       "hardwareBackPress",
+  //       backAction
+  //     );
 
-  //   return () => backHandler.remove();
+  //     return () => backHandler.remove();
+  //   }
   // }, []);
 
   const queryClient = new QueryClient();
