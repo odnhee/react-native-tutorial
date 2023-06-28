@@ -1,4 +1,4 @@
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, ScrollView } from "react-native";
 import React from "react";
 import { LineChart } from "react-native-chart-kit";
 import { useBuoyOxygen } from "../hooks/useBuoyOxygen";
@@ -19,7 +19,7 @@ const screenWidth = Dimensions.get("window").width;
 const LineChartSection = ({ id }) => {
   const { status, data, error, isFetching } = useBuoyOxygen(id);
 
-  const chartData = {
+  const temperatureData = {
     // labels: data?.map((res) => [res?.measured_time]),
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [
@@ -29,7 +29,33 @@ const LineChartSection = ({ id }) => {
         strokeWidth: 5, // optional
       },
     ],
-    legend: ["Oxygen Temperature"], // optional
+    legend: ["수온"], // optional
+  };
+
+  const perData = {
+    // labels: data?.map((res) => [res?.measured_time]),
+    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    datasets: [
+      {
+        data: data?.map((res) => [res?.oxygen_per]),
+        color: (opacity = 1) => `rgba(50, 50, 50, ${opacity})`, // optional
+        strokeWidth: 5, // optional
+      },
+    ],
+    legend: ["용존산소"], // optional
+  };
+
+  const ppmData = {
+    // labels: data?.map((res) => [res?.measured_time]),
+    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    datasets: [
+      {
+        data: data?.map((res) => [res?.oxygen_ppm]),
+        color: (opacity = 1) => `rgba(50, 50, 50, ${opacity})`, // optional
+        strokeWidth: 5, // optional
+      },
+    ],
+    legend: ["수소 이온 농도"], // optional
   };
 
   if (isFetching) {
@@ -51,33 +77,68 @@ const LineChartSection = ({ id }) => {
   }
 
   return (
-    <View
-      style={{
-        alignItems: "center",
-      }}
-    >
+    <ScrollView>
       {data[0] === undefined || data.length < 10 ? (
-        <Text>데이터가 없습니다.</Text>
+        <View style={{ alignItems: "center" }}>
+          <Text>수집된 데이터가 존재하지 않습니다.</Text>
+        </View>
       ) : (
-        <LineChart
-          data={chartData}
-          width={screenWidth - 30}
-          height={220}
-          chartConfig={chartConfig}
-          style={{
-            borderRadius: 15,
-            shadowOffset: {
-              width: 10,
-              height: 10,
-            },
-            shadowOpacity: 0.5,
-            shadowRadius: 15,
-            elevation: 5,
-          }}
-          bezier
-        />
+        <View style={{ gap: 20, alignItems: "center", paddingVertical: 20 }}>
+          <LineChart
+            data={temperatureData}
+            width={screenWidth - 30}
+            height={220}
+            chartConfig={chartConfig}
+            style={{
+              borderRadius: 15,
+              shadowOffset: {
+                width: 10,
+                height: 10,
+              },
+              shadowOpacity: 0.5,
+              shadowRadius: 15,
+              elevation: 5,
+            }}
+            bezier
+          />
+          <LineChart
+            data={perData}
+            width={screenWidth - 30}
+            height={220}
+            chartConfig={chartConfig}
+            style={{
+              borderRadius: 15,
+              shadowOffset: {
+                width: 10,
+                height: 10,
+              },
+              shadowOpacity: 0.5,
+              shadowRadius: 15,
+              elevation: 5,
+            }}
+            bezier
+          />
+
+          <LineChart
+            data={ppmData}
+            width={screenWidth - 30}
+            height={220}
+            chartConfig={chartConfig}
+            style={{
+              borderRadius: 15,
+              shadowOffset: {
+                width: 10,
+                height: 10,
+              },
+              shadowOpacity: 0.5,
+              shadowRadius: 15,
+              elevation: 5,
+            }}
+            bezier
+          />
+        </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

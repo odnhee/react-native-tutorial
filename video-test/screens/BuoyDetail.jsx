@@ -31,7 +31,9 @@ const BuoyDetail = ({ route }) => {
     <>
       <View style={styles.buoyContainer}>
         <View style={{ paddingVertical: 10, flexDirection: "column", gap: 10 }}>
-          <Text>
+          <Text
+            style={{ paddingVertical: 10, fontWeight: "bold", fontSize: 20 }}
+          >
             {data?.serial_number}
             {data?.device_id}
           </Text>
@@ -54,20 +56,6 @@ const BuoyDetail = ({ route }) => {
               }}
             />
           </View>
-
-          {/* <Pressable style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text>
-            {data?.serial_number}
-            {data?.device_id} Oxygen Data (Pagenation)
-          </Text>
-        </Pressable>
-
-        <Pressable style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text>
-            {data?.serial_number}
-            {data?.device_id} Oxygen Data (Infinite)
-          </Text>
-        </Pressable> */}
         </View>
       </View>
 
