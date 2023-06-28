@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
 import { styles } from "../config/globalStyles";
-import { useBuoy } from "../hooks/useBuoy";
+import { useBuoy } from "../api/useBuoy";
 
 const BuoyInfo = ({ route, navigation }) => {
   const { status, data, error, isFetching } = useBuoy();

@@ -1,7 +1,7 @@
 import { View, Text, Dimensions, ScrollView } from "react-native";
 import React from "react";
 import { LineChart } from "react-native-chart-kit";
-import { useBuoyOxygen, useBuoyPh } from "../hooks/useBuoyOxygen";
+import { useBuoyOxygen, useBuoyPh } from "../api/useBuoyOxygen";
 import { styles } from "../config/globalStyles";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 
@@ -109,7 +109,7 @@ const LineChartSection = ({ id }) => {
     <>
       <FlashMessage duration={2000} position="bottom" />
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {data[0] === undefined || data.length < 10 ? (
           <View style={{ alignItems: "center" }}>
             <Text>수집된 데이터가 존재하지 않습니다.</Text>

@@ -1,6 +1,6 @@
 import { View, Text, Pressable, Dimensions } from "react-native";
 import React from "react";
-import { useBuoyDetail } from "../hooks/useBuoyDetail";
+import { useBuoyDetail } from "../api/useBuoyDetail";
 import { styles } from "../config/globalStyles";
 import LineChartSection from "../components/LineChartSection";
 
