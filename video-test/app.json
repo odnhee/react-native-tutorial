@@ -14,9 +14,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -27,9 +25,7 @@
       },
       "package": "com.odndevel.videotest",
       "googleServicesFile": "./google-services.json",
-      "permissions": [
-        "RECEIVE_BOOT_COMPLETED"
-      ]
+      "permissions": ["RECEIVE_BOOT_COMPLETED"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -46,13 +42,6 @@
         {
           "icon": "./assets/alarm.png",
           "color": "#ffffff"
-        }
-      ],
-      [
-        "@react-native-seoul/kakao-login",
-        {
-          "kakaoAppKey": "a4ea280fed387f36908abe9ef7297276",
-          "kotlinVersion": "1.5.20"
         }
       ]
     ],

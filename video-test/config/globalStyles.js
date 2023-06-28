@@ -5,6 +5,10 @@ export const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
   },
+  buoyContainer: {
+    paddingTop: Constants.statusBarHeight + 20,
+    marginHorizontal: 20,
+  },
   defaultButton: {
     display: "flex",
     flexDirection: "row",
@@ -39,5 +43,26 @@ export const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 30,
+  },
+  modalView: {
+    marginVertical: 30,
+    marginHorizontal: 90,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalExit: {
+    position: "absolute",
+    right: 20,
+    top: 10,
   },
 });
