@@ -13,6 +13,12 @@ const getPhData = async ({ queryKey }) => {
   return await buoyRequest({ url: `/${id}/phs/?size=10` });
 };
 
+const getConductsData = async ({ queryKey }) => {
+  const id = queryKey[1];
+  // const pageNum = queryKey[2];
+  return await buoyRequest({ url: `/${id}/conducts/?size=10` });
+};
+
 export const useBuoyOxygen = (id) => {
   return useQuery(["oxygen", id], getOxygenData, {
     cacheTime: 5 * 60 * 1000, // 5분
@@ -37,6 +43,20 @@ export const useBuoyPh = (id) => {
     select: (data) => {
       const phData = data?.data.results?.map((res) => res);
       return phData;
+    },
+  });
+};
+
+export const useBuoyConducts = (id) => {
+  return useQuery(["conduct", id], getConductsData, {
+    cacheTime: 5 * 60 * 1000, // 5분
+    staleTime: 1 * 60 * 1000, // 1분
+    refetchOnWindowFocus: true, // 다른 창을 갔다가 돌아왔을 시, refetch
+    refetchOnMount: true,
+    retry: 2, // error시 fetch 재시도
+    select: (data) => {
+      const conductsData = data?.data.results?.map((res) => res);
+      return conductsData;
     },
   });
 };

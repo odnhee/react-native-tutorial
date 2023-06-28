@@ -1,7 +1,11 @@
 import { View, Text, Dimensions, ScrollView } from "react-native";
 import React from "react";
 import { LineChart } from "react-native-chart-kit";
-import { useBuoyOxygen, useBuoyPh } from "../api/useBuoyOxygen";
+import {
+  useBuoyConducts,
+  useBuoyOxygen,
+  useBuoyPh,
+} from "../api/useBuoyOxygen";
 import { styles } from "../config/globalStyles";
 import FlashMessage, { showMessage } from "react-native-flash-message";
 
@@ -29,6 +33,12 @@ const LineChartSection = ({ id }) => {
     error: phError,
     isFetching: phIsFetching,
   } = useBuoyPh(id);
+  const {
+    status: conductsStatus,
+    data: conductsData,
+    error: conductsError,
+    isFetching: conductsIsFetching,
+  } = useBuoyConducts(id);
 
   // data?.map((res) => console.log(new Date(res?.measured_time).toUTCString()));
 
@@ -70,6 +80,37 @@ const LineChartSection = ({ id }) => {
     ],
     legend: ["수소 이온 농도 (ph)"], // optional
   };
+
+  const conductData = {
+    // labels: phsData?.map((res) => [new Date(res?.measured_time).toUTCString()]),
+    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    datasets: [
+      {
+        data: conductsData?.map((res) => [res?.salinity]),
+        color: (opacity = 1) => `rgba(54, 103, 236, ${opacity})`, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+    legend: ["염도 (mV)"], // optional
+  };
+
+  if (conductsIsFetching) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  /** 아래 코드로 에러 핸들링 끝 */
+  if (conductsStatus === "error") {
+    // status -> success, loading, error...
+    return (
+      <View style={styles.container}>
+        <Text>Error : {conductsError.message}</Text>
+      </View>
+    );
+  }
 
   if (phIsFetching) {
     return (
@@ -127,7 +168,7 @@ const LineChartSection = ({ id }) => {
                 showMessage({
                   message: "수온",
                   description: `${parseFloat(value).toFixed(2)} ℃`,
-                  backgroundColor: getColor(0.7),
+                  backgroundColor: getColor(0.8),
                 })
               }
               data={temperatureData}
@@ -152,7 +193,7 @@ const LineChartSection = ({ id }) => {
                 showMessage({
                   message: "용존 산소",
                   description: `${parseFloat(value).toFixed(2)} mg/l`,
-                  backgroundColor: getColor(0.7),
+                  backgroundColor: getColor(0.8),
                 })
               }
               data={mplData}
@@ -177,10 +218,35 @@ const LineChartSection = ({ id }) => {
                 showMessage({
                   message: "수소 이온 농도",
                   description: `${parseFloat(value).toFixed(2)} ph`,
-                  backgroundColor: getColor(0.7),
+                  backgroundColor: getColor(0.8),
                 })
               }
               data={phData}
+              width={screenWidth - 30}
+              height={220}
+              chartConfig={chartConfig}
+              style={{
+                borderRadius: 15,
+                shadowOffset: {
+                  width: 10,
+                  height: 10,
+                },
+                shadowOpacity: 0.5,
+                shadowRadius: 15,
+                elevation: 5,
+              }}
+              bezier
+            />
+
+            <LineChart
+              onDataPointClick={({ value, getColor }) =>
+                showMessage({
+                  message: "염도",
+                  description: `${parseFloat(value).toFixed(2)} mV`,
+                  backgroundColor: getColor(0.8),
+                })
+              }
+              data={conductData}
               width={screenWidth - 30}
               height={220}
               chartConfig={chartConfig}
