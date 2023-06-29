@@ -1,5 +1,5 @@
 import { View, Text, Linking, Pressable } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Video, ResizeMode } from "expo-av";
 import {
   VIDEOHEIGHT_LANDSCAPE,
@@ -67,6 +67,20 @@ const VideoSection = ({
       text: "🔔",
     },
   ];
+  const [cur, setCur] = useState(true);
+  useEffect(() => {
+    console.log("cur", cur);
+    if (!cur) {
+      videoRefs.current[res.id].unloadAsync();
+      console.log("load stop!");
+    }
+    if (cur) {
+      videoRefs.current[res.id].loadAsync(res.source, { shouldPlay: true });
+    }
+  }, [cur]);
+  const btnPressable = () => {
+    setCur(!cur);
+  };
 
   return (
     <View style={!rotate ? "" : styles.rotateView}>
@@ -107,6 +121,9 @@ const VideoSection = ({
           </Pressable>
         ))}
       </View>
+      <Pressable onPress={btnPressable}>
+        <Text style={styles.buttonText}>눌러</Text>
+      </Pressable>
     </View>
   );
 };
