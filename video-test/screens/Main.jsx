@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { View, Alert, Pressable, Text } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
@@ -6,6 +6,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { data } from "../data";
 import {
@@ -35,7 +36,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function Main({ navigation, route }) {
+export default function Main({ navigation, route, setUrl }) {
   const videoRefs = useRef([]);
   const notificationListener = useRef("");
 
@@ -49,6 +50,12 @@ export default function Main({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  useFocusEffect(
+    useCallback(() => {
+      setUrl(route.name);
+    }, [])
+  );
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
@@ -300,7 +307,10 @@ export default function Main({ navigation, route }) {
       />
 
       <Pressable
-        onPress={() => navigation.navigate("Buoy")}
+        onPress={() => {
+          navigation.navigate("Buoy");
+          setUrl("Buoy");
+        }}
         style={{
           paddingBottom: 10,
           alignItems: "center",

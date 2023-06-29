@@ -1,5 +1,5 @@
 import Main from "./screens/Main";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
@@ -14,29 +14,35 @@ import BuoyDetail from "./screens/BuoyDetail";
 const Stack = createNativeStackNavigator();
 
 function App() {
-  // /**
-  //  * 앱 완전 종료 이벤트
-  //  */
-  // useEffect(() => {
-  //   if (url === "Home") {
-  //     const backAction = () => {
-  //       Alert.alert("", "앱을 종료하시겠습니까?", [
-  //         { text: "취소", onPress: () => null },
-  //         // { text: "확인", onPress: () => RNExitApp.exitApp() },
-  //         { text: "확인", onPress: () => BackHandler.exitApp() },
-  //       ]);
+  const [url, setUrl] = useState("");
 
-  //       return true;
-  //     };
+  useEffect(() => {
+    console.log(url);
+  }, [url]);
 
-  //     const backHandler = BackHandler.addEventListener(
-  //       "hardwareBackPress",
-  //       backAction
-  //     );
+  /**
+   * 앱 완전 종료 이벤트
+   */
+  useEffect(() => {
+    if (url === "Home") {
+      const backAction = () => {
+        Alert.alert("", "앱을 종료하시겠습니까?", [
+          { text: "취소", onPress: () => null },
+          // { text: "확인", onPress: () => RNExitApp.exitApp() },
+          { text: "확인", onPress: () => BackHandler.exitApp() },
+        ]);
 
-  //     return () => backHandler.remove();
-  //   }
-  // }, []);
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+
+      return () => backHandler.remove();
+    }
+  }, [url]);
 
   const queryClient = new QueryClient();
 
@@ -48,9 +54,39 @@ function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="/" component={Login} />
           <Stack.Screen name="KakaoLogin" component={KakaoLogin} />
-          <Stack.Screen name="Home" component={Main} />
-          <Stack.Screen name="Buoy" component={BuoyInfo} />
-          <Stack.Screen name="BuoyDetail" component={BuoyDetail} />
+          <Stack.Screen
+            name="Home"
+            children={({ navigation, route }) => (
+              <Main
+                url={url}
+                setUrl={setUrl}
+                navigation={navigation}
+                route={route}
+              />
+            )}
+          />
+          <Stack.Screen
+            name="Buoy"
+            children={({ navigation, route }) => (
+              <BuoyInfo
+                url={url}
+                setUrl={setUrl}
+                navigation={navigation}
+                route={route}
+              />
+            )}
+          />
+          <Stack.Screen
+            name="BuoyDetail"
+            children={({ navigation, route }) => (
+              <BuoyDetail
+                url={url}
+                setUrl={setUrl}
+                navigation={navigation}
+                route={route}
+              />
+            )}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </QueryClientProvider>
