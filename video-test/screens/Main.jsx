@@ -190,8 +190,10 @@ export default function Main({ navigation, route, setUrl }) {
    * 카카오 로그인 후, 유저 프로필 받는 함수
    */
   const getInfo = async () => {
+    let keys = [];
     try {
       const accessToken = await AsyncStorage.getItem("userAccessToken");
+
       if (accessToken !== null) {
         axios({
           method: "get",
@@ -203,9 +205,14 @@ export default function Main({ navigation, route, setUrl }) {
           .then(async (res) => {
             setUserProfile({
               userAccessToken: accessToken,
-              Nickname: res.data.kakao_account.profile.nickname,
+              Name: res.data.kakao_account.name,
               Email: res.data.kakao_account.email,
+              Phone: res.data.kakao_account.phone_number,
+              Image: res.data.kakao_account.profile.profile_image_url,
             });
+
+            keys = await AsyncStorage.getAllKeys();
+            console.log(`${keys} -> ${accessToken}`);
           })
           .catch((err) => {
             console.log(`Error : ${err}`);
@@ -214,7 +221,6 @@ export default function Main({ navigation, route, setUrl }) {
     } catch (err) {
       console.log("error", accessToken);
     }
-    console.log(userProfile);
   };
 
   /**
@@ -232,6 +238,7 @@ export default function Main({ navigation, route, setUrl }) {
     })
       .then(() => {
         console.log("Lougout");
+        AsyncStorage.removeItem("userAccessToken");
         navigation.navigate("/");
       })
       .catch((err) => {
@@ -254,6 +261,7 @@ export default function Main({ navigation, route, setUrl }) {
     })
       .then(() => {
         console.log("Unlink");
+        AsyncStorage.removeItem("userAccessToken");
         navigation.navigate("/");
       })
       .catch((err) => {

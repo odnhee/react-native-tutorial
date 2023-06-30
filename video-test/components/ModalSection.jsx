@@ -1,4 +1,4 @@
-import { View, Text, Modal, Pressable } from "react-native";
+import { View, Text, Modal, Pressable, Image } from "react-native";
 import React from "react";
 import { styles } from "../config/globalStyles";
 
@@ -10,9 +10,15 @@ const ModalSection = ({ modalVisible, setModalVisible, userProfile }) => {
       visible={modalVisible}
       onRequestClose={() => setModalVisible(!modalVisible)}
     >
-      <View style={styles.modalView}>
-        <Text style={{ paddingBottom: 10 }}>{userProfile?.Nickname}</Text>
+      <View style={[styles.modalView, { gap: 10 }]}>
+        <Text>{userProfile?.Name}</Text>
         <Text>{userProfile?.Email}</Text>
+        <Text>{userProfile?.Phone}</Text>
+
+        <Image
+          style={{ width: 40, height: 40 }}
+          source={{ uri: userProfile?.Image }}
+        />
 
         <Pressable
           style={styles.modalExit}

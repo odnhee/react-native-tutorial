@@ -1,0 +1,195 @@
+{
+  "data": {
+    "id": 2879307873,
+    "connected_at": "2023-06-30T01:47:22Z",
+    "properties": {
+      "nickname": "한형진",
+      "profile_image": "http://k.kakaocdn.net/dn/cAZD1d/btsgu8gD1dA/5KcJAshyo6QCHUmnnCUeK0/m1.jpg",
+      "thumbnail_image": "http://k.kakaocdn.net/dn/cAZD1d/btsgu8gD1dA/5KcJAshyo6QCHUmnnCUeK0/p1.jpg"
+    },
+    "kakao_account": {
+      "profile_nickname_needs_agreement": false,
+      "profile_image_needs_agreement": false,
+      "profile": {
+        "nickname": "한형진",
+        "thumbnail_image_url": "http://k.kakaocdn.net/dn/cAZD1d/btsgu8gD1dA/5KcJAshyo6QCHUmnnCUeK0/p1.jpg",
+        "profile_image_url": "http://k.kakaocdn.net/dn/cAZD1d/btsgu8gD1dA/5KcJAshyo6QCHUmnnCUeK0/m1.jpg",
+        "is_default_image": false
+      },
+      "name_needs_agreement": false,
+      "name": "한형진",
+      "has_email": true,
+      "email_needs_agreement": false,
+      "is_email_valid": true,
+      "is_email_verified": true,
+      "email": "han1210_36@naver.com",
+      "has_phone_number": true,
+      "phone_number_needs_agreement": false,
+      "phone_number": "+82 10-2067-4413",
+      "has_age_range": true,
+      "age_range_needs_agreement": false,
+      "age_range": "20~29",
+      "has_birthyear": true,
+      "birthyear_needs_agreement": false,
+      "birthyear": "1996",
+      "has_birthday": true,
+      "birthday_needs_agreement": false,
+      "birthday": "1210",
+      "birthday_type": "SOLAR",
+      "has_gender": true,
+      "gender_needs_agreement": false,
+      "gender": "male"
+    }
+  },
+  "status": 200,
+  "headers": {
+    "access-control-allow-headers": "Content-Type,X-Requested-With,Accept,Authorization,Origin,KA,Cache-Control,Pragma",
+    "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "access-control-allow-origin": "*",
+    "connection": "Keep-Alive",
+    "content-length": "1207",
+    "content-type": "application/json;charset=UTF-8",
+    "date": "Fri, 30 Jun 2023 01:47:47 GMT",
+    "keep-alive": "timeout=10, max=500",
+    "quota-type": "INC_AND_CHECK",
+    "server": "Apache",
+    "x-request-id": "577169e2-093f-4381-a999-6d0ed548aedd",
+    "x-response-cache": "Hit"
+  },
+  "config": {
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "adapter": ["xhr", "http"],
+    "transformRequest": [null],
+    "transformResponse": [null],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1,
+    "env": {},
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Authorization": "Bearer n2Npy6O9Uz6sh6G-62XpflsPJwJ124mesDdzts9yCj1z7AAAAYkJ-8JL"
+    },
+    "method": "get",
+    "url": "https://kapi.kakao.com/v2/user/me"
+  },
+  "request": {
+    "UNSENT": 0,
+    "OPENED": 1,
+    "HEADERS_RECEIVED": 2,
+    "LOADING": 3,
+    "DONE": 4,
+    "readyState": 4,
+    "status": 200,
+    "timeout": 0,
+    "withCredentials": true,
+    "upload": {},
+    "_aborted": false,
+    "_hasError": false,
+    "_method": "GET",
+    "_perfKey": "network_XMLHttpRequest_https://kapi.kakao.com/v2/user/me",
+    "_response": "{\"id\":2879307873,\"connected_at\":\"2023-06-30T01:47:22Z\",\"properties\":{\"nickname\":\"한형진\",\"profile_image\":\"http://k.kakaocdn.net/dn/cAZD1d/btsgu8gD1dA/5KcJAshyo6QCHUmnnCUeK0/m1.jpg\",\"thumbnail_image\":\"http://k.kakaocdn.net/dn/cAZD1d/btsgu8gD1dA/5KcJAshyo6QCHUmnnCUeK0/p1.jpg\"},\"kakao_account\":{\"profile_nickname_needs_agreement\":false,\"profile_image_needs_agreement\":false,\"profile\":{\"nickname\":\"한형진\",\"thumbnail_image_url\":\"http://k.kakaocdn.net/dn/cAZD1d/btsgu8gD1dA/5KcJAshyo6QCHUmnnCUeK0/p1.jpg\",\"profile_image_url\":\"http://k.kakaocdn.net/dn/cAZD1d/btsgu8gD1dA/5KcJAshyo6QCHUmnnCUeK0/m1.jpg\",\"is_default_image\":false},\"name_needs_agreement\":false,\"name\":\"한형진\",\"has_email\":true,\"email_needs_agreement\":false,\"is_email_valid\":true,\"is_email_verified\":true,\"email\":\"han1210_36@naver.com\",\"has_phone_number\":true,\"phone_number_needs_agreement\":false,\"phone_number\":\"+82 10-2067-4413\",\"has_age_range\":true,\"age_range_needs_agreement\":false,\"age_range\":\"20~29\",\"has_birthyear\":true,\"birthyear_needs_agreement\":false,\"birthyear\":\"1996\",\"has_birthday\":true,\"birthday_needs_agreement\":false,\"birthday\":\"1210\",\"birthday_type\":\"SOLAR\",\"has_gender\":true,\"gender_needs_agreement\":false,\"gender\":\"male\"}}",
+    "_url": "https://kapi.kakao.com/v2/user/me",
+    "_timedOut": false,
+    "_trackingName": "unknown",
+    "_incrementalEvents": false,
+    "_performanceLogger": {
+      "_timespans": {
+        "network_XMLHttpRequest_http://172.30.1.48:19000/logs": {
+          "startTime": 193516433.004077,
+          "endTime": 193516487.472036,
+          "totalTime": 54.46795901656151
+        },
+        "network_XMLHttpRequest_https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=19b015d6cac7c6e203b0942fd639fc6b&redirect_uri=https:%2F%2Faws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com%2Fsplash.html&code=p7GGIt2URSgXWvafP3eX0t2D9JyR937wADJw0p5M5Tv61iomSvvDKqnAM1fwEe6VQw_lxwo9cxgAAAGJCfTDOw": {
+          "startTime": 193518027.098328,
+          "endTime": 193518155.998203,
+          "totalTime": 128.89987501502037
+        },
+        "network_XMLHttpRequest_https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=19b015d6cac7c6e203b0942fd639fc6b&redirect_uri=https:%2F%2Faws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com%2Fsplash.html&code=21Xc6MuVYmYqg3olMq_JjfTO1i5dLHo-Z5w0Tx3UcnYl1oiCcq5G4EPKcJPRbNs4EkPYDAo9dJkAAAGJCffGsg": {
+          "startTime": 193715565.498339,
+          "endTime": 193715936.616714,
+          "totalTime": 371.11837500333786
+        },
+        "network_XMLHttpRequest_https://kapi.kakao.com/v2/user/me": {
+          "startTime": 193719103.895424,
+          "endTime": 193719265.108966,
+          "totalTime": 161.2135419845581
+        },
+        "network_XMLHttpRequest_https://kapi.kakao.com/v1/user/unlink": {
+          "startTime": 193763495.349862,
+          "endTime": 193763555.41132,
+          "totalTime": 60.06145799160004
+        },
+        "network_XMLHttpRequest_https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=27578bf277bc26e06658c9dc8ce3fc2d&redirect_uri=https:%2F%2Faws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com%2Fsplash.html&code=91iqWt9ymXppN0BAye8Us08hQTclyTxcKjLOf2FYyQvANqyGBKU_GzI-in5EttJkUo2xNAo9cusAAAGJCfitzQ": {
+          "startTime": 193774584.74245,
+          "endTime": 193775130.904117,
+          "totalTime": 546.1616669893265
+        },
+        "network_XMLHttpRequest_https://kapi.kakao.com/v1/user/logout": {
+          "startTime": 193872339.48908,
+          "endTime": 193872435.221747,
+          "totalTime": 95.73266699910164
+        },
+        "network_XMLHttpRequest_https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=27578bf277bc26e06658c9dc8ce3fc2d&redirect_uri=https:%2F%2Faws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com%2Fsplash.html&code=fllRsBS7mh7UCluJ8ezm2ei2gyN5kp442UfBImaUPfW_KVqrXB6_TlnQesra5oEmcV8Y-wo9cpgAAAGJCfr3pQ": {
+          "startTime": 193924797.730897,
+          "endTime": 193925020.983564,
+          "totalTime": 223.25266698002815
+        },
+        "network_XMLHttpRequest_https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=27578bf277bc26e06658c9dc8ce3fc2d&redirect_uri=https:%2F%2Faws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com%2Fsplash.html&code=hv-sDn91CXrby5_RdGlVdZSyTrdEhTxnlWNUeILYKcVTUbiCGdqEvQrjn9QVlW2DIIs9zAo9dJgAAAGJCfvBKQ": {
+          "startTime": 193976135.155588,
+          "endTime": 193976794.767047,
+          "totalTime": 659.6114589869976
+        }
+      },
+      "_extras": {},
+      "_points": {
+        "initializeCore_start": 193515518.488535,
+        "initializeCore_end": 193515715.582327
+      },
+      "_pointExtras": {},
+      "_closed": false
+    },
+    "responseHeaders": {
+      "Access-Control-Allow-Origin": "*",
+      "X-Request-ID": "577169e2-093f-4381-a999-6d0ed548aedd",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Headers": "Content-Type,X-Requested-With,Accept,Authorization,Origin,KA,Cache-Control,Pragma",
+      "Date": "Fri, 30 Jun 2023 01:47:47 GMT",
+      "Content-Length": "1207",
+      "Quota-Type": "INC_AND_CHECK",
+      "X-Response-Cache": "Hit",
+      "Connection": "Keep-Alive",
+      "Server": "Apache",
+      "Keep-Alive": "timeout=10, max=500"
+    },
+    "_requestId": null,
+    "_headers": {
+      "accept": "application/json, text/plain, */*",
+      "authorization": "Bearer n2Npy6O9Uz6sh6G-62XpflsPJwJ124mesDdzts9yCj1z7AAAAYkJ-8JL"
+    },
+    "_responseType": "",
+    "_sent": true,
+    "_lowerCaseResponseHeaders": {
+      "access-control-allow-origin": "*",
+      "x-request-id": "577169e2-093f-4381-a999-6d0ed548aedd",
+      "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "content-type": "application/json;charset=UTF-8",
+      "access-control-allow-headers": "Content-Type,X-Requested-With,Accept,Authorization,Origin,KA,Cache-Control,Pragma",
+      "date": "Fri, 30 Jun 2023 01:47:47 GMT",
+      "content-length": "1207",
+      "quota-type": "INC_AND_CHECK",
+      "x-response-cache": "Hit",
+      "connection": "Keep-Alive",
+      "server": "Apache",
+      "keep-alive": "timeout=10, max=500"
+    },
+    "_subscriptions": [],
+    "responseURL": "https://kapi.kakao.com/v2/user/me"
+  }
+}

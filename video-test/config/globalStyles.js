@@ -50,6 +50,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
+    paddingBottom: 15,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
