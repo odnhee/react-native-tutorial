@@ -233,6 +233,12 @@
 
     - 이 후의 진행 사항은 빌드를 통해서만 확인이 가능함
 
+### React Query (데이터 통신 작업)
+
+- [React Query Repo 참고](https://github.com/HyungJinHan/react-query-study)
+
+- [공식 Docs 한글 번역 Repo](https://github.com/ssi02014/react-query-tutorial)
+
 ### 휴대폰 인증
 
 - [아임포트 결제 및 휴대폰 인증](https://github.com/iamport/iamport-react-native)
