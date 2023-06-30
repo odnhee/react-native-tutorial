@@ -1,10 +1,14 @@
 import { View, Text, Pressable } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { styles } from "../config/globalStyles";
 import { useBuoy } from "../api/useBuoy";
 
-const BuoyInfo = ({ route, navigation }) => {
+const BuoyInfo = ({ route, navigation, setUrl }) => {
   const { status, data, error, isFetching } = useBuoy();
+
+  // useEffect(() => {
+  //   setUrl(route.name);
+  // }, []);
 
   if (isFetching) {
     return (

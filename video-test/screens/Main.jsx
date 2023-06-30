@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { View, Alert, Pressable, Text } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
@@ -6,6 +6,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { data } from "../data";
 import {
@@ -35,7 +36,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function Main({ navigation, route }) {
+export default function Main({ navigation, route, setUrl }) {
   const videoRefs = useRef([]);
   const notificationListener = useRef("");
 
@@ -49,6 +50,12 @@ export default function Main({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
+
+  useFocusEffect(
+    useCallback(() => {
+      setUrl(route.name);
+    }, [])
+  );
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
@@ -183,8 +190,11 @@ export default function Main({ navigation, route }) {
    * 카카오 로그인 후, 유저 프로필 받는 함수
    */
   const getInfo = async () => {
+    let keys = [];
     try {
       const accessToken = await AsyncStorage.getItem("userAccessToken");
+      const refreshToken = await AsyncStorage.getItem("userRefreshToken");
+
       if (accessToken !== null) {
         axios({
           method: "get",
@@ -196,9 +206,18 @@ export default function Main({ navigation, route }) {
           .then(async (res) => {
             setUserProfile({
               userAccessToken: accessToken,
-              Nickname: res.data.kakao_account.profile.nickname,
+              Name: res.data.kakao_account.name,
               Email: res.data.kakao_account.email,
+              Phone: res.data.kakao_account.phone_number,
+              Image: res.data.kakao_account.profile.profile_image_url,
             });
+
+            keys = await AsyncStorage.getAllKeys();
+            console.log(`
+${keys[0]} -> ${accessToken}
+
+${keys[1]} -> ${refreshToken}
+            `);
           })
           .catch((err) => {
             console.log(`Error : ${err}`);
@@ -207,7 +226,6 @@ export default function Main({ navigation, route }) {
     } catch (err) {
       console.log("error", accessToken);
     }
-    console.log(userProfile);
   };
 
   /**
@@ -225,6 +243,7 @@ export default function Main({ navigation, route }) {
     })
       .then(() => {
         console.log("Lougout");
+        AsyncStorage.multiRemove(["userAccessToken", "userRefreshToken"]);
         navigation.navigate("/");
       })
       .catch((err) => {
@@ -247,6 +266,7 @@ export default function Main({ navigation, route }) {
     })
       .then(() => {
         console.log("Unlink");
+        AsyncStorage.multiRemove(["userAccessToken", "userRefreshToken"]);
         navigation.navigate("/");
       })
       .catch((err) => {
@@ -300,7 +320,10 @@ export default function Main({ navigation, route }) {
       />
 
       <Pressable
-        onPress={() => navigation.navigate("Buoy")}
+        onPress={() => {
+          navigation.navigate("Buoy");
+          setUrl("Buoy");
+        }}
         style={{
           paddingBottom: 10,
           alignItems: "center",

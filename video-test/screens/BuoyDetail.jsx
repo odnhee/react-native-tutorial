@@ -1,13 +1,17 @@
-import { View, Text, Pressable, Dimensions } from "react-native";
-import React from "react";
+import { View, Text } from "react-native";
+import React, { useEffect } from "react";
 import { useBuoyDetail } from "../api/useBuoyDetail";
 import { styles } from "../config/globalStyles";
 import LineChartSection from "../components/LineChartSection";
 
-const BuoyDetail = ({ route }) => {
+const BuoyDetail = ({ route, setUrl }) => {
   const { id } = route.params;
 
   const { status, data, error, isFetching } = useBuoyDetail(id);
+
+  // useEffect(() => {
+  //   setUrl(route.name);
+  // }, []);
 
   if (isFetching) {
     return (
