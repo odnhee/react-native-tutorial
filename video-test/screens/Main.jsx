@@ -193,6 +193,7 @@ export default function Main({ navigation, route, setUrl }) {
     let keys = [];
     try {
       const accessToken = await AsyncStorage.getItem("userAccessToken");
+      const refreshToken = await AsyncStorage.getItem("userRefreshToken");
 
       if (accessToken !== null) {
         axios({
@@ -212,7 +213,11 @@ export default function Main({ navigation, route, setUrl }) {
             });
 
             keys = await AsyncStorage.getAllKeys();
-            console.log(`${keys} -> ${accessToken}`);
+            console.log(`
+${keys[0]} -> ${accessToken}
+
+${keys[1]} -> ${refreshToken}
+            `);
           })
           .catch((err) => {
             console.log(`Error : ${err}`);
@@ -238,7 +243,7 @@ export default function Main({ navigation, route, setUrl }) {
     })
       .then(() => {
         console.log("Lougout");
-        AsyncStorage.removeItem("userAccessToken");
+        AsyncStorage.multiRemove(["userAccessToken", "userRefreshToken"]);
         navigation.navigate("/");
       })
       .catch((err) => {
@@ -261,7 +266,7 @@ export default function Main({ navigation, route, setUrl }) {
     })
       .then(() => {
         console.log("Unlink");
-        AsyncStorage.removeItem("userAccessToken");
+        AsyncStorage.multiRemove(["userAccessToken", "userRefreshToken"]);
         navigation.navigate("/");
       })
       .catch((err) => {

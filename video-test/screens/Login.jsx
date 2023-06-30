@@ -7,10 +7,9 @@ const Login = ({ navigation }) => {
   useEffect(() => {
     const checkToken = async () => {
       const accessToken = await AsyncStorage.getItem("userAccessToken");
+      const refreshToken = await AsyncStorage.getItem("userRefreshToken");
 
-      console.log("accessToken ->", accessToken);
-
-      if (!accessToken) {
+      if (!accessToken || !refreshToken) {
         navigation.navigate("/");
       } else {
         navigation.navigate("Home");

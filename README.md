@@ -112,6 +112,8 @@
 
   - Kakao developers의 카카오 로그인에 Redirect URI를 등록해야 함
 
+  - 실제 배포된 페이지를 만들어서 `Cannot GET /KakaoLogin` 에러 수정
+
 - 웹뷰를 통해 카카오 로그인 창이 뜨며, 로그인을 위한 동의 항목 체크 페이지로 Redirect됨
 
 - [인가 코드 받기](./video-test/screens/KakaoLogin.jsx)
@@ -153,6 +155,16 @@
         console.log(`Error : ${error}`);
       });
   ```
+
+  - 토큰 만료 시간
+
+    - Access Token 만료 시간 : 6시간
+
+    - Refresh Token 만료 시간 : 144시간 (6일)
+
+  - `logout`, `unlink` 하기 전까지는 만료 시간이 되면 자동 토큰 파기
+
+    - 자동 로그인 기능을 위해서는 Refresh Token을 사용해야 할 듯
 
 - 발급받은 액세스 토큰을 통한 유저 정보 가져오기
 

@@ -31,6 +31,8 @@ const KakaoLogin = ({ navigation }) => {
 
   const requestToken = async (authorize_code) => {
     var accessToken = "none";
+    var refreshToken = "none";
+
     axios({
       method: "post",
       url: "https://kauth.kakao.com/oauth/token",
@@ -43,16 +45,18 @@ const KakaoLogin = ({ navigation }) => {
     })
       .then((res) => {
         accessToken = res.data.access_token;
-        storeToken(accessToken);
+        refreshToken = res.data.refresh_token;
+        storeToken(accessToken, refreshToken);
       })
       .catch((error) => {
         console.log(`Error : ${error}`);
       });
   };
 
-  const storeToken = async (accessToken) => {
+  const storeToken = async (accessToken, refreshToken) => {
     try {
       await AsyncStorage.setItem("userAccessToken", accessToken);
+      await AsyncStorage.setItem("userRefreshToken", refreshToken);
     } catch (error) {
       console.log(error);
     }
