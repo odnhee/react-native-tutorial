@@ -51,6 +51,21 @@ export default function Main({ navigation, route, setUrl }) {
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
 
+  const accessToken = AsyncStorage.getItem("userAccessToken");
+  const refreshToken = AsyncStorage.getItem("userRefreshToken");
+
+  useEffect(() => {
+    const checkToken = async () => {
+      if (accessToken || refreshToken === null) {
+        return true;
+      } else {
+        navigation.navigate("/");
+      }
+    };
+
+    checkToken();
+  }, [accessToken, refreshToken]);
+
   useFocusEffect(
     useCallback(() => {
       setUrl(route.name);

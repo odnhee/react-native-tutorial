@@ -1,27 +1,12 @@
-import { View, Text, Dimensions, ScrollView } from "react-native";
+import { View, Dimensions, ScrollView } from "react-native";
 import React from "react";
-import { LineChart } from "react-native-chart-kit";
 import {
   useBuoyConducts,
   useBuoyOxygen,
   useBuoyPh,
 } from "../api/useBuoyOxygen";
-import { styles } from "../config/globalStyles";
 import FlashMessage, { showMessage } from "react-native-flash-message";
-
-const chartConfig = {
-  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  barPercentage: 0.5,
-  useShadowColorFromDataset: true, // optional
-  backgroundColor: "#f0f0f0",
-  backgroundGradientFrom: "#f0f0f0",
-  backgroundGradientTo: "#f0f0f0",
-  decimalPlaces: 1, // optional, defaults to 2dp
-  propsForDots: {
-    r: "4",
-    // stroke: "#ffa726",
-  },
-};
+import LineChartItem from "./LineChartItem";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -39,8 +24,6 @@ const LineChartSection = ({ id }) => {
     error: conductsError,
     isFetching: conductsIsFetching,
   } = useBuoyConducts(id);
-
-  // data?.map((res) => console.log(new Date(res?.measured_time).toUTCString()));
 
   const temperatureData = {
     // labels: data?.map((res) => [new Date(res?.measured_time).toUTCString()]),
@@ -94,60 +77,6 @@ const LineChartSection = ({ id }) => {
     legend: ["염도 (mV)"], // optional
   };
 
-  if (conductsIsFetching) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
-  /** 아래 코드로 에러 핸들링 끝 */
-  if (conductsStatus === "error") {
-    // status -> success, loading, error...
-    return (
-      <View style={styles.container}>
-        <Text>Error : {conductsError.message}</Text>
-      </View>
-    );
-  }
-
-  if (phIsFetching) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
-  /** 아래 코드로 에러 핸들링 끝 */
-  if (phStatus === "error") {
-    // status -> success, loading, error...
-    return (
-      <View style={styles.container}>
-        <Text>Error : {phError.message}</Text>
-      </View>
-    );
-  }
-
-  if (isFetching) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
-  /** 아래 코드로 에러 핸들링 끝 */
-  if (status === "error") {
-    // status -> success, loading, error...
-    return (
-      <View style={styles.container}>
-        <Text>Error : {error.message}</Text>
-      </View>
-    );
-  }
-
   return (
     <>
       <FlashMessage
@@ -157,113 +86,44 @@ const LineChartSection = ({ id }) => {
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {data[0] === undefined || data.length < 10 ? (
-          <View style={{ alignItems: "center" }}>
-            <Text>수집된 데이터가 존재하지 않습니다.</Text>
-          </View>
-        ) : (
-          <View style={{ gap: 20, alignItems: "center", paddingVertical: 20 }}>
-            <LineChart
-              onDataPointClick={({ value, getColor }) =>
-                showMessage({
-                  message: "수온",
-                  description: `${parseFloat(value).toFixed(2)} ℃`,
-                  backgroundColor: getColor(0.8),
-                })
-              }
-              data={temperatureData}
-              width={screenWidth - 30}
-              height={220}
-              chartConfig={chartConfig}
-              style={{
-                borderRadius: 15,
-                shadowOffset: {
-                  width: 10,
-                  height: 10,
-                },
-                shadowOpacity: 0.5,
-                shadowRadius: 15,
-                elevation: 5,
-              }}
-              bezier
-            />
-
-            <LineChart
-              onDataPointClick={({ value, getColor }) =>
-                showMessage({
-                  message: "용존 산소",
-                  description: `${parseFloat(value).toFixed(2)} mg/l`,
-                  backgroundColor: getColor(0.8),
-                })
-              }
-              data={mplData}
-              width={screenWidth - 30}
-              height={220}
-              chartConfig={chartConfig}
-              style={{
-                borderRadius: 15,
-                shadowOffset: {
-                  width: 10,
-                  height: 10,
-                },
-                shadowOpacity: 0.5,
-                shadowRadius: 15,
-                elevation: 5,
-              }}
-              bezier
-            />
-
-            <LineChart
-              onDataPointClick={({ value, getColor }) =>
-                showMessage({
-                  message: "수소 이온 농도",
-                  description: `${parseFloat(value).toFixed(2)} ph`,
-                  backgroundColor: getColor(0.8),
-                })
-              }
-              data={phData}
-              width={screenWidth - 30}
-              height={220}
-              chartConfig={chartConfig}
-              style={{
-                borderRadius: 15,
-                shadowOffset: {
-                  width: 10,
-                  height: 10,
-                },
-                shadowOpacity: 0.5,
-                shadowRadius: 15,
-                elevation: 5,
-              }}
-              bezier
-            />
-
-            <LineChart
-              onDataPointClick={({ value, getColor }) =>
-                showMessage({
-                  message: "염도",
-                  description: `${parseFloat(value).toFixed(2)} mV`,
-                  backgroundColor: getColor(0.8),
-                })
-              }
-              data={conductData}
-              width={screenWidth - 30}
-              height={220}
-              chartConfig={chartConfig}
-              style={{
-                borderRadius: 15,
-                shadowOffset: {
-                  width: 10,
-                  height: 10,
-                },
-                shadowOpacity: 0.5,
-                shadowRadius: 15,
-                elevation: 5,
-              }}
-              bezier
-            />
-          </View>
-        )}
+        <View style={{ gap: 20, alignItems: "center", paddingVertical: 20 }}>
+          <LineChartItem
+            status={status}
+            data={data}
+            error={error}
+            isFetching={isFetching}
+            chartData={temperatureData}
+            screenWidth={screenWidth}
+            showMessage={showMessage}
+          />
+          <LineChartItem
+            status={status}
+            data={data}
+            error={error}
+            isFetching={isFetching}
+            chartData={mplData}
+            screenWidth={screenWidth}
+            showMessage={showMessage}
+          />
+          <LineChartItem
+            status={phStatus}
+            data={phsData}
+            error={phError}
+            isFetching={phIsFetching}
+            chartData={phData}
+            screenWidth={screenWidth}
+            showMessage={showMessage}
+          />
+          <LineChartItem
+            status={conductsStatus}
+            data={conductsData}
+            error={conductsError}
+            isFetching={conductsIsFetching}
+            chartData={conductData}
+            screenWidth={screenWidth}
+            showMessage={showMessage}
+          />
+        </View>
       </ScrollView>
     </>
   );
