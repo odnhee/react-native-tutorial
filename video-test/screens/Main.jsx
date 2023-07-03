@@ -27,6 +27,7 @@ import axios from "axios";
 import KakaoSection from "../components/KakaoSection";
 import ModalSection from "../components/ModalSection";
 import PickerSection from "../components/PickerSection";
+import { useLiveVideo } from "../api/useLiveVideo";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -53,6 +54,13 @@ export default function Main({ navigation, route, setUrl }) {
 
   const accessToken = AsyncStorage.getItem("userAccessToken");
   const refreshToken = AsyncStorage.getItem("userRefreshToken");
+
+  const {
+    data: videoData,
+    status: videoStatus,
+    error: videoError,
+    isFetching: videoIsFetching,
+  } = useLiveVideo();
 
   useEffect(() => {
     const checkToken = async () => {
@@ -312,6 +320,10 @@ ${keys[1]} -> ${refreshToken}
             onVideoControl={onVideoControl}
             onVideoControlNoLive={onVideoControlNoLive}
             res={res}
+            videoUrl={videoData}
+            videoStatus={videoStatus}
+            videoError={videoError}
+            videoIsFetching={videoIsFetching}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
             onSendPush={onSendPush}

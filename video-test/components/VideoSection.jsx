@@ -24,6 +24,10 @@ const VideoSection = ({
   setIsLoading,
   onSendPush,
   onSoundControl,
+  videoUrl,
+  videoStatus,
+  videoError,
+  videoIsFetching,
 }) => {
   const buttonContents = [
     {
@@ -68,6 +72,24 @@ const VideoSection = ({
     },
   ];
 
+  if (videoIsFetching) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
+  /** 아래 코드로 에러 핸들링 끝 */
+  if (videoStatus === "error") {
+    // status -> success, loading, error...
+    return (
+      <View style={styles.container}>
+        <Text>Error : {videoError.message}</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={!rotate ? "" : styles.rotateView}>
       <View style={!rotate ? "" : styles.rotateVideoWrapper}>
@@ -80,7 +102,7 @@ const VideoSection = ({
           />
         )}
         <Video
-          source={res.source}
+          source={!res.source ? { uri: `${videoUrl}` } : res.source}
           shouldPlay
           isMuted
           resizeMode={ResizeMode.CONTAIN}
