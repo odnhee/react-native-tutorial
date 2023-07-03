@@ -34,7 +34,7 @@ const LineChartItem = ({
     <>
       {data?.length < 10 || data === undefined ? (
         <View style={{ alignItems: "center" }}>
-          <Text>수집된 데이터가 존재하지 않습니다.</Text>
+          <Text>수집된 {chartData.legend} 데이터가 존재하지 않습니다.</Text>
         </View>
       ) : (
         <LineChart

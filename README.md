@@ -26,6 +26,43 @@
 
     - ios 환경에서는 재생 불가 ([`react-native-livestream` 활용](https://docs.api.video/docs/react-native-livestream-component))
 
+### 실시간 영상 S3 버킷을 통해 받기
+
+- 테스트용 S3 버킷에 `rtf` 텍스트 확장자로 라이브 방송 URL을 입력
+
+- 해당 라이브 방송 `URL` 토큰 만료 시, 버킷의 `rtf` 파일 수정을 통해 apk 환경에서도 실시간 영상 에러 해결 가능
+
+- 기본적으로 `Axios` 데이터 통신의 경우, 안드로이드 자체의 앱 캐시 데이터에 fetch된 데이터를 저장함
+
+  - 해당 데이터가 캐시에 저장될 경우, refetching이 일어나지 않기 때문에,
+
+    ```JavaScript
+      useFocusEffect(
+        useCallback(() => {
+          axios({
+            method: "get",
+            url: "https://aws-bucket-url.com/VideoLink.rtf",
+            headers: {
+              "Cache-Control": "no-cache",
+              Pragma: "no-cache",
+              Expires: "0",
+            },
+          })
+            .then((res) => {
+              const exp = "kerning0\n";
+              var condition = res.data.indexOf(exp);
+
+              const https = res.data.substring(condition + exp.length);
+
+              setVideoUrl(https.slice(0, -1));
+            })
+            .catch((err) => console.log(err));
+        }, [videoUrl])
+      );
+    ```
+
+    - 데이터 통신 시, 캐시를 저장하지 않도록 캐시 컨트롤이 필요
+
 ### 스크린샷 테스트
 
 - [`react-native-view-shot`](https://github.com/gre/react-native-view-shot)
