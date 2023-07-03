@@ -368,7 +368,11 @@ ${keys[1]} -> ${refreshToken}
         <Text style={{ fontSize: 20 }}>Buoy Info</Text>
       </Pressable>
 
-      <PickerSection testValue={testValue} setTestValue={setTestValue} />
+      <PickerSection
+        rotate={rotate}
+        testValue={testValue}
+        setTestValue={setTestValue}
+      />
     </View>
   );
 }
