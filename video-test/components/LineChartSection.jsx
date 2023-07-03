@@ -38,6 +38,13 @@ const LineChartSection = ({ id }) => {
     legend: ["수온 (℃)"], // optional
   };
 
+  const temperatureMessage = ({ value, getColor }) =>
+    showMessage({
+      message: "수온",
+      description: `${parseFloat(value).toFixed(2)} ℃`,
+      backgroundColor: getColor(0.8),
+    });
+
   const mplData = {
     // labels: data?.map((res) => [new Date(res?.measured_time).toUTCString()]),
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -50,6 +57,13 @@ const LineChartSection = ({ id }) => {
     ],
     legend: ["용존 산소 (mg/l)"], // optional
   };
+
+  const mplMessage = ({ value, getColor }) =>
+    showMessage({
+      message: "용존 산소",
+      description: `${parseFloat(value).toFixed(2)} mg/l`,
+      backgroundColor: getColor(0.8),
+    });
 
   const phData = {
     // labels: phsData?.map((res) => [new Date(res?.measured_time).toUTCString()]),
@@ -64,6 +78,13 @@ const LineChartSection = ({ id }) => {
     legend: ["수소 이온 농도 (ph)"], // optional
   };
 
+  const phMessage = ({ value, getColor }) =>
+    showMessage({
+      message: "수소 이온 농도",
+      description: `${parseFloat(value).toFixed(2)} ph`,
+      backgroundColor: getColor(0.8),
+    });
+
   const conductData = {
     // labels: phsData?.map((res) => [new Date(res?.measured_time).toUTCString()]),
     labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -76,6 +97,13 @@ const LineChartSection = ({ id }) => {
     ],
     legend: ["염도 (mV)"], // optional
   };
+
+  const conductMessage = ({ value, getColor }) =>
+    showMessage({
+      message: "염도",
+      description: `${parseFloat(value).toFixed(2)} mV`,
+      backgroundColor: getColor(0.8),
+    });
 
   return (
     <>
@@ -94,7 +122,7 @@ const LineChartSection = ({ id }) => {
             isFetching={isFetching}
             chartData={temperatureData}
             screenWidth={screenWidth}
-            showMessage={showMessage}
+            showMessage={temperatureMessage}
           />
           <LineChartItem
             status={status}
@@ -103,7 +131,7 @@ const LineChartSection = ({ id }) => {
             isFetching={isFetching}
             chartData={mplData}
             screenWidth={screenWidth}
-            showMessage={showMessage}
+            showMessage={mplMessage}
           />
           <LineChartItem
             status={phStatus}
@@ -112,7 +140,7 @@ const LineChartSection = ({ id }) => {
             isFetching={phIsFetching}
             chartData={phData}
             screenWidth={screenWidth}
-            showMessage={showMessage}
+            showMessage={phMessage}
           />
           <LineChartItem
             status={conductsStatus}
@@ -121,7 +149,7 @@ const LineChartSection = ({ id }) => {
             isFetching={conductsIsFetching}
             chartData={conductData}
             screenWidth={screenWidth}
-            showMessage={showMessage}
+            showMessage={conductMessage}
           />
         </View>
       </ScrollView>

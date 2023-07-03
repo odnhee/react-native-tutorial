@@ -27,7 +27,6 @@ import axios from "axios";
 import KakaoSection from "../components/KakaoSection";
 import ModalSection from "../components/ModalSection";
 import PickerSection from "../components/PickerSection";
-import { useLiveVideo } from "../api/useLiveVideo";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -49,18 +48,12 @@ export default function Main({ navigation, route, setUrl }) {
   const [testValue, setTestValue] = useState();
   const [userProfile, setUserProfile] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
+  const [videoUrl, setVideoUrl] = useState("");
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
 
   const accessToken = AsyncStorage.getItem("userAccessToken");
   const refreshToken = AsyncStorage.getItem("userRefreshToken");
-
-  const {
-    data: videoData,
-    status: videoStatus,
-    error: videoError,
-    isFetching: videoIsFetching,
-  } = useLiveVideo();
 
   useEffect(() => {
     const checkToken = async () => {
@@ -78,6 +71,24 @@ export default function Main({ navigation, route, setUrl }) {
     useCallback(() => {
       setUrl(route.name);
     }, [])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      axios({
+        method: "get",
+        url: "https://aws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com/VideoLink.rtf",
+      })
+        .then((res) => {
+          const exp = "kerning0\n";
+          var condition = res.data.indexOf(exp);
+
+          const https = res.data.substring(condition + exp.length);
+
+          setVideoUrl(https.slice(0, -1));
+        })
+        .catch((err) => console.log(err));
+    }, [videoUrl])
   );
 
   useEffect(() => {
@@ -320,10 +331,7 @@ ${keys[1]} -> ${refreshToken}
             onVideoControl={onVideoControl}
             onVideoControlNoLive={onVideoControlNoLive}
             res={res}
-            videoUrl={videoData}
-            videoStatus={videoStatus}
-            videoError={videoError}
-            videoIsFetching={videoIsFetching}
+            videoUrl={videoUrl}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
             onSendPush={onSendPush}

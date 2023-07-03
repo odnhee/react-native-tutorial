@@ -25,9 +25,6 @@ const VideoSection = ({
   onSendPush,
   onSoundControl,
   videoUrl,
-  videoStatus,
-  videoError,
-  videoIsFetching,
 }) => {
   const buttonContents = [
     {
@@ -71,24 +68,6 @@ const VideoSection = ({
       text: "🔔",
     },
   ];
-
-  if (videoIsFetching) {
-    return (
-      <View style={styles.container}>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
-  /** 아래 코드로 에러 핸들링 끝 */
-  if (videoStatus === "error") {
-    // status -> success, loading, error...
-    return (
-      <View style={styles.container}>
-        <Text>Error : {videoError.message}</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={!rotate ? "" : styles.rotateView}>

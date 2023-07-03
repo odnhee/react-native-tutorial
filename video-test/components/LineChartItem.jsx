@@ -32,19 +32,14 @@ const LineChartItem = ({
 
   return (
     <>
-      {data?.map((res) => res?.temperature).length < 10 ||
-      data === undefined ? (
+      {data?.length < 10 || data === undefined ? (
         <View style={{ alignItems: "center" }}>
           <Text>수집된 데이터가 존재하지 않습니다.</Text>
         </View>
       ) : (
         <LineChart
           onDataPointClick={({ value, getColor }) =>
-            showMessage({
-              message: "수온",
-              description: `${parseFloat(value).toFixed(2)} ℃`,
-              backgroundColor: getColor(0.8),
-            })
+            showMessage({ value, getColor })
           }
           data={chartData}
           width={screenWidth - 30}

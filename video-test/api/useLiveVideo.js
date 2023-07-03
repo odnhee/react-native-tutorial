@@ -11,8 +11,6 @@ export const useLiveVideo = () => {
     // ["buoy"] -> queryFn
     getVideoUrl,
     {
-      cacheTime: 5 * 60 * 1000, // 5분
-      staleTime: 1 * 60 * 1000, // 1분
       refetchOnWindowFocus: true, // 다른 창을 갔다가 돌아왔을 시, refetch
       refetchOnMount: true,
       retry: 2, // error시 fetch 재시도
