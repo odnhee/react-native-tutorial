@@ -55,40 +55,10 @@ export default function Main({ navigation, route, setUrl }) {
   const accessToken = AsyncStorage.getItem("userAccessToken");
   const refreshToken = AsyncStorage.getItem("userRefreshToken");
 
-  useEffect(() => {
-    const checkToken = async () => {
-      if (accessToken || refreshToken === null) {
-        return true;
-      } else {
-        navigation.navigate("/");
-      }
-    };
-
-    checkToken();
-  }, [accessToken, refreshToken]);
-
   useFocusEffect(
     useCallback(() => {
       setUrl(route.name);
     }, [])
-  );
-
-  useFocusEffect(
-    useCallback(() => {
-      axios({
-        method: "get",
-        url: "https://aws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com/VideoLink.rtf",
-      })
-        .then((res) => {
-          const exp = "kerning0\n";
-          var condition = res.data.indexOf(exp);
-
-          const https = res.data.substring(condition + exp.length);
-
-          setVideoUrl(https.slice(0, -1));
-        })
-        .catch((err) => console.log(err));
-    }, [videoUrl])
   );
 
   useEffect(() => {
@@ -133,6 +103,42 @@ export default function Main({ navigation, route, setUrl }) {
   } else if (rotate === false) {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
+
+  /**
+   * 토큰 체크 함수
+   */
+  useEffect(() => {
+    const checkToken = async () => {
+      if (accessToken || refreshToken === null) {
+        return true;
+      } else {
+        navigation.navigate("/");
+      }
+    };
+
+    checkToken();
+  }, [accessToken, refreshToken]);
+
+  /**
+   * 라이브 스트리밍 비디오 불러오는 함수
+   */
+  useFocusEffect(
+    useCallback(() => {
+      axios({
+        method: "get",
+        url: "https://aws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com/VideoLink.rtf",
+      })
+        .then((res) => {
+          const exp = "kerning0\n";
+          var condition = res.data.indexOf(exp);
+
+          const https = res.data.substring(condition + exp.length);
+
+          setVideoUrl(https.slice(0, -1));
+        })
+        .catch((err) => console.log(err));
+    }, [videoUrl])
+  );
 
   /**
    * 스크린샷 함수
