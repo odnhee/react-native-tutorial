@@ -127,6 +127,11 @@ export default function Main({ navigation, route, setUrl }) {
       axios({
         method: "get",
         url: "https://aws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com/VideoLink.rtf",
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
       })
         .then((res) => {
           const exp = "kerning0\n";
