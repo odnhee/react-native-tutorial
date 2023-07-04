@@ -159,6 +159,7 @@ const LineChartSection = ({ id }) => {
         duration={2000}
         position="bottom"
         style={{ borderRadius: 15, marginVertical: 15, marginHorizontal: 20 }}
+        // autoHide={false}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
