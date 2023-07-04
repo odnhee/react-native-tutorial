@@ -5,16 +5,13 @@ import { Picker } from "@react-native-picker/picker";
 const PickerSection = ({ testValue, setTestValue, rotate }) => {
   const [focusColor, setFocusColor] = useState("gray");
 
-  console.log(testValue);
-
   return (
     <View style={{ alignItems: "center", paddingBottom: 10 }}>
       <View
         style={{
           borderRadius: 10,
           borderWidth: 2,
-          borderColor:
-            testValue === "" || undefined ? "focusColor" : focusColor,
+          borderColor: `${focusColor}`,
           display: rotate ? "none" : "flex",
           width: 280,
           height: 45,
@@ -28,14 +25,14 @@ const PickerSection = ({ testValue, setTestValue, rotate }) => {
             backgroundColor: "transparent",
             width: "95%",
           }}
-          // onFocus={() => setFocusColor("#0063aa")}
-          // onBlur={() => setFocusColor("gray")}
+          onFocus={() => setFocusColor("#0063aa")}
+          onBlur={() => setFocusColor("gray")}
           selectedValue={testValue}
           onValueChange={(itemValue) => setTestValue(itemValue)}
           itemStyle={{ color: "gray" }}
           dropdownIconColor={focusColor}
         >
-          <Picker.Item label="회원 타입 입력" value="" />
+          <Picker.Item label="회원 타입 입력" value="" enabled={false} />
           <Picker.Item label="Test1" value="Test1" />
           <Picker.Item label="Test2" value="Test2" />
           <Picker.Item label="Test3" value="Test3" />
