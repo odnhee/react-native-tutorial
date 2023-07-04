@@ -7,6 +7,7 @@ import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import * as SMS from "expo-sms";
 
 import { data } from "../data";
 import {
@@ -27,6 +28,7 @@ import axios from "axios";
 import KakaoSection from "../components/KakaoSection";
 import ModalSection from "../components/ModalSection";
 import PickerSection from "../components/PickerSection";
+import { useBuoyOxygen } from "../api/useBuoyOxygen";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -49,8 +51,10 @@ export default function Main({ navigation, route, setUrl }) {
   const [userProfile, setUserProfile] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const [smsAvailable, setSmsAvailable] = useState(false);
 
   const [status, requestPermission] = MediaLibrary.usePermissions();
+  const { data: testData } = useBuoyOxygen(10);
 
   const accessToken = AsyncStorage.getItem("userAccessToken");
   const refreshToken = AsyncStorage.getItem("userRefreshToken");
@@ -103,6 +107,18 @@ export default function Main({ navigation, route, setUrl }) {
   } else if (rotate === false) {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
+
+  /**
+   * SMS 권한 체크
+   */
+  useEffect(() => {
+    const checkSmsAvailable = async () => {
+      const isSmsAvailable = await SMS.isAvailableAsync();
+      setSmsAvailable(isSmsAvailable);
+    };
+
+    checkSmsAvailable();
+  }, []);
 
   /**
    * 토큰 체크 함수
@@ -319,6 +335,26 @@ ${keys[1]} -> ${refreshToken}
       });
   };
 
+  /**
+   * SMS 보내기 함수
+   */
+  const sendSMS = async () => {
+    const location = await testData?.map((res) => res?.location.address)[0];
+    const coordinate = await testData?.map(
+      (res) => res?.location.coordinate
+    )[0];
+
+    await SMS.sendSMSAsync(
+      ["01020674413"], // ["122"],
+      `
+사고 작업장 위치 : ${location}
+사고 작업장 좌표 : ${coordinate[0]} ${coordinate[1]}
+      `
+    );
+
+    console.log(coordinate[0], coordinate[1]);
+  };
+
   return (
     <View
       style={[
@@ -347,6 +383,8 @@ ${keys[1]} -> ${refreshToken}
             setIsLoading={setIsLoading}
             onSendPush={onSendPush}
             onSoundControl={onSoundControl}
+            sendSMS={sendSMS}
+            smsAvailable={smsAvailable}
           />
         </View>
       ))}
@@ -379,6 +417,12 @@ ${keys[1]} -> ${refreshToken}
       >
         <Text style={{ fontSize: 20 }}>Buoy Info</Text>
       </Pressable>
+
+      <PickerSection
+        rotate={rotate}
+        testValue={testValue}
+        setTestValue={setTestValue}
+      />
 
       <PickerSection
         rotate={rotate}

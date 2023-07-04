@@ -4527,6 +4527,11 @@ expo-screen-orientation@~5.1.1:
   resolved "https://registry.yarnpkg.com/expo-screen-orientation/-/expo-screen-orientation-5.1.1.tgz#d586f035cca8eb4e4620a774f9510bd77083258d"
   integrity sha512-rYpHUwHpuKlEErxupl3wM+KWcySrSJTXb5Une5gDINMmjWbLBx0N1P2MG1aSPA2eT7bShTO/xDJyegjf438l8w==
 
+expo-sms@~11.2.1:
+  version "11.2.1"
+  resolved "https://registry.yarnpkg.com/expo-sms/-/expo-sms-11.2.1.tgz#05719f30c6fc2bd827058c1219258fbbe6ecd991"
+  integrity sha512-ZvPSMsbDYlTK+35B4L/hl239xpKYasLo4+0D5cNSUUssv90x2dEOXeInqCPvvJHejNOYfj3ZDrRbf9LsdDVa5A==
+
 expo-splash-screen@~0.18.2:
   version "0.18.2"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.18.2.tgz#dde246204da875785ba40c7143a70013cdefdbb6"

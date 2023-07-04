@@ -43,7 +43,7 @@ const LineChartItem = ({
           }
           data={chartData}
           width={screenWidth - 30}
-          height={220}
+          height={240}
           chartConfig={chartConfig}
           style={{
             borderRadius: 15,
@@ -56,6 +56,8 @@ const LineChartItem = ({
             elevation: 5,
           }}
           bezier
+          verticalLabelRotation={-45}
+          xLabelsOffset={8}
         />
       )}
     </>
