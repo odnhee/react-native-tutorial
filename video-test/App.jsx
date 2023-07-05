@@ -10,6 +10,8 @@ import KakaoLogin from "./screens/KakaoLogin";
 import BuoyInfo from "./screens/BuoyInfo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import BuoyDetail from "./screens/BuoyDetail";
+import { backAction, backgroundAction } from "./utils/backActions";
+import { RecoilRoot } from "recoil";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,7 +47,9 @@ function App() {
   }, [url]);
 
   const queryClient = new QueryClient();
-
+  useEffect(() => {
+    setHi(true);
+  }, [hi]);
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>

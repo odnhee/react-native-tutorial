@@ -1,5 +1,5 @@
-import { View, Text, Linking, Pressable } from "react-native";
-import React from "react";
+import { View, Text, Linking, Pressable, AppState } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { Video, ResizeMode } from "expo-av";
 import {
   VIDEOHEIGHT_LANDSCAPE,
@@ -9,6 +9,8 @@ import {
 } from "../config/videoSize";
 import { styles } from "../config/globalStyles";
 import Skeleton from "./Skeleton";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { foreground } from "../recoil/atoms";
 
 const VideoSection = ({
   playStatus,
@@ -68,6 +70,47 @@ const VideoSection = ({
       text: "🔔",
     },
   ];
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const setForeground = useSetRecoilState(foreground);
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === "active"
+      ) {
+        setForeground(true);
+        // console.log("App has come to the foreground!");
+      } else if (
+        appState.current.match(/active/) &&
+        nextAppState === "background"
+      ) {
+        setForeground(false);
+        // console.log("background!");
+      }
+
+      appState.current = nextAppState;
+      // setAppStateVisible(appState.current);
+      // console.log("AppState", appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+  const isforeground = useRecoilValue(foreground);
+  useEffect(() => {
+    // console.log("video", isforeground);
+    if (!isforeground) {
+      // background
+      videoRefs.current[res.id].unloadAsync();
+      // console.log("load stop!");
+    }
+    if (isforeground) {
+      // active
+      videoRefs.current[res.id].loadAsync(res.source, { shouldPlay: true });
+    }
+  }, [isforeground]);
 
   return (
     <View style={!rotate ? "" : styles.rotateView}>
