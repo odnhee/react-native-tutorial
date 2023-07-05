@@ -27,6 +27,8 @@ const VideoSection = ({
   onSendPush,
   onSoundControl,
   videoUrl,
+  sendSMS,
+  smsAvailable,
 }) => {
   const buttonContents = [
     {
@@ -58,7 +60,10 @@ const VideoSection = ({
     },
     {
       onPress: () => {
-        Linking.openURL("tel://122");
+        Alert.alert("", "해양 경찰서에 신고 문자를 보내시겠습니까?", [
+          { text: "취소", onPress: () => null },
+          { text: "확인", onPress: () => sendSMS() },
+        ]);
       },
       text: "🚨",
     },

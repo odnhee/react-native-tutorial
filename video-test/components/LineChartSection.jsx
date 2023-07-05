@@ -26,8 +26,20 @@ const LineChartSection = ({ id }) => {
   } = useBuoyConducts(id);
 
   const temperatureData = {
-    // labels: data?.map((res) => [new Date(res?.measured_time).toUTCString()]),
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    labels: data?.map((res) => {
+      const hour = String(new Date(res?.measured_time).getHours()).padStart(
+        2,
+        "0"
+      );
+      const minute = String(new Date(res?.measured_time).getMinutes()).padStart(
+        2,
+        "0"
+      );
+
+      const labelData = [hour + ":" + minute];
+
+      return labelData;
+    }),
     datasets: [
       {
         data: data?.map((res) => [res?.temperature]),
@@ -46,8 +58,20 @@ const LineChartSection = ({ id }) => {
     });
 
   const mplData = {
-    // labels: data?.map((res) => [new Date(res?.measured_time).toUTCString()]),
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    labels: data?.map((res) => {
+      const hour = String(new Date(res?.measured_time).getHours()).padStart(
+        2,
+        "0"
+      );
+      const minute = String(new Date(res?.measured_time).getMinutes()).padStart(
+        2,
+        "0"
+      );
+
+      const labelData = [hour + ":" + minute];
+
+      return labelData;
+    }),
     datasets: [
       {
         data: data?.map((res) => [res?.oxygen_mpl]),
@@ -66,8 +90,20 @@ const LineChartSection = ({ id }) => {
     });
 
   const phData = {
-    // labels: phsData?.map((res) => [new Date(res?.measured_time).toUTCString()]),
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    labels: phsData?.map((res) => {
+      const hour = String(new Date(res?.measured_time).getHours()).padStart(
+        2,
+        "0"
+      );
+      const minute = String(new Date(res?.measured_time).getMinutes()).padStart(
+        2,
+        "0"
+      );
+
+      const labelData = [hour + ":" + minute];
+
+      return labelData;
+    }),
     datasets: [
       {
         data: phsData?.map((res) => [res?.ph]),
@@ -86,8 +122,20 @@ const LineChartSection = ({ id }) => {
     });
 
   const conductData = {
-    // labels: phsData?.map((res) => [new Date(res?.measured_time).toUTCString()]),
-    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    labels: phsData?.map((res) => {
+      const hour = String(new Date(res?.measured_time).getHours()).padStart(
+        2,
+        "0"
+      );
+      const minute = String(new Date(res?.measured_time).getMinutes()).padStart(
+        2,
+        "0"
+      );
+
+      const labelData = [hour + ":" + minute];
+
+      return labelData;
+    }),
     datasets: [
       {
         data: conductsData?.map((res) => [res?.salinity]),
@@ -111,6 +159,7 @@ const LineChartSection = ({ id }) => {
         duration={2000}
         position="bottom"
         style={{ borderRadius: 15, marginVertical: 15, marginHorizontal: 20 }}
+        // autoHide={false}
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>

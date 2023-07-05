@@ -45,26 +45,21 @@ export const styles = StyleSheet.create({
     fontSize: 30,
   },
   modalView: {
-    marginVertical: 30,
-    marginHorizontal: 90,
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: "50%",
     backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    paddingBottom: 15,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    backgroundColor: "#ffffff",
+    elevation: 10,
+    overflow: "hidden",
+    alignSelf: "center",
   },
   modalExit: {
-    position: "absolute",
-    right: 20,
-    top: 10,
+    marginTop: -36,
+    alignItems: "center",
   },
 });
 
@@ -75,7 +70,7 @@ export const chartConfig = {
   backgroundColor: "#f0f0f0",
   backgroundGradientFrom: "#f0f0f0",
   backgroundGradientTo: "#f0f0f0",
-  decimalPlaces: 1, // optional, defaults to 2dp
+  decimalPlaces: 2, // optional, defaults to 2dp
   propsForDots: {
     r: "4",
     // stroke: "#ffa726",
