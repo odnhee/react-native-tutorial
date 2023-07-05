@@ -10,6 +10,8 @@ import KakaoLogin from "./screens/KakaoLogin";
 import BuoyInfo from "./screens/BuoyInfo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import BuoyDetail from "./screens/BuoyDetail";
+import { backAction, backgroundAction } from "./utils/backActions";
+import { RecoilRoot } from "recoil";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,49 +49,51 @@ function App() {
   const queryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <StatusBar style={"auto"} />
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <StatusBar style={"auto"} />
 
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="/" component={Login} />
-          <Stack.Screen name="KakaoLogin" component={KakaoLogin} />
-          <Stack.Screen
-            name="Home"
-            children={({ navigation, route }) => (
-              <Main
-                url={url}
-                setUrl={setUrl}
-                navigation={navigation}
-                route={route}
-              />
-            )}
-          />
-          <Stack.Screen
-            name="Buoy"
-            children={({ navigation, route }) => (
-              <BuoyInfo
-                url={url}
-                setUrl={setUrl}
-                navigation={navigation}
-                route={route}
-              />
-            )}
-          />
-          <Stack.Screen
-            name="BuoyDetail"
-            children={({ navigation, route }) => (
-              <BuoyDetail
-                url={url}
-                setUrl={setUrl}
-                navigation={navigation}
-                route={route}
-              />
-            )}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </QueryClientProvider>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="/" component={Login} />
+            <Stack.Screen name="KakaoLogin" component={KakaoLogin} />
+            <Stack.Screen
+              name="Home"
+              children={({ navigation, route }) => (
+                <Main
+                  url={url}
+                  setUrl={setUrl}
+                  navigation={navigation}
+                  route={route}
+                />
+              )}
+            />
+            <Stack.Screen
+              name="Buoy"
+              children={({ navigation, route }) => (
+                <BuoyInfo
+                  url={url}
+                  setUrl={setUrl}
+                  navigation={navigation}
+                  route={route}
+                />
+              )}
+            />
+            <Stack.Screen
+              name="BuoyDetail"
+              children={({ navigation, route }) => (
+                <BuoyDetail
+                  url={url}
+                  setUrl={setUrl}
+                  navigation={navigation}
+                  route={route}
+                />
+              )}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 }
 
