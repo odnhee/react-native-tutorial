@@ -47,53 +47,53 @@ function App() {
   }, [url]);
 
   const queryClient = new QueryClient();
-  useEffect(() => {
-    setHi(true);
-  }, [hi]);
-  return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <StatusBar style={"auto"} />
 
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="/" component={Login} />
-          <Stack.Screen name="KakaoLogin" component={KakaoLogin} />
-          <Stack.Screen
-            name="Home"
-            children={({ navigation, route }) => (
-              <Main
-                url={url}
-                setUrl={setUrl}
-                navigation={navigation}
-                route={route}
-              />
-            )}
-          />
-          <Stack.Screen
-            name="Buoy"
-            children={({ navigation, route }) => (
-              <BuoyInfo
-                url={url}
-                setUrl={setUrl}
-                navigation={navigation}
-                route={route}
-              />
-            )}
-          />
-          <Stack.Screen
-            name="BuoyDetail"
-            children={({ navigation, route }) => (
-              <BuoyDetail
-                url={url}
-                setUrl={setUrl}
-                navigation={navigation}
-                route={route}
-              />
-            )}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </QueryClientProvider>
+  return (
+    <RecoilRoot>
+      <QueryClientProvider client={queryClient}>
+        <NavigationContainer>
+          <StatusBar style={"auto"} />
+
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="/" component={Login} />
+            <Stack.Screen name="KakaoLogin" component={KakaoLogin} />
+            <Stack.Screen
+              name="Home"
+              children={({ navigation, route }) => (
+                <Main
+                  url={url}
+                  setUrl={setUrl}
+                  navigation={navigation}
+                  route={route}
+                />
+              )}
+            />
+            <Stack.Screen
+              name="Buoy"
+              children={({ navigation, route }) => (
+                <BuoyInfo
+                  url={url}
+                  setUrl={setUrl}
+                  navigation={navigation}
+                  route={route}
+                />
+              )}
+            />
+            <Stack.Screen
+              name="BuoyDetail"
+              children={({ navigation, route }) => (
+                <BuoyDetail
+                  url={url}
+                  setUrl={setUrl}
+                  navigation={navigation}
+                  route={route}
+                />
+              )}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </QueryClientProvider>
+    </RecoilRoot>
   );
 }
 
