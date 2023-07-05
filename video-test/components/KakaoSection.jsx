@@ -1,7 +1,14 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
 
-const KakaoSection = ({ getInfo, logout, unlink, setModalVisible, rotate }) => {
+const KakaoSection = ({
+  getInfo,
+  logout,
+  unlink,
+  setModalVisible,
+  rotate,
+  navigation,
+}) => {
   return (
     <View
       style={{
@@ -26,6 +33,13 @@ const KakaoSection = ({ getInfo, logout, unlink, setModalVisible, rotate }) => {
 
       <Pressable onPress={unlink} style={{ paddingBottom: 10 }}>
         <Text style={{ fontSize: 20 }}>Kakao Unlink</Text>
+      </Pressable>
+
+      <Pressable
+        onPress={() => navigation.navigate("/")}
+        style={{ paddingBottom: 10 }}
+      >
+        <Text style={{ fontSize: 20 }}>Go To Main</Text>
       </Pressable>
     </View>
   );

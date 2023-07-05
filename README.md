@@ -26,6 +26,43 @@
 
     - ios 환경에서는 재생 불가 ([`react-native-livestream` 활용](https://docs.api.video/docs/react-native-livestream-component))
 
+### 실시간 영상 S3 버킷을 통해 받기
+
+- 테스트용 S3 버킷에 `rtf` 텍스트 확장자로 라이브 방송 URL을 입력
+
+- 해당 라이브 방송 `URL` 토큰 만료 시, 버킷의 `rtf` 파일 수정을 통해 apk 환경에서도 실시간 영상 에러 해결 가능
+
+- 기본적으로 `Axios` 데이터 통신의 경우, 안드로이드 자체의 앱 캐시 데이터에 fetch된 데이터를 저장함
+
+  - 해당 데이터가 캐시에 저장될 경우, refetching이 일어나지 않기 때문에,
+
+    ```JavaScript
+      useFocusEffect(
+        useCallback(() => {
+          axios({
+            method: "get",
+            url: "https://aws-bucket-url.com/VideoLink.rtf",
+            headers: {
+              "Cache-Control": "no-cache",
+              Pragma: "no-cache",
+              Expires: "0",
+            },
+          })
+            .then((res) => {
+              const exp = "kerning0\n";
+              var condition = res.data.indexOf(exp);
+
+              const https = res.data.substring(condition + exp.length);
+
+              setVideoUrl(https.slice(0, -1));
+            })
+            .catch((err) => console.log(err));
+        }, [videoUrl])
+      );
+    ```
+
+    - 데이터 통신 시, 캐시를 저장하지 않도록 캐시 컨트롤이 필요
+
 ### 스크린샷 테스트
 
 - [`react-native-view-shot`](https://github.com/gre/react-native-view-shot)
@@ -112,6 +149,8 @@
 
   - Kakao developers의 카카오 로그인에 Redirect URI를 등록해야 함
 
+  - 실제 배포된 페이지를 만들어서 `Cannot GET /KakaoLogin` 에러 수정
+
 - 웹뷰를 통해 카카오 로그인 창이 뜨며, 로그인을 위한 동의 항목 체크 페이지로 Redirect됨
 
 - [인가 코드 받기](./video-test/screens/KakaoLogin.jsx)
@@ -153,6 +192,25 @@
         console.log(`Error : ${error}`);
       });
   ```
+
+  - 토큰 만료 시간
+
+    - Access Token 만료 시간 : 21599초 (6시간)
+
+    - Refresh Token 만료 시간 : 5183999초 (60일)
+
+      - ~~변환 사이트만 믿었다가 계산 잘못된거 알고 다시 계산한 결과 토큰 만료기간 2달 맞음~~
+
+      - 활용 방안
+
+        ```JS
+          `${현재시간}` === `${현재시간 + Refresh Token 만료 시간}` ? logout || unlink : null
+          // 초 계산이기 때문에 UNIX 타임으로 계산해야 할 듯
+        ```
+
+  - `logout`, `unlink` 하기 전까지는 만료 시간이 되면 자동 토큰 파기
+
+    - 자동 로그인 기능을 위해서는 Refresh Token을 사용해야 할 듯
 
 - 발급받은 액세스 토큰을 통한 유저 정보 가져오기
 
@@ -232,6 +290,12 @@
     - 현재 로그인 버튼을 눌렀을 때, 카카오톡 앱이 실행되고 로그인에 필요한 동의 항목까지는 표시
 
     - 이 후의 진행 사항은 빌드를 통해서만 확인이 가능함
+
+### React Query (데이터 통신 작업)
+
+- [React Query Repo 참고](https://github.com/HyungJinHan/react-query-study)
+
+- [공식 Docs 한글 번역 Repo](https://github.com/ssi02014/react-query-tutorial)
 
 ### 휴대폰 인증
 

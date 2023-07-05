@@ -50,6 +50,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
+    paddingBottom: 15,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -66,3 +67,17 @@ export const styles = StyleSheet.create({
     top: 10,
   },
 });
+
+export const chartConfig = {
+  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+  barPercentage: 0.5,
+  useShadowColorFromDataset: true, // optional
+  backgroundColor: "#f0f0f0",
+  backgroundGradientFrom: "#f0f0f0",
+  backgroundGradientTo: "#f0f0f0",
+  decimalPlaces: 1, // optional, defaults to 2dp
+  propsForDots: {
+    r: "4",
+    // stroke: "#ffa726",
+  },
+};

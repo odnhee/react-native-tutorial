@@ -2,9 +2,11 @@ import React from "react";
 import WebView from "react-native-webview";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View } from "react-native";
 
-const REST_API_KEY = "19b015d6cac7c6e203b0942fd639fc6b";
-const REDIRECT_URI = "http://172.30.1.48:19000/KakaoLogin";
+const REST_API_KEY = "27578bf277bc26e06658c9dc8ce3fc2d";
+const REDIRECT_URI =
+  "https://aws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com/splash.html";
 const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
 
 const KakaoLogin = ({ navigation }) => {
@@ -29,6 +31,8 @@ const KakaoLogin = ({ navigation }) => {
 
   const requestToken = async (authorize_code) => {
     var accessToken = "none";
+    var refreshToken = "none";
+
     axios({
       method: "post",
       url: "https://kauth.kakao.com/oauth/token",
@@ -41,35 +45,38 @@ const KakaoLogin = ({ navigation }) => {
     })
       .then((res) => {
         accessToken = res.data.access_token;
-        storeToken(accessToken);
+        refreshToken = res.data.refresh_token;
+        storeToken(accessToken, refreshToken);
       })
       .catch((error) => {
         console.log(`Error : ${error}`);
       });
   };
 
-  const storeToken = async (accessToken) => {
+  const storeToken = async (accessToken, refreshToken) => {
     try {
       await AsyncStorage.setItem("userAccessToken", accessToken);
+      await AsyncStorage.setItem("userRefreshToken", refreshToken);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <WebView
-      style={{ flex: 1 }}
-      originWhitelist={["*"]}
-      scalesPageToFit={true}
-      source={{
-        uri: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`,
-      }}
-      injectedJavaScript={INJECTED_JAVASCRIPT}
-      javaScriptEnabled
-      onMessage={(event) => {
-        KakaoLoginWebView(event.nativeEvent["url"]);
-      }}
-    />
+    <View style={{ flex: 1 }}>
+      <WebView
+        originWhitelist={["*"]}
+        scalesPageToFit={true}
+        source={{
+          uri: `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`,
+        }}
+        injectedJavaScript={INJECTED_JAVASCRIPT}
+        javaScriptEnabled
+        onMessage={(event) => {
+          KakaoLoginWebView(event.nativeEvent["url"]);
+        }}
+      />
+    </View>
   );
 };
 

@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React from "react";
 import { Picker } from "@react-native-picker/picker";
 
-const PickerSection = ({ testValue, setTestValue }) => {
+const PickerSection = ({ testValue, setTestValue, rotate }) => {
   return (
     <View style={{ alignItems: "center" }}>
       <Picker
@@ -10,6 +10,7 @@ const PickerSection = ({ testValue, setTestValue }) => {
           color: "white",
           backgroundColor: "gray",
           width: 300,
+          display: rotate ? "none" : "flex",
         }}
         selectedValue={testValue}
         onValueChange={(itemValue) => setTestValue(itemValue)}

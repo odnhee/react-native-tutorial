@@ -4,11 +4,11 @@ import videoTest from "./assets/test.mp4";
 export const data = [
   {
     id: 0,
-    source: {
-      // uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
-      uri: "https://1tv.gscdn.kbs.co.kr/1tv_3.m3u8?Expires=1688257800&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xdHYuZ3NjZG4ua2JzLmNvLmtyLzF0dl8zLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODgyNTc4MDB9fX1dfQ__&Signature=N5fiPAckkjGT9a~bAyTsYCkZxfuWNz8YLaLWivtM9QwnyQ6s2lK2mfdus3StfJccqAUOK83IMugzlT7by2ce6VCijIzLxgr3-e1qLNtdONcu59OwDFLaWqq71L7wV78RLo-U5ajvwDziozF0rQipff-5hSAJahXzXPA4RCWo2KJujPzz05-vJnMlIx4ShJU9E4gtm5Pp7XL4mLyY~98UDCRRxi60z-2lYYmtoDYfZ9JW-pFJJ8iBxiYeNzG8gxAmjC00I1COHFjdEx8VCu5TFN1E~8Fi0COm18H4TtNl4u2JwHLhFjCBApNwRRQXZ~W7dRgN0AmSVaoJ-dOJZIH~xw__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA",
-      // uri: "https://testvidoebucket.s3.ap-northeast-2.amazonaws.com/stream.m3u8",
-    },
+    // source: {
+    //   // uri: "http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8",
+    //   uri: "https://1tv.gscdn.kbs.co.kr/1tv_3.m3u8?Expires=1688450363&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xdHYuZ3NjZG4ua2JzLmNvLmtyLzF0dl8zLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODg0NTAzNjN9fX1dfQ__&Signature=GTgOvKRh7KlE1Ez3t3bnposVCG~YKC8DyJsh8h~~XIrJRjExU92of-gazBz77NKMDR3hdQcGvsFlCxkNLr9GkmgCQHjFKhb7wUyHA5QVWP~rG4tZ5z9C1-vrTJqVvxzeUfI6ku~ckI6Ww68ZjJe1Gvylkofa6JNU7pmMPs3XFEIxx8oYY7PBrEG~tUpm3N8rDzQO46~BggB0WihpyQx~UT~WQHlWpCm7ZXWA~hLSffNiQ7mSwzfmk-AnMvhYyaCnlRB7tzPJn3sRVPyWC8KCrtDf4DyRnC4MCRCtMSol9gbCnzTrbH8CMldVEm~4vUemFItuf~spyc5FpCkvAF2MXQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA",
+    //   // uri: "https://testvidoebucket.s3.ap-northeast-2.amazonaws.com/stream.m3u8",
+    // },
     title: "m3u8 source",
   },
   // {

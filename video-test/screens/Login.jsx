@@ -1,8 +1,24 @@
 import { View, Text, Pressable, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { styles } from "../config/globalStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = ({ navigation }) => {
+  useEffect(() => {
+    const checkToken = async () => {
+      const accessToken = await AsyncStorage.getItem("userAccessToken");
+      const refreshToken = await AsyncStorage.getItem("userRefreshToken");
+
+      if (!accessToken || !refreshToken) {
+        navigation.navigate("/");
+      } else {
+        navigation.navigate("Home");
+      }
+    };
+
+    checkToken();
+  }, []);
+
   return (
     <View
       style={[

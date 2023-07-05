@@ -26,6 +26,7 @@ const VideoSection = ({
   setIsLoading,
   onSendPush,
   onSoundControl,
+  videoUrl,
 }) => {
   const buttonContents = [
     {
@@ -123,7 +124,7 @@ const VideoSection = ({
           />
         )}
         <Video
-          source={res.source}
+          source={!res.source ? { uri: `${videoUrl}` } : res.source}
           shouldPlay
           isMuted
           resizeMode={ResizeMode.CONTAIN}
