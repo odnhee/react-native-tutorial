@@ -355,6 +355,16 @@ ${keys[1]} -> ${refreshToken}
     console.log(coordinate[0], coordinate[1]);
   };
 
+  useEffect(() => {
+    if (
+      videoUrl ===
+      "https://1tv.gscdn.kbs.co.kr/1tv_3.m3u8?Expires=1688605350&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xdHYuZ3NjZG4ua2JzLmNvLmtyLzF0dl8zLm0zdTgiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2ODg2MDUzNTB9fX1dfQ__&Signature=gozOSw0Ss5jARM4VGSz8jImD9RZcUP3eLn~pBOYojTwlAecKDPEoUkz90PU9vD4r5GDlWF4WDz9o9dVmoqBsTwl5DpWTCQGSK1rv5B3wbRWfeNVq3ec1llmIGhCKlQlUpEPiHFwwmTJdIUtYzwkjJEEa7FNRV5rZCCjKXuwabzgf97TNLm1A7OzOC55TQcqXUFu2l~sFPPZR8mS0q47c8153g17rLbXpD267JBpQTDCtBtG9lvP0nkvlT4bxinSB2Na0XSaoU~4IYvXWQuU9ZlRPGOWehe7cTlimD06b6vec8WjGNPIl5pv9Xmne1hwQMhj~DWBvb5dRskJJb6rKQw__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA"
+    ) {
+      const type = "warning";
+      onSendPush(type);
+    }
+  }, []);
+
   return (
     <View
       style={[
