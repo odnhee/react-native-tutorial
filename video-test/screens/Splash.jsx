@@ -11,7 +11,7 @@ const Splash = ({ navigation }) => {
           routes: [{ name: "Home" }],
         })
       );
-    }, 10000);
+    }, 5000);
   }, []);
 
   return (
