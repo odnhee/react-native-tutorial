@@ -146,7 +146,7 @@ export default function Main({ navigation, route, setUrl, url }) {
     useCallback(() => {
       axios({
         method: "get",
-        url: "https://aws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com/VideoLink.rtf",
+        url: "https://aws-cli-deploy-test-hhj.s3.ap-northeast-2.amazonaws.com/VideoLink.txt",
         headers: {
           "Cache-Control": "no-cache",
           Pragma: "no-cache",
@@ -154,13 +154,13 @@ export default function Main({ navigation, route, setUrl, url }) {
         },
       })
         .then((res) => {
-          const exp = "kerning0\n";
+          const exp = "";
           var condition = res.data.indexOf(exp);
 
           const https = res.data.substring(condition + exp.length);
 
-          setVideoUrl(https.slice(0, -1));
-          console.log("first");
+          setVideoUrl(https);
+          console.log(videoUrl);
         })
         .catch((err) => console.log(err));
     }, [videoUrl])

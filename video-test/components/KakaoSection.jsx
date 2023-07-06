@@ -1,5 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const KakaoSection = ({
   getInfo,
@@ -36,7 +37,10 @@ const KakaoSection = ({
       </Pressable>
 
       <Pressable
-        onPress={() => navigation.navigate("/")}
+        onPress={() => {
+          AsyncStorage.multiRemove(["userAccessToken", "userRefreshToken"]);
+          navigation.navigate("/");
+        }}
         style={{ paddingBottom: 10 }}
       >
         <Text style={{ fontSize: 20 }}>Go To Main</Text>
