@@ -29,6 +29,7 @@ const VideoSection = ({
   videoUrl,
   sendSMS,
   smsAvailable,
+  navigation,
 }) => {
   const buttonContents = [
     {
@@ -77,7 +78,9 @@ const VideoSection = ({
   ];
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const isforeground = useRecoilValue(foreground);
   const setForeground = useSetRecoilState(foreground);
+
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
       if (
@@ -96,24 +99,35 @@ const VideoSection = ({
 
       appState.current = nextAppState;
       // setAppStateVisible(appState.current);
-      // console.log("AppState", appState.current);
+      console.log("AppState", appState.current);
+
+      // if (appState.current === "background") {
+      //   // console.log(isforeground);
+      //   // navigation.reset({ routes: [{ name: "Home" }] });
+      //   navigation.navigate("/");
+      // }
     });
 
     return () => {
       subscription.remove();
     };
   }, []);
-  const isforeground = useRecoilValue(foreground);
+
   useEffect(() => {
     // console.log("video", isforeground);
     if (!isforeground) {
       // background
-      videoRefs.current[res.id].unloadAsync();
+      const idx = res.id;
+      videoRefs.current[idx].unloadAsync();
       // console.log("load stop!");
     }
     if (isforeground) {
       // active
-      videoRefs.current[res.id].loadAsync(res.source, { shouldPlay: true });
+      const idx = res.id;
+      videoRefs.current[idx].loadAsync(
+        !res.source ? { uri: `${videoUrl}` } : res.source,
+        { shouldPlay: true, isMuted: true }
+      );
     }
   }, [isforeground]);
 

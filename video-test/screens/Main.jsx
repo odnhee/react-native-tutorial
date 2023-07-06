@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { View, Alert, Pressable, Text } from "react-native";
+import { View, Alert, Pressable, Text, BackHandler } from "react-native";
 import { captureRef } from "react-native-view-shot";
 import * as MediaLibrary from "expo-media-library";
 import * as ScreenOrientation from "expo-screen-orientation";
@@ -29,6 +29,8 @@ import KakaoSection from "../components/KakaoSection";
 import ModalSection from "../components/ModalSection";
 import PickerSection from "../components/PickerSection";
 import { useBuoyOxygen } from "../api/useBuoyOxygen";
+import { useRecoilValue } from "recoil";
+import { foreground } from "../recoil/atoms";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -38,7 +40,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function Main({ navigation, route, setUrl }) {
+export default function Main({ navigation, route, setUrl, url }) {
   const videoRefs = useRef([]);
   const notificationListener = useRef("");
 
@@ -58,6 +60,8 @@ export default function Main({ navigation, route, setUrl }) {
 
   const accessToken = AsyncStorage.getItem("userAccessToken");
   const refreshToken = AsyncStorage.getItem("userRefreshToken");
+
+  const isforeground = useRecoilValue(foreground);
 
   useFocusEffect(
     useCallback(() => {
@@ -356,6 +360,39 @@ ${keys[1]} -> ${refreshToken}
     console.log(coordinate[0], coordinate[1]);
   };
 
+  /**
+   * 앱 완전 종료 이벤트
+   */
+  useEffect(() => {
+    if (url === "Home") {
+      const backAction = () => {
+        Alert.alert("", "앱을 종료하시겠습니까?", [
+          { text: "취소", onPress: () => null },
+          // { text: "확인", onPress: () => RNExitApp.exitApp() },
+          {
+            text: "확인",
+            onPress: () => {
+              if (isforeground === true) {
+                navigation.navigate("Splash");
+              }
+
+              BackHandler.exitApp();
+            },
+          },
+        ]);
+
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+
+      return () => backHandler.remove();
+    }
+  }, [url]);
+
   return (
     <View
       style={[
@@ -370,6 +407,7 @@ ${keys[1]} -> ${refreshToken}
       {data.map((res) => (
         <View key={res.id}>
           <VideoSection
+            navigation={navigation}
             playStatus={playStatus}
             setPlayStatus={setPlayStatus}
             videoRefs={videoRefs}
