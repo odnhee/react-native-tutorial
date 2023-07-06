@@ -154,12 +154,7 @@ export default function Main({ navigation, route, setUrl, url }) {
         },
       })
         .then((res) => {
-          const exp = "";
-          var condition = res.data.indexOf(exp);
-
-          const https = res.data.substring(condition + exp.length);
-
-          setVideoUrl(https);
+          setVideoUrl(res.data);
           console.log(videoUrl);
         })
         .catch((err) => console.log(err));
